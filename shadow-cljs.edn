@@ -1,0 +1,29 @@
+{:source-paths ["src/main"]
+ :nrepl {:port 9000}
+
+ :dependencies
+ [[com.fulcrologic/fulcro "3.6.0"]
+  [com.wsscode/pathom3 "2023.08.22-alpha"]]
+
+ :builds
+ {:main
+  {:target :browser
+   :output-dir "resources/public/js/compiled"
+   :asset-path "/js/compiled"
+
+   :modules
+   {:main {:init-fn app.client.core/init}}
+
+   :devtools
+   {:http-root "resources/public"
+    :http-port 8280
+    :preloads [shadow.remote.runtime.cljs.browser]}
+
+   :dev
+   {:compiler-options
+    {:closure-defines {goog.DEBUG true}}}
+
+   :release
+   {:compiler-options
+    {:optimizations :advanced
+     :closure-defines {goog.DEBUG false}}}}}}

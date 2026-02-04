@@ -1,0 +1,225 @@
+(ns app.careers
+  "Career database for athlete career matching")
+
+(def careers
+  [;; ============================================
+   ;; SPORTS INDUSTRY (6)
+   ;; ============================================
+
+   {:id "career-sports-marketing"
+    :name "Sports Marketing Manager"
+    :category "Sports Industry"
+    :description "Leverage your athletic background to develop marketing strategies for sports teams, leagues, and brands. Your understanding of athlete mindset and fan culture gives you unique insights for sponsorship activations and brand partnerships."
+    :typical-majors ["Marketing" "Business Administration" "Sports Management" "Communications"]
+    :grad-school-recommended false
+    :internship-importance 5
+    :salary-range {:min 55000 :max 120000 :median 75000}
+    :growth-outlook "Good"
+    :required-dimensions {:communication 0.9 :creative 0.8 :people 0.7 :leadership 0.6 :sports-connection 0.8}}
+
+   {:id "career-sports-agent"
+    :name "Sports Agent"
+    :category "Sports Industry"
+    :description "Use your firsthand knowledge of professional athletics to represent athletes in contract negotiations and endorsement deals. Your credibility as a former athlete helps build trust and navigate the complexities of player representation."
+    :typical-majors ["Sports Management" "Law" "Business Administration" "Communications"]
+    :grad-school-recommended true
+    :internship-importance 4
+    :salary-range {:min 45000 :max 500000 :median 85000}
+    :growth-outlook "Moderate"
+    :required-dimensions {:negotiation 0.95 :communication 0.9 :people 0.85 :competitive 0.7 :risk-tolerance 0.6 :sports-connection 0.8}}
+
+   {:id "career-coach"
+    :name "College/Pro Coach"
+    :category "Sports Industry"
+    :description "Transform your competitive experience into coaching excellence. Guide athletes through the same challenges you've faced, developing game strategies and building winning team cultures at the collegiate or professional level."
+    :typical-majors ["Sports Management" "Physical Education" "Exercise Science" "Business"]
+    :grad-school-recommended false
+    :internship-importance 3
+    :salary-range {:min 40000 :max 5000000 :median 80000}
+    :growth-outlook "Good"
+    :required-dimensions {:leadership 0.95 :mentoring 0.9 :communication 0.85 :sports-connection 0.95 :competitive 0.8 :pressure-tolerance 0.8}}
+
+   {:id "career-sports-broadcaster"
+    :name "Sports Broadcaster/Analyst"
+    :category "Sports Industry"
+    :description "Bring authentic athlete perspective to sports media. Your playing experience provides credibility and unique insights when delivering commentary, analysis, and storytelling for television, radio, or digital platforms."
+    :typical-majors ["Communications" "Journalism" "Sports Management" "Broadcasting"]
+    :grad-school-recommended false
+    :internship-importance 5
+    :salary-range {:min 35000 :max 300000 :median 65000}
+    :growth-outlook "Moderate"
+    :required-dimensions {:communication 0.95 :sports-connection 0.9 :pressure-tolerance 0.8 :people 0.7 :creative 0.6}}
+
+   {:id "career-athletic-director"
+    :name "Athletic Director"
+    :category "Sports Industry"
+    :description "Lead athletic programs with the perspective of someone who's been in the arena. Oversee budgets, hire coaches, ensure compliance, and shape the student-athlete experience at educational institutions."
+    :typical-majors ["Sports Management" "Business Administration" "Education" "Public Administration"]
+    :grad-school-recommended true
+    :internship-importance 4
+    :salary-range {:min 70000 :max 250000 :median 100000}
+    :growth-outlook "Good"
+    :required-dimensions {:leadership 0.95 :communication 0.8 :people 0.8 :sports-connection 0.85 :analytical 0.5}}
+
+   {:id "career-strength-conditioning"
+    :name "Strength & Conditioning Coach"
+    :category "Sports Industry"
+    :description "Apply your athletic training knowledge to optimize performance for the next generation of athletes. Design programs that prevent injuries, enhance strength, and push athletes to reach their potential."
+    :typical-majors ["Exercise Science" "Kinesiology" "Physical Education" "Sports Medicine"]
+    :grad-school-recommended false
+    :internship-importance 4
+    :salary-range {:min 40000 :max 150000 :median 60000}
+    :growth-outlook "Good"
+    :required-dimensions {:physical 0.85 :mentoring 0.8 :sports-connection 0.9 :communication 0.7 :analytical 0.5}}
+
+   ;; ============================================
+   ;; BUSINESS & SALES (4)
+   ;; ============================================
+
+   {:id "career-sales-executive"
+    :name "Corporate Sales Executive"
+    :category "Business & Sales"
+    :description "Channel your competitive drive into closing deals and building client relationships. Athletes excel in sales with their goal-oriented mindset, resilience through rejection, and ability to perform under pressure."
+    :typical-majors ["Business Administration" "Marketing" "Communications" "Any"]
+    :grad-school-recommended false
+    :internship-importance 4
+    :salary-range {:min 50000 :max 200000 :median 85000}
+    :growth-outlook "Good"
+    :required-dimensions {:communication 0.9 :negotiation 0.85 :people 0.85 :competitive 0.8 :income-priority 0.7}}
+
+   {:id "career-entrepreneur"
+    :name "Entrepreneur/Business Owner"
+    :category "Business & Sales"
+    :description "Turn your athletic discipline and risk tolerance into business success. Athletes make natural entrepreneurs—you know how to set goals, work through adversity, and build something from nothing."
+    :typical-majors ["Business Administration" "Any" "Entrepreneurship"]
+    :grad-school-recommended false
+    :internship-importance 3
+    :salary-range {:min 0 :max 10000000 :median 70000}
+    :growth-outlook "Variable"
+    :required-dimensions {:entrepreneurial 0.95 :risk-tolerance 0.9 :leadership 0.85 :communication 0.8 :competitive 0.7}}
+
+   {:id "career-management-consultant"
+    :name "Management Consultant"
+    :category "Business & Sales"
+    :description "Apply your strategic thinking and team experience to solve complex business problems. Consulting firms value athletes for their work ethic, coachability, and ability to perform in high-stakes situations."
+    :typical-majors ["Business Administration" "Economics" "Engineering" "Any Quantitative Field"]
+    :grad-school-recommended true
+    :internship-importance 5
+    :salary-range {:min 70000 :max 250000 :median 100000}
+    :growth-outlook "Good"
+    :required-dimensions {:analytical 0.9 :communication 0.85 :pressure-tolerance 0.8 :leadership 0.7 :education-openness 0.7}}
+
+   {:id "career-financial-advisor"
+    :name "Financial Advisor"
+    :category "Business & Sales"
+    :description "Help individuals achieve their financial goals using the same planning and discipline that drove your athletic career. Your credibility and relationship-building skills create strong client connections."
+    :typical-majors ["Finance" "Business Administration" "Economics" "Financial Planning"]
+    :grad-school-recommended false
+    :internship-importance 4
+    :salary-range {:min 50000 :max 300000 :median 90000}
+    :growth-outlook "Good"
+    :required-dimensions {:people 0.9 :communication 0.85 :analytical 0.75 :negotiation 0.7 :income-priority 0.6}}
+
+   ;; ============================================
+   ;; HEALTHCARE (3)
+   ;; ============================================
+
+   {:id "career-physical-therapist"
+    :name "Physical Therapist"
+    :category "Healthcare"
+    :description "Use your understanding of athletic movement and injury recovery to help patients regain mobility. Your personal experience with training and rehabilitation gives you unique empathy and expertise."
+    :typical-majors ["Physical Therapy" "Exercise Science" "Kinesiology"]
+    :grad-school-recommended true
+    :internship-importance 5
+    :salary-range {:min 70000 :max 110000 :median 90000}
+    :growth-outlook "Excellent"
+    :required-dimensions {:people 0.9 :physical 0.75 :communication 0.8 :mentoring 0.7 :analytical 0.6 :sports-connection 0.6}}
+
+   {:id "career-sports-psychologist"
+    :name "Sports Psychologist"
+    :category "Healthcare"
+    :description "Help athletes overcome mental barriers and optimize performance using insights from your own competitive journey. Address the psychological aspects of sports that you've experienced firsthand."
+    :typical-majors ["Psychology" "Sports Psychology" "Counseling"]
+    :grad-school-recommended true
+    :internship-importance 5
+    :salary-range {:min 55000 :max 120000 :median 75000}
+    :growth-outlook "Good"
+    :required-dimensions {:people 0.95 :communication 0.9 :mentoring 0.8 :sports-connection 0.8 :analytical 0.7}}
+
+   {:id "career-athletic-trainer"
+    :name "Athletic Trainer"
+    :category "Healthcare"
+    :description "Protect and rehabilitate athletes using your firsthand knowledge of sports injuries and training demands. Provide the immediate care and ongoing support that keeps athletes in the game."
+    :typical-majors ["Athletic Training" "Exercise Science" "Kinesiology"]
+    :grad-school-recommended true
+    :internship-importance 5
+    :salary-range {:min 45000 :max 80000 :median 52000}
+    :growth-outlook "Good"
+    :required-dimensions {:physical 0.75 :people 0.85 :sports-connection 0.9 :communication 0.7 :analytical 0.6 :pressure-tolerance 0.7}}
+
+   ;; ============================================
+   ;; MEDIA (2)
+   ;; ============================================
+
+   {:id "career-content-creator"
+    :name "Content Creator/Influencer"
+    :category "Media"
+    :description "Build your personal brand and share your athletic journey with a growing audience. Athletes have built-in stories to tell—leverage your platform to inspire, educate, and monetize your unique perspective."
+    :typical-majors ["Communications" "Marketing" "Any"]
+    :grad-school-recommended false
+    :internship-importance 2
+    :salary-range {:min 0 :max 1000000 :median 45000}
+    :growth-outlook "Variable"
+    :required-dimensions {:creative 0.95 :communication 0.9 :entrepreneurial 0.8 :risk-tolerance 0.7 :sports-connection 0.6}}
+
+   {:id "career-public-relations"
+    :name "Public Relations Specialist"
+    :category "Media"
+    :description "Manage public image and media relationships for organizations and individuals. Your media experience as an athlete and understanding of reputation management translate directly to PR success."
+    :typical-majors ["Communications" "Public Relations" "Journalism" "Marketing"]
+    :grad-school-recommended false
+    :internship-importance 5
+    :salary-range {:min 45000 :max 120000 :median 65000}
+    :growth-outlook "Good"
+    :required-dimensions {:communication 0.95 :people 0.8 :pressure-tolerance 0.75 :creative 0.7 :collaborative 0.6}}
+
+   ;; ============================================
+   ;; EDUCATION (2)
+   ;; ============================================
+
+   {:id "career-teacher"
+    :name "Teacher/Professor"
+    :category "Education"
+    :description "Inspire and develop the next generation using the coaching and mentorship skills you've honed as an athlete. Translate your ability to break down complex skills into effective teaching."
+    :typical-majors ["Education" "Subject-Specific Field" "Curriculum Development"]
+    :grad-school-recommended true
+    :internship-importance 4
+    :salary-range {:min 40000 :max 120000 :median 60000}
+    :growth-outlook "Moderate"
+    :required-dimensions {:mentoring 0.95 :communication 0.9 :people 0.85 :social-impact 0.8}}
+
+   {:id "career-nonprofit-program-manager"
+    :name "Nonprofit Program Manager"
+    :category "Education"
+    :description "Design and lead programs that make a difference in communities. Your team leadership experience and drive to achieve meaningful outcomes align perfectly with nonprofit mission work."
+    :typical-majors ["Nonprofit Management" "Social Work" "Public Administration"]
+    :grad-school-recommended false
+    :internship-importance 4
+    :salary-range {:min 45000 :max 85000 :median 60000}
+    :growth-outlook "Good"
+    :required-dimensions {:social-impact 0.9 :people 0.85 :communication 0.8 :leadership 0.75 :collaborative 0.7}}
+
+   ;; ============================================
+   ;; TECHNOLOGY (1)
+   ;; ============================================
+
+   {:id "career-product-manager"
+    :name "Product Manager"
+    :category "Technology"
+    :description "Lead cross-functional teams to build products that customers love. Your experience coordinating with coaches, teammates, and support staff translates to managing stakeholders across engineering, design, and business."
+    :typical-majors ["Business Administration" "Computer Science" "Engineering" "Marketing"]
+    :grad-school-recommended true
+    :internship-importance 5
+    :salary-range {:min 80000 :max 200000 :median 120000}
+    :growth-outlook "Excellent"
+    :required-dimensions {:analytical 0.8 :communication 0.85 :leadership 0.75 :creative 0.7 :collaborative 0.7 :pressure-tolerance 0.6}}])
