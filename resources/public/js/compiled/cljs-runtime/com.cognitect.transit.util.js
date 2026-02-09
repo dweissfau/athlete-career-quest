@@ -1,8 +1,7 @@
 goog.provide("com.cognitect.transit.util");
 goog.require("goog.object");
 goog.scope(function() {
-  var util = com.cognitect.transit.util;
-  var gobject = goog.object;
+  var util = com.cognitect.transit.util, gobject = goog.object;
   if (typeof Object.keys != "undefined") {
     util.objectKeys = function(obj) {
       return Object.keys(obj);
@@ -29,9 +28,8 @@ goog.scope(function() {
     return util.randInt(15).toString(16);
   };
   util.randomUUID = function() {
-    var rhex = (8 | 3 & util.randInt(14)).toString(16);
-    var ret = util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + "-" + util.randHex() + util.randHex() + util.randHex() + util.randHex() + "-" + "4" + util.randHex() + util.randHex() + util.randHex() + "-" + rhex + util.randHex() + util.randHex() + util.randHex() + "-" + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + 
-    util.randHex() + util.randHex() + util.randHex();
+    var rhex = (8 | 3 & util.randInt(14)).toString(16), ret = util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + "-" + util.randHex() + util.randHex() + util.randHex() + util.randHex() + "-" + "4" + util.randHex() + util.randHex() + util.randHex() + "-" + rhex + util.randHex() + util.randHex() + util.randHex() + "-" + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + 
+    util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex() + util.randHex();
     return ret;
   };
   util.btoa = function(input) {
@@ -39,13 +37,8 @@ goog.scope(function() {
       return btoa(input);
     } else {
       var str = String(input);
-      var block;
-      var charCode;
-      var idx = 0;
-      var map = util.chars;
-      var output = "";
-      for (; str.charAt(idx | 0) || (map = "\x3d", idx % 1); output = output + map.charAt(63 & block >> 8 - idx % 1 * 8)) {
-        charCode = str.charCodeAt(idx = idx + 3 / 4);
+      for (var block, charCode, idx = 0, map = util.chars, output = ""; str.charAt(idx | 0) || (map = "\x3d", idx % 1); output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+        charCode = str.charCodeAt(idx += 3 / 4);
         if (charCode > 255) {
           throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
         }
@@ -62,36 +55,24 @@ goog.scope(function() {
       if (str.length % 4 == 1) {
         throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
       }
-      var bc = 0;
-      var bs;
-      var buffer;
-      var idx = 0;
-      var output = "";
-      for (; buffer = str.charAt(idx++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output = output + String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+      for (var bc = 0, bs, buffer, idx = 0, output = ""; buffer = str.charAt(idx++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
         buffer = util.chars.indexOf(buffer);
       }
       return output;
     }
   };
   util.Uint8ToBase64 = function(u8Arr) {
-    var CHUNK_SIZE = 32768;
-    var index = 0;
-    var length = u8Arr.length;
-    var result = "";
-    var slice = null;
-    for (; index < length;) {
+    var CHUNK_SIZE = 32768, index = 0, length = u8Arr.length, result = "", slice = null;
+    while (index < length) {
       slice = u8Arr.subarray(index, Math.min(index + CHUNK_SIZE, length));
-      result = result + String.fromCharCode.apply(null, slice);
-      index = index + CHUNK_SIZE;
+      result += String.fromCharCode.apply(null, slice);
+      index += CHUNK_SIZE;
     }
     return util.btoa(result);
   };
   util.Base64ToUint8 = function(base64) {
-    var binary_string = util.atob(base64);
-    var len = binary_string.length;
-    var bytes = new Uint8Array(len);
-    var i = 0;
-    for (; i < len; i++) {
+    var binary_string = util.atob(base64), len = binary_string.length, bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
       var ascii = binary_string.charCodeAt(i);
       bytes[i] = ascii;
     }

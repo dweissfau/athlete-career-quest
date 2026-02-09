@@ -44,14 +44,12 @@ shadow.js.jsRequire = function(name, opts) {
         moduleFn.call(module, goog.global, shadow.js.jsRequire, module, module["exports"]);
       } catch (e) {
         console.warn("shadow-cljs - failed to load", name);
-        console.error(e);
         throw e;
       }
       if (opts) {
         var globals = opts["globals"];
         if (globals) {
-          var i = 0;
-          for (; i < globals.length; i++) {
+          for (var i = 0; i < globals.length; i++) {
             window[globals[i]] = module["exports"];
           }
         }
@@ -69,11 +67,6 @@ shadow.js.jsRequire["resolve"] = function(name) {
 shadow.js.jsRequire["exportCopy"] = shadow.js.exportCopy;
 shadow.js.jsRequire["esmDefault"] = function(mod) {
   return mod && mod["__esModule"] ? mod : {"default":mod};
-};
-shadow.js.jsRequire["dynamic"] = function(name) {
-  return Promise.resolve().then(function() {
-    return shadow.js.jsRequire(name);
-  });
 };
 shadow.js.modules = {};
 shadow.js.require = function(name, opts) {

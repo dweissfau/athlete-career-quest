@@ -1,8 +1,7 @@
 goog.provide("com.cognitect.transit.eq");
 goog.require("com.cognitect.transit.util");
 goog.scope(function() {
-  var eq = com.cognitect.transit.eq;
-  var util = com.cognitect.transit.util;
+  var eq = com.cognitect.transit.eq, util = com.cognitect.transit.util;
   eq.hashCodeProperty = "transit$hashCode$";
   eq.hashCodeCounter = 1;
   eq.equals = function(x, y) {
@@ -14,8 +13,7 @@ goog.scope(function() {
       if (util.isArray(x)) {
         if (util.isArray(y)) {
           if (x.length === y.length) {
-            var i = 0;
-            for (; i < x.length; i++) {
+            for (var i = 0; i < x.length; i++) {
               if (!eq.equals(x[i], y[i])) {
                 return false;
               }
@@ -33,10 +31,8 @@ goog.scope(function() {
         if (y.com$cognitect$transit$equals) {
           return y.com$cognitect$transit$equals(x);
         } else {
-          var xklen = 0;
-          var yklen = util.objectKeys(y).length;
-          var p;
-          for (p in x) {
+          var xklen = 0, yklen = util.objectKeys(y).length;
+          for (var p in x) {
             if (!x.hasOwnProperty(p)) {
               continue;
             }
@@ -70,10 +66,9 @@ goog.scope(function() {
       return cached;
     }
     var code = 0;
-    var i = 0;
-    for (; i < str.length; ++i) {
+    for (var i = 0; i < str.length; ++i) {
       code = 31 * code + str.charCodeAt(i);
-      code = code % 4294967296;
+      code %= 4294967296;
     }
     eq.stringCodeCacheSize++;
     if (eq.stringCodeCacheSize >= eq.STR_CACHE_MAX) {
@@ -91,8 +86,7 @@ goog.scope(function() {
       });
     } else {
       var keys = util.objectKeys(m);
-      var i = 0;
-      for (; i < keys.length; i++) {
+      for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
         var val = m[key];
         code = (code + (eq.hashCode(key) ^ eq.hashCode(val))) % 4503599627370496;
@@ -103,8 +97,7 @@ goog.scope(function() {
   eq.hashArrayLike = function(arr) {
     var code = 0;
     if (util.isArray(arr)) {
-      var i = 0;
-      for (; i < arr.length; i++) {
+      for (var i = 0; i < arr.length; i++) {
         code = eq.hashCombine(code, eq.hashCode(arr[i]));
       }
     } else if (arr.forEach) {

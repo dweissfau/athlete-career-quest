@@ -31,8 +31,8 @@ return cljs.core.PersistentVector.EMPTY;
 
 (com.fulcrologic.fulcro.inspect.transit.ErrorHandler.cljs$lang$ctorStr = "com.fulcrologic.fulcro.inspect.transit/ErrorHandler");
 
-(com.fulcrologic.fulcro.inspect.transit.ErrorHandler.cljs$lang$ctorPrWriter = (function (this__5287__auto__,writer__5288__auto__,opt__5289__auto__){
-return cljs.core._write(writer__5288__auto__,"com.fulcrologic.fulcro.inspect.transit/ErrorHandler");
+(com.fulcrologic.fulcro.inspect.transit.ErrorHandler.cljs$lang$ctorPrWriter = (function (this__5330__auto__,writer__5331__auto__,opt__5332__auto__){
+return cljs.core._write(writer__5331__auto__,"com.fulcrologic.fulcro.inspect.transit/ErrorHandler");
 }));
 
 /**
@@ -58,11 +58,11 @@ return "unknown";
 var self__ = this;
 var this$ = this;
 try{return cljs.core.str.cljs$core$IFn$_invoke$arity$1(v);
-}catch (e21493){var e = e21493;
+}catch (e44274){var e = e44274;
 if(cljs.core.truth_(goog.DEBUG)){
-taoensso.timbre._log_BANG_.cljs$core$IFn$_invoke$arity$10(taoensso.timbre._STAR_config_STAR_,new cljs.core.Keyword(null,"warn","warn",-436710552),"com.fulcrologic.fulcro.inspect.transit",null,20,new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.Keyword(null,"auto","auto",-566279492),(new cljs.core.Delay((function (){
+taoensso.timbre._log_BANG_.cljs$core$IFn$_invoke$arity$11(taoensso.timbre._STAR_config_STAR_,new cljs.core.Keyword(null,"warn","warn",-436710552),"com.fulcrologic.fulcro.inspect.transit",null,20,new cljs.core.Keyword(null,"p","p",151049309),new cljs.core.Keyword(null,"auto","auto",-566279492),(new cljs.core.Delay((function (){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Transit was unable to encode a value. See https://book.fulcrologic.com/#warn-transit-encode-failed"], null);
-}),null)),null,-914125589);
+}),null)),null,-2035540857,null);
 } else {
 }
 
@@ -77,8 +77,8 @@ return cljs.core.PersistentVector.EMPTY;
 
 (com.fulcrologic.fulcro.inspect.transit.DefaultHandler.cljs$lang$ctorStr = "com.fulcrologic.fulcro.inspect.transit/DefaultHandler");
 
-(com.fulcrologic.fulcro.inspect.transit.DefaultHandler.cljs$lang$ctorPrWriter = (function (this__5287__auto__,writer__5288__auto__,opt__5289__auto__){
-return cljs.core._write(writer__5288__auto__,"com.fulcrologic.fulcro.inspect.transit/DefaultHandler");
+(com.fulcrologic.fulcro.inspect.transit.DefaultHandler.cljs$lang$ctorPrWriter = (function (this__5330__auto__,writer__5331__auto__,opt__5332__auto__){
+return cljs.core._write(writer__5331__auto__,"com.fulcrologic.fulcro.inspect.transit/DefaultHandler");
 }));
 
 /**
@@ -92,10 +92,10 @@ com.fulcrologic.fulcro.inspect.transit.write_handlers = (function com$fulcrologi
 return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([cljs.core.PersistentArrayMap.createAsIfByAssoc([cljs.core.ExceptionInfo,(new com.fulcrologic.fulcro.inspect.transit.ErrorHandler()),"default",(new com.fulcrologic.fulcro.inspect.transit.DefaultHandler())]),com.fulcrologic.fulcro.algorithms.transit.write_handlers()], 0));
 });
 com.fulcrologic.fulcro.inspect.transit.read_handlers = (function com$fulcrologic$fulcro$inspect$transit$read_handlers(){
-return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentArrayMap(null, 1, ["js-error",(function (p__21495){
-var vec__21496 = p__21495;
-var msg = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__21496,(0),null);
-var data = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__21496,(1),null);
+return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.PersistentArrayMap(null, 1, ["js-error",(function (p__44282){
+var vec__44283 = p__44282;
+var msg = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__44283,(0),null);
+var data = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__44283,(1),null);
 return cljs.core.ex_info.cljs$core$IFn$_invoke$arity$2(msg,data);
 })], null),com.fulcrologic.fulcro.algorithms.transit.read_handlers()], 0));
 });

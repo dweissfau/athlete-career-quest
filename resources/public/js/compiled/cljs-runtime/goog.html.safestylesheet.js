@@ -55,7 +55,7 @@ goog.loadModule(function(exports) {
         if (Array.isArray(argument)) {
           argument.forEach(addArgument);
         } else {
-          result = result + SafeStyleSheet.unwrap(argument);
+          result += SafeStyleSheet.unwrap(argument);
         }
       };
       Array.prototype.forEach.call(arguments, addArgument);

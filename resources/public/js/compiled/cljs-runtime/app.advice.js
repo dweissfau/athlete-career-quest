@@ -24,11 +24,11 @@ return new cljs.core.Keyword(null,"optional","optional",2053951509);
  * Convert grad school recommendation to level
  */
 app.advice.grad_school__GT_level = (function app$advice$grad_school__GT_level(recommended_QMARK_,career_category){
-if(cljs.core.truth_((function (){var and__5000__auto__ = recommended_QMARK_;
-if(cljs.core.truth_(and__5000__auto__)){
+if(cljs.core.truth_((function (){var and__5043__auto__ = recommended_QMARK_;
+if(cljs.core.truth_(and__5043__auto__)){
 return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(career_category,"Healthcare");
 } else {
-return and__5000__auto__;
+return and__5043__auto__;
 }
 })())){
 return new cljs.core.Keyword(null,"required","required",1807647006);
@@ -45,26 +45,26 @@ return new cljs.core.Keyword(null,"optional","optional",2053951509);
  * Get suggested grad programs based on typical majors
  */
 app.advice.get_suggested_programs = (function app$advice$get_suggested_programs(typical_majors){
-return cljs.core.vec(cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),cljs.core.distinct.cljs$core$IFn$_invoke$arity$1(cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (p1__31938_SHARP_){
-return cljs.core.get.cljs$core$IFn$_invoke$arity$3(app.advice.major_to_programs,p1__31938_SHARP_,cljs.core.PersistentVector.EMPTY);
+return cljs.core.vec(cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),cljs.core.distinct.cljs$core$IFn$_invoke$arity$1(cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (p1__45400_SHARP_){
+return cljs.core.get.cljs$core$IFn$_invoke$arity$3(app.advice.major_to_programs,p1__45400_SHARP_,cljs.core.PersistentVector.EMPTY);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([typical_majors], 0)))));
 });
 /**
  * Generate personalized internship advice for a career
  */
 app.advice.generate_internship_advice = (function app$advice$generate_internship_advice(career){
-var map__31939 = career;
-var map__31939__$1 = cljs.core.__destructure_map(map__31939);
-var name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31939__$1,new cljs.core.Keyword(null,"name","name",1843675177));
-var category = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31939__$1,new cljs.core.Keyword(null,"category","category",-593092832));
-var internship_importance = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31939__$1,new cljs.core.Keyword(null,"internship-importance","internship-importance",-1283879578));
+var map__45404 = career;
+var map__45404__$1 = cljs.core.__destructure_map(map__45404);
+var name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45404__$1,new cljs.core.Keyword(null,"name","name",1843675177));
+var category = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45404__$1,new cljs.core.Keyword(null,"category","category",-593092832));
+var internship_importance = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45404__$1,new cljs.core.Keyword(null,"internship-importance","internship-importance",-1283879578));
 var level = app.advice.importance__GT_level(internship_importance);
 var template = cljs.core.get.cljs$core$IFn$_invoke$arity$3(app.advice.internship_templates,category,cljs.core.get.cljs$core$IFn$_invoke$arity$2(app.advice.internship_templates,"Business & Sales"));
 var intro = goog.string.format(new cljs.core.Keyword(null,"intro","intro",-886090599).cljs$core$IFn$_invoke$arity$1(template),name);
 var suggestion = new cljs.core.Keyword(null,"suggestion","suggestion",1624613388).cljs$core$IFn$_invoke$arity$1(template);
-var level_headline = (function (){var G__31940 = level;
-var G__31940__$1 = (((G__31940 instanceof cljs.core.Keyword))?G__31940.fqn:null);
-switch (G__31940__$1) {
+var level_headline = (function (){var G__45406 = level;
+var G__45406__$1 = (((G__45406 instanceof cljs.core.Keyword))?G__45406.fqn:null);
+switch (G__45406__$1) {
 case "essential":
 return "Internships are Essential";
 
@@ -82,13 +82,13 @@ return "Internships are Optional";
 
 break;
 default:
-throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__31940__$1)].join('')));
+throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__45406__$1)].join('')));
 
 }
 })();
-var importance_paragraph = (function (){var G__31941 = level;
-var G__31941__$1 = (((G__31941 instanceof cljs.core.Keyword))?G__31941.fqn:null);
-switch (G__31941__$1) {
+var importance_paragraph = (function (){var G__45408 = level;
+var G__45408__$1 = (((G__45408 instanceof cljs.core.Keyword))?G__45408.fqn:null);
+switch (G__45408__$1) {
 case "essential":
 return "Given the competitive nature of this field, relevant internship experience is often a prerequisite for entry-level positions. Your athletic background gives you a unique advantage in standing out.";
 
@@ -106,7 +106,7 @@ return "You can enter this field through various paths. Internships are one opti
 
 break;
 default:
-throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__31941__$1)].join('')));
+throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__45408__$1)].join('')));
 
 }
 })();
@@ -116,17 +116,17 @@ return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"he
  * Generate personalized grad school advice for a career
  */
 app.advice.generate_grad_school_advice = (function app$advice$generate_grad_school_advice(career){
-var map__31942 = career;
-var map__31942__$1 = cljs.core.__destructure_map(map__31942);
-var name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31942__$1,new cljs.core.Keyword(null,"name","name",1843675177));
-var category = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31942__$1,new cljs.core.Keyword(null,"category","category",-593092832));
-var grad_school_recommended = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31942__$1,new cljs.core.Keyword(null,"grad-school-recommended","grad-school-recommended",294447954));
-var typical_majors = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__31942__$1,new cljs.core.Keyword(null,"typical-majors","typical-majors",-450837630));
+var map__45415 = career;
+var map__45415__$1 = cljs.core.__destructure_map(map__45415);
+var name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45415__$1,new cljs.core.Keyword(null,"name","name",1843675177));
+var category = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45415__$1,new cljs.core.Keyword(null,"category","category",-593092832));
+var grad_school_recommended = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45415__$1,new cljs.core.Keyword(null,"grad-school-recommended","grad-school-recommended",294447954));
+var typical_majors = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45415__$1,new cljs.core.Keyword(null,"typical-majors","typical-majors",-450837630));
 var level = app.advice.grad_school__GT_level(grad_school_recommended,category);
 var suggested_programs = app.advice.get_suggested_programs(typical_majors);
-var level_headline = (function (){var G__31943 = level;
-var G__31943__$1 = (((G__31943 instanceof cljs.core.Keyword))?G__31943.fqn:null);
-switch (G__31943__$1) {
+var level_headline = (function (){var G__45416 = level;
+var G__45416__$1 = (((G__45416 instanceof cljs.core.Keyword))?G__45416.fqn:null);
+switch (G__45416__$1) {
 case "required":
 return "Graduate School is Required";
 
@@ -140,13 +140,13 @@ return "Graduate School is Optional";
 
 break;
 default:
-throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__31943__$1)].join('')));
+throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__45416__$1)].join('')));
 
 }
 })();
-var main_paragraph = (function (){var G__31944 = level;
-var G__31944__$1 = (((G__31944 instanceof cljs.core.Keyword))?G__31944.fqn:null);
-switch (G__31944__$1) {
+var main_paragraph = (function (){var G__45419 = level;
+var G__45419__$1 = (((G__45419 instanceof cljs.core.Keyword))?G__45419.fqn:null);
+switch (G__45419__$1) {
 case "required":
 return ["A graduate degree is required to practice as a ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(name),". This is a professional field with specific educational requirements that must be met before you can begin your career."].join('');
 
@@ -160,14 +160,14 @@ return ["A graduate degree isn't required for ",cljs.core.str.cljs$core$IFn$_inv
 
 break;
 default:
-throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__31944__$1)].join('')));
+throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__45419__$1)].join('')));
 
 }
 })();
 var program_paragraph = ((cljs.core.seq(suggested_programs))?["Programs to consider: ",clojure.string.join.cljs$core$IFn$_invoke$arity$2(", ",suggested_programs)].join(''):null);
-var timing = (function (){var G__31945 = level;
-var G__31945__$1 = (((G__31945 instanceof cljs.core.Keyword))?G__31945.fqn:null);
-switch (G__31945__$1) {
+var timing = (function (){var G__45422 = level;
+var G__45422__$1 = (((G__45422 instanceof cljs.core.Keyword))?G__45422.fqn:null);
+switch (G__45422__$1) {
 case "required":
 return "Pursue immediately after your undergraduate degree";
 
@@ -181,7 +181,7 @@ return "After 3-5 years if you decide to pursue it";
 
 break;
 default:
-throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__31945__$1)].join('')));
+throw (new Error(["No matching clause: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__45422__$1)].join('')));
 
 }
 })();
@@ -194,8 +194,8 @@ app.advice.generate_personalized_advice = (function app$advice$generate_personal
 var career_scores = new cljs.core.Keyword(null,"career-scores","career-scores",-1890079113).cljs$core$IFn$_invoke$arity$1(scoring_results);
 var top_career_score = cljs.core.first(career_scores);
 var top_career_name = new cljs.core.Keyword(null,"career-name","career-name",2126938427).cljs$core$IFn$_invoke$arity$1(top_career_score);
-var top_career = cljs.core.first(cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__31946_SHARP_){
-return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(p1__31946_SHARP_),top_career_name);
+var top_career = cljs.core.first(cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__45423_SHARP_){
+return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(p1__45423_SHARP_),top_career_name);
 }),careers));
 if(cljs.core.truth_(top_career)){
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"internship-advice","internship-advice",-1314806060),app.advice.generate_internship_advice(top_career),new cljs.core.Keyword(null,"grad-school-advice","grad-school-advice",-1127949285),app.advice.generate_grad_school_advice(top_career)], null);

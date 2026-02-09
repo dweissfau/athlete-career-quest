@@ -1,29 +1,29 @@
 goog.provide('expound.util');
 expound.util.assert_message = "Internal Expound assertion failed. Please report this bug at https://github.com/bhb/expound/issues";
 expound.util.nan_QMARK_ = (function expound$util$nan_QMARK_(x){
-var and__5000__auto__ = typeof x === 'number';
-if(and__5000__auto__){
+var and__5043__auto__ = typeof x === 'number';
+if(and__5043__auto__){
 return isNaN(x);
 } else {
-return and__5000__auto__;
+return and__5043__auto__;
 }
 });
 /**
  * Look up for the parent spec using the spec hierarchy.
  */
 expound.util.parent_spec = (function expound$util$parent_spec(k){
-var temp__5804__auto__ = (function (){var G__11304 = k;
-if((G__11304 == null)){
+var temp__5804__auto__ = (function (){var G__38421 = k;
+if((G__38421 == null)){
 return null;
 } else {
-return cljs.spec.alpha.get_spec(G__11304);
+return cljs.spec.alpha.get_spec(G__38421);
 }
 })();
 if(cljs.core.truth_(temp__5804__auto__)){
 var p = temp__5804__auto__;
-var or__5002__auto__ = ((cljs.core.qualified_ident_QMARK_(p))?p:null);
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var or__5045__auto__ = ((cljs.core.qualified_ident_QMARK_(p))?p:null);
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return cljs.spec.alpha.form(p);
 }

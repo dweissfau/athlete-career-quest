@@ -1,8 +1,7 @@
 goog.provide("com.cognitect.transit.caching");
 goog.require("com.cognitect.transit.delimiters");
 goog.scope(function() {
-  var caching = com.cognitect.transit.caching;
-  var d = com.cognitect.transit.delimiters;
+  var caching = com.cognitect.transit.caching, d = com.cognitect.transit.delimiters;
   caching.MIN_SIZE_CACHEABLE = 3;
   caching.BASE_CHAR_IDX = 48;
   caching.CACHE_CODE_DIGITS = 44;
@@ -13,8 +12,7 @@ goog.scope(function() {
       if (asMapKey) {
         return true;
       } else {
-        var c0 = string.charAt(0);
-        var c1 = string.charAt(1);
+        var c0 = string.charAt(0), c1 = string.charAt(1);
         if (c0 === d.ESC) {
           return c1 === ":" || c1 === "$" || c1 === "#";
         } else {
@@ -26,9 +24,7 @@ goog.scope(function() {
     }
   };
   caching.idxToCode = function(idx) {
-    var hi = Math.floor(idx / caching.CACHE_CODE_DIGITS);
-    var lo = idx % caching.CACHE_CODE_DIGITS;
-    var loc = String.fromCharCode(lo + caching.BASE_CHAR_IDX);
+    var hi = Math.floor(idx / caching.CACHE_CODE_DIGITS), lo = idx % caching.CACHE_CODE_DIGITS, loc = String.fromCharCode(lo + caching.BASE_CHAR_IDX);
     if (hi === 0) {
       return d.SUB + loc;
     } else {
@@ -81,8 +77,7 @@ goog.scope(function() {
     if (code.length === 2) {
       return code.charCodeAt(1) - caching.BASE_CHAR_IDX;
     } else {
-      var hi = (code.charCodeAt(1) - caching.BASE_CHAR_IDX) * caching.CACHE_CODE_DIGITS;
-      var lo = code.charCodeAt(2) - caching.BASE_CHAR_IDX;
+      var hi = (code.charCodeAt(1) - caching.BASE_CHAR_IDX) * caching.CACHE_CODE_DIGITS, lo = code.charCodeAt(2) - caching.BASE_CHAR_IDX;
       return hi + lo;
     }
   };

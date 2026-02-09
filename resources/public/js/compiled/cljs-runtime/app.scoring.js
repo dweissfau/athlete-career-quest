@@ -5,18 +5,18 @@ app.scoring.default_category_weights = new cljs.core.PersistentArrayMap(null, 4,
  * Get configuration value with fallback
  */
 app.scoring.get_config_value = (function app$scoring$get_config_value(config,key,default$){
-var or__5002__auto__ = (function (){var G__26566 = cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__26565_SHARP_){
-return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"config-key","config-key",1125141517).cljs$core$IFn$_invoke$arity$1(p1__26565_SHARP_),key);
+var or__5045__auto__ = (function (){var G__45398 = cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__45396_SHARP_){
+return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"config-key","config-key",1125141517).cljs$core$IFn$_invoke$arity$1(p1__45396_SHARP_),key);
 }),config);
-var G__26566__$1 = (((G__26566 == null))?null:cljs.core.first(G__26566));
-if((G__26566__$1 == null)){
+var G__45398__$1 = (((G__45398 == null))?null:cljs.core.first(G__45398));
+if((G__45398__$1 == null)){
 return null;
 } else {
-return new cljs.core.Keyword(null,"config-value","config-value",-442060525).cljs$core$IFn$_invoke$arity$1(G__26566__$1);
+return new cljs.core.Keyword(null,"config-value","config-value",-442060525).cljs$core$IFn$_invoke$arity$1(G__45398__$1);
 }
 })();
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return default$;
 }
@@ -27,16 +27,16 @@ return default$;
 app.scoring.normalize_response = (function app$scoring$normalize_response(response,question){
 var value = new cljs.core.Keyword(null,"response-value","response-value",-1642517084).cljs$core$IFn$_invoke$arity$1(response);
 var q_type = new cljs.core.Keyword(null,"question-type","question-type",-421413807).cljs$core$IFn$_invoke$arity$1(question);
-var G__26568 = q_type;
-switch (G__26568) {
+var G__45402 = q_type;
+switch (G__45402) {
 case "likert":
-return (((function (){var or__5002__auto__ = new cljs.core.Keyword(null,"value","value",305978217).cljs$core$IFn$_invoke$arity$1(value);
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+return (((function (){var or__5045__auto__ = new cljs.core.Keyword(null,"value","value",305978217).cljs$core$IFn$_invoke$arity$1(value);
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
-var or__5002__auto____$1 = value;
-if(cljs.core.truth_(or__5002__auto____$1)){
-return or__5002__auto____$1;
+var or__5045__auto____$1 = value;
+if(cljs.core.truth_(or__5045__auto____$1)){
+return or__5045__auto____$1;
 } else {
 return (3);
 }
@@ -45,9 +45,9 @@ return (3);
 
 break;
 case "multiple_choice":
-var or__5002__auto__ = new cljs.core.Keyword(null,"score","score",-1963588780).cljs$core$IFn$_invoke$arity$1(value);
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var or__5045__auto__ = new cljs.core.Keyword(null,"score","score",-1963588780).cljs$core$IFn$_invoke$arity$1(value);
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return 0.5;
 }
@@ -65,9 +65,9 @@ return 0.5;
 
 break;
 case "scenario":
-var or__5002__auto__ = new cljs.core.Keyword(null,"score","score",-1963588780).cljs$core$IFn$_invoke$arity$1(value);
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var or__5045__auto__ = new cljs.core.Keyword(null,"score","score",-1963588780).cljs$core$IFn$_invoke$arity$1(value);
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return 0.5;
 }
@@ -96,16 +96,16 @@ return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (scores,response
 var question = cljs.core.get.cljs$core$IFn$_invoke$arity$2(question_map,new cljs.core.Keyword(null,"question-id","question-id",529146980).cljs$core$IFn$_invoke$arity$1(response));
 var weights = new cljs.core.Keyword(null,"scoring-weights","scoring-weights",-83168935).cljs$core$IFn$_invoke$arity$1(question);
 var normalized = app.scoring.normalize_response(response,question);
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (s,p__26578){
-var vec__26579 = p__26578;
-var dimension = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26579,(0),null);
-var weight = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26579,(1),null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (s,p__45409){
+var vec__45410 = p__45409;
+var dimension = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45410,(0),null);
+var weight = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45410,(1),null);
 var dim_key = cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(dimension);
-return cljs.core.update.cljs$core$IFn$_invoke$arity$3(s,dim_key,(function (p__26582){
-var map__26583 = p__26582;
-var map__26583__$1 = cljs.core.__destructure_map(map__26583);
-var total = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__26583__$1,new cljs.core.Keyword(null,"total","total",1916810418),(0));
-var count = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__26583__$1,new cljs.core.Keyword(null,"count","count",2139924085),(0));
+return cljs.core.update.cljs$core$IFn$_invoke$arity$3(s,dim_key,(function (p__45413){
+var map__45414 = p__45413;
+var map__45414__$1 = cljs.core.__destructure_map(map__45414);
+var total = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__45414__$1,new cljs.core.Keyword(null,"total","total",1916810418),(0));
+var count = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__45414__$1,new cljs.core.Keyword(null,"count","count",2139924085),(0));
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"total","total",1916810418),(total + (normalized * weight)),new cljs.core.Keyword(null,"count","count",2139924085),(count + (1))], null);
 }));
 }),scores,weights);
@@ -115,11 +115,11 @@ return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"to
  * Convert accumulated scores to final 0-1 scores
  */
 app.scoring.finalize_dimension_scores = (function app$scoring$finalize_dimension_scores(raw_scores,dimension_weights){
-return cljs.core.reduce_kv((function (scores,dim,p__26584){
-var map__26585 = p__26584;
-var map__26585__$1 = cljs.core.__destructure_map(map__26585);
-var total = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__26585__$1,new cljs.core.Keyword(null,"total","total",1916810418));
-var count = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__26585__$1,new cljs.core.Keyword(null,"count","count",2139924085));
+return cljs.core.reduce_kv((function (scores,dim,p__45417){
+var map__45418 = p__45417;
+var map__45418__$1 = cljs.core.__destructure_map(map__45418);
+var total = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45418__$1,new cljs.core.Keyword(null,"total","total",1916810418));
+var count = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__45418__$1,new cljs.core.Keyword(null,"count","count",2139924085));
 var avg = (((count > (0)))?(total / count):0.5);
 var weight = cljs.core.get.cljs$core$IFn$_invoke$arity$3(dimension_weights,dim,1.0);
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(scores,dim,(avg * weight));
@@ -139,12 +139,12 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 return cljs.core.reduce_kv((function (scores,cat_id,cat_questions){
 var category = cljs.core.get.cljs$core$IFn$_invoke$arity$2(category_map,cat_id);
 var cat_name = cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(category));
-var cat_responses = cljs.core.filter.cljs$core$IFn$_invoke$arity$2(cljs.core.identity,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__26586_SHARP_){
-return cljs.core.get.cljs$core$IFn$_invoke$arity$2(response_map,new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p1__26586_SHARP_));
+var cat_responses = cljs.core.filter.cljs$core$IFn$_invoke$arity$2(cljs.core.identity,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__45420_SHARP_){
+return cljs.core.get.cljs$core$IFn$_invoke$arity$2(response_map,new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p1__45420_SHARP_));
 }),cat_questions));
-var avg_score = ((cljs.core.seq(cat_responses))?(cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__26587_SHARP_){
-return app.scoring.normalize_response(p1__26587_SHARP_,cljs.core.first(cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (q){
-return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(q),new cljs.core.Keyword(null,"question-id","question-id",529146980).cljs$core$IFn$_invoke$arity$1(p1__26587_SHARP_));
+var avg_score = ((cljs.core.seq(cat_responses))?(cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__45421_SHARP_){
+return app.scoring.normalize_response(p1__45421_SHARP_,cljs.core.first(cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (q){
+return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(q),new cljs.core.Keyword(null,"question-id","question-id",529146980).cljs$core$IFn$_invoke$arity$1(p1__45421_SHARP_));
 }),cat_questions)));
 }),cat_responses)) / cljs.core.count(cat_responses)):0.5);
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(scores,cat_name,avg_score);
@@ -155,10 +155,10 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(scores,cat_name,avg_score);
  */
 app.scoring.calculate_career_match = (function app$scoring$calculate_career_match(dimension_scores,career){
 var required_dims = new cljs.core.Keyword(null,"required-dimensions","required-dimensions",875973834).cljs$core$IFn$_invoke$arity$1(career);
-var match_scores = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__26601){
-var vec__26602 = p__26601;
-var dim = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26602,(0),null);
-var importance = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26602,(1),null);
+var match_scores = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__45428){
+var vec__45429 = p__45428;
+var dim = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45429,(0),null);
+var importance = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45429,(1),null);
 var user_score = cljs.core.get.cljs$core$IFn$_invoke$arity$3(dimension_scores,cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(dim),0.5);
 return (user_score * importance);
 }),required_dims);
@@ -185,9 +185,9 @@ var communication = cljs.core.get.cljs$core$IFn$_invoke$arity$3(dimension_scores
 var urgency = cljs.core.get.cljs$core$IFn$_invoke$arity$3(dimension_scores,new cljs.core.Keyword(null,"urgency","urgency",-1292117426),0.5);
 var top_careers = cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),career_scores);
 var avg_internship_importance = (cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,cljs.core.map.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"internship-importance","internship-importance",-1283879578),top_careers)) / (3));
-return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"recommended","recommended",992487577),(avg_internship_importance > (3)),new cljs.core.Keyword(null,"confidence","confidence",-2080269669),(function (){var x__5090__auto__ = 1.0;
-var y__5091__auto__ = ((leadership + communication) * 0.5);
-return ((x__5090__auto__ < y__5091__auto__) ? x__5090__auto__ : y__5091__auto__);
+return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"recommended","recommended",992487577),(avg_internship_importance > (3)),new cljs.core.Keyword(null,"confidence","confidence",-2080269669),(function (){var x__5133__auto__ = 1.0;
+var y__5134__auto__ = ((leadership + communication) * 0.5);
+return ((x__5133__auto__ < y__5134__auto__) ? x__5133__auto__ : y__5134__auto__);
 })(),new cljs.core.Keyword(null,"reasoning","reasoning",1956143595),(((((leadership > 0.7)) && ((communication > 0.7))))?"Strong leadership and communication skills make you well-suited for competitive internship programs.":(((urgency > 0.7))?"Your desire to gain practical experience early makes internships highly valuable.":"Internships will help you explore career options and build professional skills."
 )),new cljs.core.Keyword(null,"suggested-types","suggested-types",897323794),cljs.core.map.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"career-category","career-category",1896068630),cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),career_scores))], null);
 });
@@ -198,17 +198,17 @@ app.scoring.generate_major_recommendation = (function app$scoring$generate_major
 var top_careers = cljs.core.take.cljs$core$IFn$_invoke$arity$2((5),career_scores);
 var all_majors = cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic(new cljs.core.Keyword(null,"typical-majors","typical-majors",-450837630),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([top_careers], 0));
 var major_freq = cljs.core.frequencies(all_majors);
-var ranked_majors = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__26621){
-var vec__26622 = p__26621;
-var major = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26622,(0),null);
-var freq = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26622,(1),null);
+var ranked_majors = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__45440){
+var vec__45441 = p__45440;
+var major = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45441,(0),null);
+var freq = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45441,(1),null);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"name","name",1843675177),major,new cljs.core.Keyword(null,"fit","fit",869444807),(freq / cljs.core.count(top_careers))], null);
 }),cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),cljs.core.sort_by.cljs$core$IFn$_invoke$arity$3(cljs.core.val,cljs.core._GT_,major_freq)));
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"top-3","top-3",1356354382),ranked_majors,new cljs.core.Keyword(null,"confidence","confidence",-2080269669),(function (){var top_score = new cljs.core.Keyword(null,"match-score","match-score",847728677).cljs$core$IFn$_invoke$arity$1(cljs.core.first(top_careers));
 if(cljs.core.truth_(top_score)){
-var x__5090__auto__ = 1.0;
-var y__5091__auto__ = (top_score * 1.1);
-return ((x__5090__auto__ < y__5091__auto__) ? x__5090__auto__ : y__5091__auto__);
+var x__5133__auto__ = 1.0;
+var y__5134__auto__ = (top_score * 1.1);
+return ((x__5133__auto__ < y__5134__auto__) ? x__5133__auto__ : y__5134__auto__);
 } else {
 return 0.5;
 }
@@ -223,17 +223,17 @@ var income_priority = cljs.core.get.cljs$core$IFn$_invoke$arity$3(dimension_scor
 var urgency = cljs.core.get.cljs$core$IFn$_invoke$arity$3(dimension_scores,new cljs.core.Keyword(null,"urgency","urgency",-1292117426),0.5);
 var top_careers = cljs.core.take.cljs$core$IFn$_invoke$arity$2((5),career_scores);
 var grad_recommended_careers = cljs.core.filter.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"grad-school-recommended","grad-school-recommended",294447954),top_careers);
-var grad_percentage = (cljs.core.count(grad_recommended_careers) / (function (){var x__5087__auto__ = (1);
-var y__5088__auto__ = cljs.core.count(top_careers);
-return ((x__5087__auto__ > y__5088__auto__) ? x__5087__auto__ : y__5088__auto__);
+var grad_percentage = (cljs.core.count(grad_recommended_careers) / (function (){var x__5130__auto__ = (1);
+var y__5131__auto__ = cljs.core.count(top_careers);
+return ((x__5130__auto__ > y__5131__auto__) ? x__5130__auto__ : y__5131__auto__);
 })());
 var explicit_grad_intent = (((urgency < 0.25)) && ((education_openness > 0.4)));
-return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"recommended","recommended",992487577),((explicit_grad_intent) || ((((education_openness > 0.5)) && ((grad_percentage > 0.4))))),new cljs.core.Keyword(null,"confidence","confidence",-2080269669),((explicit_grad_intent)?(function (){var x__5090__auto__ = 1.0;
-var y__5091__auto__ = (0.7 + (education_openness * 0.3));
-return ((x__5090__auto__ < y__5091__auto__) ? x__5090__auto__ : y__5091__auto__);
-})():(function (){var x__5090__auto__ = 1.0;
-var y__5091__auto__ = (education_openness * grad_percentage);
-return ((x__5090__auto__ < y__5091__auto__) ? x__5090__auto__ : y__5091__auto__);
+return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"recommended","recommended",992487577),((explicit_grad_intent) || ((((education_openness > 0.5)) && ((grad_percentage > 0.4))))),new cljs.core.Keyword(null,"confidence","confidence",-2080269669),((explicit_grad_intent)?(function (){var x__5133__auto__ = 1.0;
+var y__5134__auto__ = (0.7 + (education_openness * 0.3));
+return ((x__5133__auto__ < y__5134__auto__) ? x__5133__auto__ : y__5134__auto__);
+})():(function (){var x__5133__auto__ = 1.0;
+var y__5134__auto__ = (education_openness * grad_percentage);
+return ((x__5133__auto__ < y__5134__auto__) ? x__5133__auto__ : y__5134__auto__);
 })()),new cljs.core.Keyword(null,"timing","timing",-1849225195),(((urgency < 0.25))?"Consider pursuing immediately after undergraduate":(((((income_priority > 0.7)) && ((urgency < 0.3))))?"Consider pursuing immediately after undergraduate":(((urgency > 0.5))?"After 2-3 years of work experience":"After 3-5 years of work experience"
 ))),new cljs.core.Keyword(null,"suggested-programs","suggested-programs",982862372),cljs.core.distinct.cljs$core$IFn$_invoke$arity$1(cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic(new cljs.core.Keyword(null,"typical-majors","typical-majors",-450837630),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([grad_recommended_careers], 0)))], null);
 });
@@ -242,10 +242,10 @@ return ((x__5090__auto__ < y__5091__auto__) ? x__5090__auto__ : y__5091__auto__)
  */
 app.scoring.generate_industry_recommendation = (function app$scoring$generate_industry_recommendation(career_scores){
 var by_category = cljs.core.group_by(new cljs.core.Keyword(null,"career-category","career-category",1896068630),career_scores);
-var category_scores = cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),cljs.core.sort_by.cljs$core$IFn$_invoke$arity$3(new cljs.core.Keyword(null,"fit","fit",869444807),cljs.core._GT_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__26633){
-var vec__26634 = p__26633;
-var cat = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26634,(0),null);
-var careers = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__26634,(1),null);
+var category_scores = cljs.core.take.cljs$core$IFn$_invoke$arity$2((3),cljs.core.sort_by.cljs$core$IFn$_invoke$arity$3(new cljs.core.Keyword(null,"fit","fit",869444807),cljs.core._GT_,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__45453){
+var vec__45454 = p__45453;
+var cat = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45454,(0),null);
+var careers = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__45454,(1),null);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"name","name",1843675177),cat,new cljs.core.Keyword(null,"fit","fit",869444807),(cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,cljs.core.map.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"match-score","match-score",847728677),careers)) / cljs.core.count(careers))], null);
 }),by_category)));
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"top-3","top-3",1356354382),category_scores,new cljs.core.Keyword(null,"confidence","confidence",-2080269669),new cljs.core.Keyword(null,"fit","fit",869444807).cljs$core$IFn$_invoke$arity$1(cljs.core.first(category_scores))], null);

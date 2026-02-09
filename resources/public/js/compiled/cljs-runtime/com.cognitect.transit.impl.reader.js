@@ -2,9 +2,7 @@ goog.provide("com.cognitect.transit.impl.reader");
 goog.require("com.cognitect.transit.impl.decoder");
 goog.require("com.cognitect.transit.caching");
 goog.scope(function() {
-  var reader = com.cognitect.transit.impl.reader;
-  var decoder = com.cognitect.transit.impl.decoder;
-  var caching = com.cognitect.transit.caching;
+  var reader = com.cognitect.transit.impl.reader, decoder = com.cognitect.transit.impl.decoder, caching = com.cognitect.transit.caching;
   reader.JSONUnmarshaller = function Transit$JSONUnmarshaller(opts) {
     this.decoder = new decoder.Decoder(opts);
   };

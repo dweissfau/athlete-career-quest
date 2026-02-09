@@ -9,10 +9,8 @@ goog.crypt.binaryStringToByteArray = function(str) {
   return goog.crypt.stringToByteArray(str, true);
 };
 goog.crypt.stringToByteArray = function(str, throwSync) {
-  var output = [];
-  var p = 0;
-  var i = 0;
-  for (; i < str.length; i++) {
+  var output = [], p = 0;
+  for (var i = 0; i < str.length; i++) {
     var c = str.charCodeAt(i);
     if (c > 255) {
       var err = new Error("go/unicode-to-byte-error");
@@ -22,7 +20,7 @@ goog.crypt.stringToByteArray = function(str, throwSync) {
         goog.crypt.TEST_ONLY.throwException(err);
       }
       output[p++] = c & 255;
-      c = c >> 8;
+      c >>= 8;
     }
     output[p++] = c;
   }
@@ -37,10 +35,9 @@ goog.crypt.byteArrayToBinaryString = function(bytes) {
     return String.fromCharCode.apply(null, bytes);
   }
   var str = "";
-  var i = 0;
-  for (; i < bytes.length; i = i + CHUNK_SIZE) {
+  for (var i = 0; i < bytes.length; i += CHUNK_SIZE) {
     var chunk = Array.prototype.slice.call(bytes, i, i + CHUNK_SIZE);
-    str = str + String.fromCharCode.apply(null, chunk);
+    str += String.fromCharCode.apply(null, chunk);
   }
   return str;
 };
@@ -53,8 +50,7 @@ goog.crypt.byteArrayToHex = function(array, opt_separator) {
 goog.crypt.hexToByteArray = function(hexString) {
   goog.asserts.assert(hexString.length % 2 == 0, "Key string length must be multiple of 2");
   var arr = [];
-  var i = 0;
-  for (; i < hexString.length; i = i + 2) {
+  for (var i = 0; i < hexString.length; i += 2) {
     arr.push(parseInt(hexString.substring(i, i + 2), 16));
   }
   return arr;
@@ -63,10 +59,8 @@ goog.crypt.stringToUtf8ByteArray = function(str) {
   return goog.crypt.textToByteArray(str);
 };
 goog.crypt.textToByteArray = function(str) {
-  var out = [];
-  var p = 0;
-  var i = 0;
-  for (; i < str.length; i++) {
+  var out = [], p = 0;
+  for (var i = 0; i < str.length; i++) {
     var c = str.charCodeAt(i);
     if (c < 128) {
       out[p++] = c;
@@ -91,10 +85,8 @@ goog.crypt.utf8ByteArrayToString = function(bytes) {
   return goog.crypt.byteArrayToText(bytes);
 };
 goog.crypt.byteArrayToText = function(bytes) {
-  var out = [];
-  var pos = 0;
-  var c = 0;
-  for (; pos < bytes.length;) {
+  var out = [], pos = 0, c = 0;
+  while (pos < bytes.length) {
     var c1 = bytes[pos++];
     if (c1 < 128) {
       out[c++] = String.fromCharCode(c1);
@@ -102,15 +94,15 @@ goog.crypt.byteArrayToText = function(bytes) {
       var c2 = bytes[pos++];
       out[c++] = String.fromCharCode((c1 & 31) << 6 | c2 & 63);
     } else if (c1 > 239 && c1 < 365) {
-      c2 = bytes[pos++];
+      var c2 = bytes[pos++];
       var c3 = bytes[pos++];
       var c4 = bytes[pos++];
       var u = ((c1 & 7) << 18 | (c2 & 63) << 12 | (c3 & 63) << 6 | c4 & 63) - 65536;
       out[c++] = String.fromCharCode(55296 + (u >> 10));
       out[c++] = String.fromCharCode(56320 + (u & 1023));
     } else {
-      c2 = bytes[pos++];
-      c3 = bytes[pos++];
+      var c2 = bytes[pos++];
+      var c3 = bytes[pos++];
       out[c++] = String.fromCharCode((c1 & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
     }
   }
@@ -119,8 +111,7 @@ goog.crypt.byteArrayToText = function(bytes) {
 goog.crypt.xorByteArray = function(bytes1, bytes2) {
   goog.asserts.assert(bytes1.length == bytes2.length, "XOR array lengths must match");
   var result = [];
-  var i = 0;
-  for (; i < bytes1.length; i++) {
+  for (var i = 0; i < bytes1.length; i++) {
     result.push(bytes1[i] ^ bytes2[i]);
   }
   return result;

@@ -6,20 +6,22 @@
             [app.ui.components :as ui]))
 
 ;; Career Match Card
-(defsc CareerMatch [this {:keys [career-name career-category match-score typical-majors]}]
-  (dom/div {:className "card" :style {:marginBottom "12px"}}
-    (dom/div {:style {:display "flex" :justifyContent "space-between" :alignItems "center"}}
-      (dom/div
-        (dom/h4 {:style {:margin "0 0 4px 0"}} career-name)
-        (dom/span {:style {:color "#64748b" :fontSize "0.9rem"}} career-category))
-      (dom/div {:style {:textAlign "right"}}
-        (dom/div {:style {:fontSize "1.5rem" :fontWeight "bold" :color "#2563eb"}}
-          (str (Math/round (* match-score 100)) "%"))
-        (dom/div {:style {:fontSize "0.8rem" :color "#64748b"}} "Match")))
-    (when (seq typical-majors)
-      (dom/div {:style {:marginTop "12px" :paddingTop "12px" :borderTop "1px solid #e2e8f0"}}
-        (dom/span {:style {:fontSize "0.85rem" :color "#64748b"}} "Related majors: ")
-        (dom/span {:style {:fontSize "0.85rem"}} (clojure.string/join ", " (take 3 typical-majors)))))))
+(defsc CareerMatch [this {:keys [career-name career-category typical-majors]}]
+  (let [rank (comp/get-computed this :rank)]
+    (dom/div {:className "card" :style {:marginBottom "12px"}}
+      (dom/div {:style {:display "flex" :alignItems "center" :gap "16px"}}
+        (dom/div {:style {:minWidth "48px" :height "48px" :borderRadius "12px"
+                          :background "linear-gradient(135deg, #2563eb, #3b82f6)"
+                          :display "flex" :alignItems "center" :justifyContent "center"
+                          :color "#fff" :fontSize "1.25rem" :fontWeight "900"}}
+          (str "#" rank))
+        (dom/div {:style {:flex "1"}}
+          (dom/h4 {:style {:margin "0 0 4px 0"}} career-name)
+          (dom/span {:style {:color "#64748b" :fontSize "0.9rem" :fontWeight "500"}} career-category)))
+      (when (seq typical-majors)
+        (dom/div {:style {:marginTop "12px" :paddingTop "12px" :borderTop "1px solid #e2e8f0"}}
+          (dom/span {:style {:fontSize "0.85rem" :color "#64748b" :fontWeight "500"}} "Related majors: ")
+          (dom/span {:style {:fontSize "0.85rem" :fontWeight "600"}} (clojure.string/join ", " (take 3 typical-majors))))))))
 
 (def ui-career-match (comp/factory CareerMatch {:keyfn :career-name}))
 
@@ -41,10 +43,10 @@
                           :entrepreneurial "Entrepreneurial"}
         label (get dimension-labels dimension (name dimension))
         percentage (* score 100)]
-    (dom/div {:style {:marginBottom "12px"}}
-      (dom/div {:style {:display "flex" :justifyContent "space-between" :marginBottom "4px"}}
-        (dom/span {:style {:fontSize "0.9rem"}} label)
-        (dom/span {:style {:fontSize "0.9rem" :color "#64748b"}}
+    (dom/div {:style {:marginBottom "14px"}}
+      (dom/div {:style {:display "flex" :justifyContent "space-between" :marginBottom "6px"}}
+        (dom/span {:style {:fontSize "0.9rem" :fontWeight "600"}} label)
+        (dom/span {:style {:fontSize "0.9rem" :fontWeight "700" :color "#2563eb"}}
           (str (Math/round percentage) "%")))
       (dom/div {:className "progress-bar"}
         (dom/div {:className "progress-bar-fill"
@@ -80,25 +82,35 @@
                                                 :income-priority 0.72
                                                 :education-openness 0.65}
                      :results/career-scores [{:career-name "Sports Marketing Manager"
-                                              :career-category "Sports Business"
-                                              :match-score 0.88
+                                              :career-category "Sports Industry"
                                               :typical-majors ["Marketing" "Business Administration" "Sports Management"]}
                                              {:career-name "Athletic Director"
-                                              :career-category "Sports Administration"
-                                              :match-score 0.85
+                                              :career-category "Sports Industry"
                                               :typical-majors ["Sports Management" "Business Administration" "Education"]}
                                              {:career-name "Corporate Sales Executive"
-                                              :career-category "Business"
-                                              :match-score 0.82
+                                              :career-category "Business & Sales"
                                               :typical-majors ["Business" "Marketing" "Communications"]}
                                              {:career-name "Sports Agent"
-                                              :career-category "Sports Business"
-                                              :match-score 0.79
+                                              :career-category "Sports Industry"
                                               :typical-majors ["Sports Management" "Law" "Business"]}
                                              {:career-name "Brand Manager"
-                                              :career-category "Marketing"
-                                              :match-score 0.76
-                                              :typical-majors ["Marketing" "Business" "Communications"]}]
+                                              :career-category "Business & Sales"
+                                              :typical-majors ["Marketing" "Business" "Communications"]}
+                                             {:career-name "Public Relations Director"
+                                              :career-category "Media & Communications"
+                                              :typical-majors ["Communications" "Public Relations" "Marketing"]}
+                                             {:career-name "Executive Recruiter"
+                                              :career-category "Business & Sales"
+                                              :typical-majors ["Business" "Human Resources" "Psychology"]}
+                                             {:career-name "Sports Broadcaster/Analyst"
+                                              :career-category "Sports Industry"
+                                              :typical-majors ["Communications" "Journalism" "Sports Management"]}
+                                             {:career-name "Hotel General Manager"
+                                              :career-category "Hospitality & Tourism"
+                                              :typical-majors ["Hospitality Management" "Business Administration" "Tourism"]}
+                                             {:career-name "Political Campaign Manager"
+                                              :career-category "Law & Public Policy"
+                                              :typical-majors ["Political Science" "Communications" "Marketing"]}]
                      :results/recommendations {:internship {:recommended true
                                                             :confidence 0.85
                                                             :reasoning "Your strong leadership and communication skills make you well-suited for competitive internship programs in sports business and marketing."
@@ -132,31 +144,38 @@
                                                   "Consider MBA programs for future advancement"
                                                   "Leverage athletic network for job opportunities"]}]})}
 
-  (dom/div
+  (dom/div {:className "fade-in"}
     ;; Header
     (dom/div {:className "result-card"}
       (dom/h1 {:style {:margin "0 0 8px 0"}} "Your Career Profile")
-      (dom/p {:style {:opacity "0.9"}}
+      (dom/p {:style {:opacity "0.9" :fontSize "1.05rem"}}
         "Based on your responses, here are your personalized career recommendations."))
 
     ;; Your Profile Section
     (dom/div {:className "card"}
+      (dom/div {:className "accent-stripe"})
       (dom/h2 {:style {:marginBottom "24px"}} "Your Strengths Profile")
       (dom/div {:style {:display "grid" :gridTemplateColumns "repeat(auto-fit, minmax(280px, 1fr))" :gap "24px"}}
         (dom/div
-          (dom/h4 {:style {:marginBottom "16px" :color "#64748b"}} "Top Strengths")
+          (dom/h4 {:style {:marginBottom "16px" :color "#64748b" :textTransform "uppercase"
+                           :letterSpacing "0.05em" :fontSize "0.85rem"}} "Top Strengths")
           (for [[dim score] (take 5 (sort-by val > dimension-scores))]
             (ui-dimension-score {:dimension dim :score score})))
         (dom/div
-          (dom/h4 {:style {:marginBottom "16px" :color "#64748b"}} "Other Dimensions")
+          (dom/h4 {:style {:marginBottom "16px" :color "#64748b" :textTransform "uppercase"
+                           :letterSpacing "0.05em" :fontSize "0.85rem"}} "Other Dimensions")
           (for [[dim score] (drop 5 (sort-by val > dimension-scores))]
             (ui-dimension-score {:dimension dim :score score})))))
 
     ;; Top Career Matches
     (dom/div {:className "card"}
-      (dom/h2 {:style {:marginBottom "24px"}} "Top Career Matches")
-      (for [career career-scores]
-        (ui-career-match career)))
+      (dom/div {:className "accent-stripe"})
+      (dom/h2 {:style {:marginBottom "24px"}} "Top 10 Career Matches")
+      (dom/div {:className "stagger-in"}
+        (map-indexed
+          (fn [idx career]
+            (ui-career-match (comp/computed career {:rank (inc idx)})))
+          (take 10 career-scores))))
 
     ;; Key Recommendations
     (dom/h2 {:style {:marginTop "32px" :marginBottom "24px"}} "Key Recommendations")
@@ -175,16 +194,17 @@
         (dom/h3 {:style {:marginBottom "16px"}} "Recommended Majors")
         (dom/div {:style {:marginBottom "16px"}}
           (dom/div {:style {:display "flex" :justifyContent "space-between" :marginBottom "4px"}}
-            (dom/span "Confidence")
-            (dom/span (str (Math/round (* 100 (get-in recommendations [:major :confidence]))) "%")))
+            (dom/span {:style {:fontWeight "600"}} "Confidence")
+            (dom/span {:style {:fontWeight "700" :color "#2563eb"}}
+              (str (Math/round (* 100 (get-in recommendations [:major :confidence]))) "%")))
           (dom/div {:className "progress-bar"}
             (dom/div {:className "progress-bar-fill"
                       :style {:width (str (* 100 (get-in recommendations [:major :confidence])) "%")}})))
         (dom/ol {:style {:margin 0 :paddingLeft "20px"}}
           (for [{:keys [name fit]} (get-in recommendations [:major :top-3])]
             (dom/li {:key name :style {:marginBottom "8px"}}
-              (dom/span {:style {:fontWeight "500"}} name)
-              (dom/span {:style {:color "#64748b" :marginLeft "8px"}}
+              (dom/span {:style {:fontWeight "700"}} name)
+              (dom/span {:style {:color "#2563eb" :marginLeft "8px" :fontWeight "600"}}
                 (str "(" (Math/round (* fit 100)) "% fit)"))))))
 
       ;; Graduate School
@@ -201,16 +221,17 @@
         (for [{:keys [name fit]} (get-in recommendations [:industry :top-3])]
           (dom/div {:key name :style {:marginBottom "12px"}}
             (dom/div {:style {:display "flex" :justifyContent "space-between" :marginBottom "4px"}}
-              (dom/span name)
-              (dom/span {:style {:color "#64748b"}} (str (Math/round (* fit 100)) "%")))
+              (dom/span {:style {:fontWeight "600"}} name)
+              (dom/span {:style {:fontWeight "700" :color "#2563eb"}} (str (Math/round (* fit 100)) "%")))
             (dom/div {:className "progress-bar"}
               (dom/div {:className "progress-bar-fill"
                         :style {:width (str (* fit 100) "%")}}))))))
 
     ;; Career Roadmap
     (dom/div {:className "card" :style {:marginTop "24px"}}
+      (dom/div {:className "accent-stripe"})
       (dom/h2 {:style {:marginBottom "24px"}} "Your Career Roadmap")
-      (dom/div {:className "recommendation-list"}
+      (dom/div {:className "recommendation-list stagger-in"}
         (for [phase roadmap]
           (ui/ui-roadmap-phase phase))))
 

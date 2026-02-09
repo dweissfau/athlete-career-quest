@@ -50,8 +50,8 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 
 (com.fulcrologic.fulcro.algorithms.tempid.TempId.cljs$lang$ctorStr = "com.fulcrologic.fulcro.algorithms.tempid/TempId");
 
-(com.fulcrologic.fulcro.algorithms.tempid.TempId.cljs$lang$ctorPrWriter = (function (this__5287__auto__,writer__5288__auto__,opt__5289__auto__){
-return cljs.core._write(writer__5288__auto__,"com.fulcrologic.fulcro.algorithms.tempid/TempId");
+(com.fulcrologic.fulcro.algorithms.tempid.TempId.cljs$lang$ctorPrWriter = (function (this__5330__auto__,writer__5331__auto__,opt__5332__auto__){
+return cljs.core._write(writer__5331__auto__,"com.fulcrologic.fulcro.algorithms.tempid/TempId");
 }));
 
 /**
@@ -65,8 +65,8 @@ return (new com.fulcrologic.fulcro.algorithms.tempid.TempId(id,__hash));
  * Create a new tempid.
  */
 com.fulcrologic.fulcro.algorithms.tempid.tempid = (function com$fulcrologic$fulcro$algorithms$tempid$tempid(var_args){
-var G__17583 = arguments.length;
-switch (G__17583) {
+var G__39412 = arguments.length;
+switch (G__39412) {
 case 0:
 return com.fulcrologic.fulcro.algorithms.tempid.tempid.cljs$core$IFn$_invoke$arity$0();
 
@@ -134,11 +134,11 @@ return clojure.walk.prewalk_replace(tid__GT_rid,data_structure);
  *   guids).  It is unsafe to use this function if you're using something else for temporary IDs
  *   as this function might rewrite things that are not IDs.
  */
-com.fulcrologic.fulcro.algorithms.tempid.resolve_tempids_BANG_ = (function com$fulcrologic$fulcro$algorithms$tempid$resolve_tempids_BANG_(p__17589,tx_result){
-var map__17590 = p__17589;
-var map__17590__$1 = cljs.core.__destructure_map(map__17590);
-var state_atom = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17590__$1,new cljs.core.Keyword("com.fulcrologic.fulcro.application","state-atom","com.fulcrologic.fulcro.application/state-atom",648128366));
-var runtime_atom = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17590__$1,new cljs.core.Keyword("com.fulcrologic.fulcro.application","runtime-atom","com.fulcrologic.fulcro.application/runtime-atom",-1167397772));
+com.fulcrologic.fulcro.algorithms.tempid.resolve_tempids_BANG_ = (function com$fulcrologic$fulcro$algorithms$tempid$resolve_tempids_BANG_(p__39426,tx_result){
+var map__39427 = p__39426;
+var map__39427__$1 = cljs.core.__destructure_map(map__39427);
+var state_atom = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__39427__$1,new cljs.core.Keyword("com.fulcrologic.fulcro.application","state-atom","com.fulcrologic.fulcro.application/state-atom",648128366));
+var runtime_atom = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__39427__$1,new cljs.core.Keyword("com.fulcrologic.fulcro.application","runtime-atom","com.fulcrologic.fulcro.application/runtime-atom",-1167397772));
 var tid__GT_rid = com.fulcrologic.fulcro.algorithms.tempid.result__GT_tempid__GT_realid(tx_result);
 cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$3(state_atom,com.fulcrologic.fulcro.algorithms.tempid.resolve_tempids,tid__GT_rid);
 
@@ -151,30 +151,30 @@ return cljs.core.update.cljs$core$IFn$_invoke$arity$4(cljs.core.update.cljs$core
  *   it generates a stable one based on that number (useful for testing). Works in cljc.
  */
 com.fulcrologic.fulcro.algorithms.tempid.uuid = (function com$fulcrologic$fulcro$algorithms$tempid$uuid(var_args){
-var G__17595 = arguments.length;
-switch (G__17595) {
+var G__39434 = arguments.length;
+switch (G__39434) {
 case 0:
 return com.fulcrologic.fulcro.algorithms.tempid.uuid.cljs$core$IFn$_invoke$arity$0();
 
 break;
 default:
-var args_arr__5751__auto__ = [];
-var len__5726__auto___17608 = arguments.length;
-var i__5727__auto___17609 = (0);
+var args_arr__5794__auto__ = [];
+var len__5769__auto___39470 = arguments.length;
+var i__5770__auto___39471 = (0);
 while(true){
-if((i__5727__auto___17609 < len__5726__auto___17608)){
-args_arr__5751__auto__.push((arguments[i__5727__auto___17609]));
+if((i__5770__auto___39471 < len__5769__auto___39470)){
+args_arr__5794__auto__.push((arguments[i__5770__auto___39471]));
 
-var G__17610 = (i__5727__auto___17609 + (1));
-i__5727__auto___17609 = G__17610;
+var G__39472 = (i__5770__auto___39471 + (1));
+i__5770__auto___39471 = G__39472;
 continue;
 } else {
 }
 break;
 }
 
-var argseq__5752__auto__ = ((((0) < args_arr__5751__auto__.length))?(new cljs.core.IndexedSeq(args_arr__5751__auto__.slice((0)),(0),null)):null);
-return com.fulcrologic.fulcro.algorithms.tempid.uuid.cljs$core$IFn$_invoke$arity$variadic(argseq__5752__auto__);
+var argseq__5795__auto__ = (new cljs.core.IndexedSeq(args_arr__5794__auto__.slice((0)),(0),null));
+return com.fulcrologic.fulcro.algorithms.tempid.uuid.cljs$core$IFn$_invoke$arity$variadic(argseq__5795__auto__);
 
 }
 });
@@ -188,9 +188,9 @@ return cljs.core.uuid(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.st
 }));
 
 /** @this {Function} */
-(com.fulcrologic.fulcro.algorithms.tempid.uuid.cljs$lang$applyTo = (function (seq17594){
-var self__5712__auto__ = this;
-return self__5712__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq17594));
+(com.fulcrologic.fulcro.algorithms.tempid.uuid.cljs$lang$applyTo = (function (seq39433){
+var self__5755__auto__ = this;
+return self__5755__auto__.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq(seq39433));
 }));
 
 (com.fulcrologic.fulcro.algorithms.tempid.uuid.cljs$lang$maxFixedArity = (0));

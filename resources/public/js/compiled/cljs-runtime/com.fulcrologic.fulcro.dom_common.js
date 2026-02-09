@@ -22,11 +22,11 @@ return cljs.core.re_seq(/[#.]?[^#.]+/,cljs.core.name(k));
 com.fulcrologic.fulcro.dom_common.parse = (function com$fulcrologic$fulcro$dom_common$parse(k){
 if(cljs.core.truth_(k)){
 var tokens = com.fulcrologic.fulcro.dom_common.get_tokens(k);
-var id = cljs.core.first(cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__21983_SHARP_){
-return cljs.core.re_matches(/^#.*/,p1__21983_SHARP_);
+var id = cljs.core.first(cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__44771_SHARP_){
+return cljs.core.re_matches(/^#.*/,p1__44771_SHARP_);
 }),tokens));
-var classes = cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__21984_SHARP_){
-return cljs.core.re_matches(/^\..*/,p1__21984_SHARP_);
+var classes = cljs.core.filter.cljs$core$IFn$_invoke$arity$2((function (p1__44772_SHARP_){
+return cljs.core.re_matches(/^\..*/,p1__44772_SHARP_);
 }),tokens);
 var sanitized_id = com.fulcrologic.fulcro.dom_common.remove_separators(id);
 if(cljs.core.truth_(cljs.core.re_matches(/^(\.[^.#]+|#[^.#]+)+$/,cljs.core.name(k)))){
@@ -34,11 +34,11 @@ if(cljs.core.truth_(cljs.core.re_matches(/^(\.[^.#]+|#[^.#]+)+$/,cljs.core.name(
 throw cljs.core.ex_info.cljs$core$IFn$_invoke$arity$2("Invalid style keyword. It contains something other than classnames and IDs.",new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"item","item",249373802),k], null));
 }
 
-var G__21991 = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"classes","classes",2037804510),cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,cljs.core.keep.cljs$core$IFn$_invoke$arity$2(com.fulcrologic.fulcro.dom_common.remove_separators,classes))], null);
+var G__44779 = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"classes","classes",2037804510),cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,cljs.core.keep.cljs$core$IFn$_invoke$arity$2(com.fulcrologic.fulcro.dom_common.remove_separators,classes))], null);
 if(cljs.core.truth_(sanitized_id)){
-return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(G__21991,new cljs.core.Keyword(null,"id","id",-1388402092),sanitized_id);
+return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(G__44779,new cljs.core.Keyword(null,"id","id",-1388402092),sanitized_id);
 } else {
-return G__21991;
+return G__44779;
 }
 } else {
 return cljs.core.PersistentArrayMap.EMPTY;
@@ -56,10 +56,10 @@ return clojure.string.join.cljs$core$IFn$_invoke$arity$2(" ",((cljs.core.seq(cla
  * Combine a hiccup-style keyword with props that are either a JS or CLJS map.
  */
 com.fulcrologic.fulcro.dom_common.add_kwprops_to_props = (function com$fulcrologic$fulcro$dom_common$add_kwprops_to_props(props,kw){
-var map__21997 = com.fulcrologic.fulcro.dom_common.parse(kw);
-var map__21997__$1 = cljs.core.__destructure_map(map__21997);
-var classes = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__21997__$1,new cljs.core.Keyword(null,"classes","classes",2037804510),cljs.core.PersistentVector.EMPTY);
-var id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__21997__$1,new cljs.core.Keyword(null,"id","id",-1388402092));
+var map__44785 = com.fulcrologic.fulcro.dom_common.parse(kw);
+var map__44785__$1 = cljs.core.__destructure_map(map__44785);
+var classes = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__44785__$1,new cljs.core.Keyword(null,"classes","classes",2037804510),cljs.core.PersistentVector.EMPTY);
+var id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__44785__$1,new cljs.core.Keyword(null,"id","id",-1388402092));
 if((((props == null)) || (cljs.core.object_QMARK_(props)))){
 var props__$1 = com.fulcrologic.fulcro.dom_common.goog$module$goog$object.clone(props);
 var existing_classes = com.fulcrologic.fulcro.dom_common.goog$module$goog$object.get(props__$1,"className");
@@ -76,18 +76,18 @@ com.fulcrologic.fulcro.dom_common.goog$module$goog$object.set(props__$1,"id",id)
 return props__$1;
 } else {
 var existing_classes = new cljs.core.Keyword(null,"className","className",-1983287057).cljs$core$IFn$_invoke$arity$1(props);
-var G__21999 = (function (){var or__5002__auto__ = props;
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var G__44787 = (function (){var or__5045__auto__ = props;
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return cljs.core.PersistentArrayMap.EMPTY;
 }
 })();
-var G__21999__$1 = ((cljs.core.seq(classes))?cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(G__21999,new cljs.core.Keyword(null,"className","className",-1983287057),com.fulcrologic.fulcro.dom_common.combined_classes(classes,existing_classes)):G__21999);
+var G__44787__$1 = ((cljs.core.seq(classes))?cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(G__44787,new cljs.core.Keyword(null,"className","className",-1983287057),com.fulcrologic.fulcro.dom_common.combined_classes(classes,existing_classes)):G__44787);
 if(cljs.core.truth_(id)){
-return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(G__21999__$1,new cljs.core.Keyword(null,"id","id",-1388402092),id);
+return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(G__44787__$1,new cljs.core.Keyword(null,"id","id",-1388402092),id);
 } else {
-return G__21999__$1;
+return G__44787__$1;
 }
 }
 });
@@ -119,9 +119,9 @@ return null;
 com.fulcrologic.fulcro.dom_common.interpret_classes = (function com$fulcrologic$fulcro$dom_common$interpret_classes(props){
 if(((cljs.core.map_QMARK_(props)) && (cljs.core.contains_QMARK_(props,new cljs.core.Keyword(null,"classes","classes",2037804510))))){
 var new_class_strings = com.fulcrologic.fulcro.dom_common.classes__GT_str(new cljs.core.Keyword(null,"classes","classes",2037804510).cljs$core$IFn$_invoke$arity$1(props));
-var strcls = (function (){var or__5002__auto__ = new cljs.core.Keyword(null,"className","className",-1983287057).cljs$core$IFn$_invoke$arity$1(props);
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var strcls = (function (){var or__5045__auto__ = new cljs.core.Keyword(null,"className","className",-1983287057).cljs$core$IFn$_invoke$arity$1(props);
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return "";
 }

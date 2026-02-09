@@ -4,6 +4,7 @@
             [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
             [com.fulcrologic.fulcro.dom :as dom]
             [com.fulcrologic.fulcro.mutations :as m :refer [defmutation]]
+            [clojure.string]
             [app.scoring :as scoring]
             [app.careers :as careers]
             [app.advice :as advice]
@@ -114,11 +115,16 @@
     :scoring-weights {:negotiation 1.0 :communication 0.4}}])
 
 (def sample-results
-  {:career-matches [{:name "Sports Marketing Manager" :match 88 :category "Sports Business"}
-                    {:name "Athletic Director" :match 85 :category "Sports Administration"}
-                    {:name "Corporate Sales Executive" :match 82 :category "Business"}
-                    {:name "Sports Agent" :match 79 :category "Sports Business"}
-                    {:name "Brand Manager" :match 76 :category "Marketing"}]
+  {:career-matches [{:name "Sports Marketing Manager" :category "Sports Industry"}
+                    {:name "Athletic Director" :category "Sports Industry"}
+                    {:name "Corporate Sales Executive" :category "Business & Sales"}
+                    {:name "Sports Agent" :category "Sports Industry"}
+                    {:name "Brand Manager" :category "Business & Sales"}
+                    {:name "Public Relations Director" :category "Media & Communications"}
+                    {:name "Executive Recruiter" :category "Business & Sales"}
+                    {:name "Sports Broadcaster/Analyst" :category "Sports Industry"}
+                    {:name "Hotel General Manager" :category "Hospitality & Tourism"}
+                    {:name "Political Campaign Manager" :category "Law & Public Policy"}]
    :recommended-majors ["Sports Management" "Business Administration" "Marketing"]
    :internship {:recommended true :confidence 85}
    :grad-school {:recommended true :timing "After 2-3 years work experience"}})
@@ -369,11 +375,12 @@
 
 (defsc ResultsPage [this {:keys [computed-results personalized-advice on-restart]}]
   (let [{:keys [career-scores recommendations]} computed-results
-        career-matches (mapv (fn [c]
-                               {:name (:career-name c)
-                                :match (js/Math.round (* 100 (:match-score c)))
-                                :category (:career-category c)})
-                             (take 5 career-scores))
+        career-matches (map-indexed (fn [idx c]
+                                      {:name (:career-name c)
+                                       :rank (inc idx)
+                                       :category (:career-category c)
+                                       :majors (:typical-majors c)})
+                                    (take 10 career-scores))
         recommended-majors (mapv :name (get-in recommendations [:major :top-3]))
         internship-advice (:internship-advice personalized-advice)
         grad-school-advice (:grad-school-advice personalized-advice)]
@@ -386,17 +393,25 @@
 
       ;; Top Careers
       (dom/div {:className "card"}
-        (dom/h2 {:style {:marginBottom "24px"}} "Top Career Matches")
-        (map (fn [{:keys [name match category]}]
-               (dom/div {:key name :style {:marginBottom "16px"}}
-                 (dom/div {:style {:display "flex" :justifyContent "space-between" :marginBottom "4px"}}
-                   (dom/div
-                     (dom/strong name)
-                     (dom/span {:style {:color "#64748b" :marginLeft "8px"}} category))
-                   (dom/span {:style {:fontWeight "bold" :color "#2563eb"}} (str match "%")))
-                 (dom/div {:className "progress-bar"}
-                   (dom/div {:className "progress-bar-fill" :style {:width (str match "%")}}))))
-             career-matches))
+        (dom/div {:className "accent-stripe"})
+        (dom/h2 {:style {:marginBottom "24px"}} "Top 10 Career Matches")
+        (dom/div {:className "stagger-in"}
+          (map (fn [{:keys [name rank category majors]}]
+                 (dom/div {:key name :className "card" :style {:marginBottom "12px"}}
+                   (dom/div {:style {:display "flex" :alignItems "center" :gap "16px"}}
+                     (dom/div {:style {:minWidth "48px" :height "48px" :borderRadius "12px"
+                                       :background "linear-gradient(135deg, #2563eb, #3b82f6)"
+                                       :display "flex" :alignItems "center" :justifyContent "center"
+                                       :color "#fff" :fontSize "1.25rem" :fontWeight "900"}}
+                       (str "#" rank))
+                     (dom/div {:style {:flex "1"}}
+                       (dom/h4 {:style {:margin "0 0 4px 0"}} name)
+                       (dom/span {:style {:color "#64748b" :fontSize "0.9rem" :fontWeight "500"}} category)))
+                   (when (seq majors)
+                     (dom/div {:style {:marginTop "12px" :paddingTop "12px" :borderTop "1px solid #e2e8f0"}}
+                       (dom/span {:style {:fontSize "0.85rem" :color "#64748b" :fontWeight "500"}} "Related majors: ")
+                       (dom/span {:style {:fontSize "0.85rem" :fontWeight "600"}} (clojure.string/join ", " (take 3 majors)))))))
+               career-matches)))
 
       ;; Recommendations Grid
       (dom/div {:style {:display "grid" :gridTemplateColumns "repeat(auto-fit, minmax(280px, 1fr))" :gap "16px" :marginTop "24px"}}

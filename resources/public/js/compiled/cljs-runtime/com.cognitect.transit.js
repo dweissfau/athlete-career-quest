@@ -12,13 +12,7 @@ var TRANSIT_BROWSER_TARGET = false;
 var TRANSIT_BROWSER_AMD_TARGET = false;
 goog.scope(function() {
   var transit = com.cognitect.transit;
-  var util = com.cognitect.transit.util;
-  var reader = com.cognitect.transit.impl.reader;
-  var writer = com.cognitect.transit.impl.writer;
-  var decoder = com.cognitect.transit.impl.decoder;
-  var types = com.cognitect.transit.types;
-  var eq = com.cognitect.transit.eq;
-  var caching = com.cognitect.transit.caching;
+  var util = com.cognitect.transit.util, reader = com.cognitect.transit.impl.reader, writer = com.cognitect.transit.impl.writer, decoder = com.cognitect.transit.impl.decoder, types = com.cognitect.transit.types, eq = com.cognitect.transit.eq, caching = com.cognitect.transit.caching;
   transit.MapLike;
   transit.SetLike;
   transit.reader = function(type, opts) {
@@ -111,8 +105,7 @@ goog.scope(function() {
   };
   transit.objectToMap = function(obj) {
     var ret = transit.map();
-    var p;
-    for (p in obj) {
+    for (var p in obj) {
       if (obj.hasOwnProperty(p)) {
         ret.set(p, obj[p]);
       }

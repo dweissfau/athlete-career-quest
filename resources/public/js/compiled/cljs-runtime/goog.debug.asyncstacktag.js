@@ -1,10 +1,11 @@
 goog.loadModule(function(exports) {
+  "use strict";
+  goog.module("goog.debug.asyncStackTag");
+  goog.module.declareLegacyNamespace();
+  const {assertExists} = goog.require("goog.asserts");
+  const createTask = goog.DEBUG && goog.global.console && goog.global.console.createTask ? goog.global.console.createTask.bind(goog.global.console) : undefined;
+  const CONSOLE_TASK_SYMBOL = createTask ? Symbol("consoleTask") : undefined;
   function wrap(fn, name = "anonymous") {
-    function wrappedFn(...args) {
-      return consoleTask["run"](() => {
-        return fn.call(this, ...args);
-      });
-    }
     if (!goog.DEBUG || !createTask) {
       return fn;
     }
@@ -12,16 +13,13 @@ goog.loadModule(function(exports) {
       return fn;
     }
     const consoleTask = createTask(fn.name || name);
+    function wrappedFn(...args) {
+      return consoleTask["run"](() => fn.call(this, ...args));
+    }
     wrappedFn[assertExists(CONSOLE_TASK_SYMBOL)] = consoleTask;
     return wrappedFn;
   }
-  "use strict";
-  goog.module("goog.debug.asyncStackTag");
-  goog.module.declareLegacyNamespace();
-  const {assertExists} = goog.require("goog.asserts");
-  const createTask = goog.DEBUG && goog.global.console && goog.global.console.createTask ? goog.global.console.createTask.bind(goog.global.console) : undefined;
-  const CONSOLE_TASK_SYMBOL = createTask ? Symbol("consoleTask") : undefined;
-  exports = {wrap};
+  exports = {wrap,};
   return exports;
 });
 

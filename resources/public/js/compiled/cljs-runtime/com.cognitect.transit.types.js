@@ -3,10 +3,7 @@ goog.require("com.cognitect.transit.util");
 goog.require("com.cognitect.transit.eq");
 goog.require("goog.math.Long");
 goog.scope(function() {
-  var types = com.cognitect.transit.types;
-  var util = com.cognitect.transit.util;
-  var eq = com.cognitect.transit.eq;
-  var Long = goog.math.Long;
+  var types = com.cognitect.transit.types, util = com.cognitect.transit.util, eq = com.cognitect.transit.eq, Long = goog.math.Long;
   if (typeof Symbol != "undefined") {
     types.ITERATOR = Symbol.iterator;
   } else {
@@ -187,15 +184,12 @@ goog.scope(function() {
   types.hexFor = function(aLong, sidx, eidx) {
     var ret = "";
     eidx = eidx || sidx + 1;
-    var i = sidx;
-    var shift = (7 - i) * 8;
-    var mask = Long.fromInt(255).shiftLeft(shift);
-    for (; i < eidx; i++, shift = shift - 8, mask = mask.shiftRightUnsigned(8)) {
+    for (var i = sidx, shift = (7 - i) * 8, mask = Long.fromInt(255).shiftLeft(shift); i < eidx; i++, shift -= 8, mask = mask.shiftRightUnsigned(8)) {
       var s = aLong.and(mask).shiftRightUnsigned(shift).toString(16);
       if (s.length == 1) {
         s = "0" + s;
       }
-      ret = ret + s;
+      ret += s;
     }
     return ret;
   };
@@ -211,14 +205,12 @@ goog.scope(function() {
     return this.high;
   };
   types.UUID.prototype.toString = function() {
-    var s = "";
-    var hi64 = this.high;
-    var lo64 = this.low;
-    s = s + (types.hexFor(hi64, 0, 4) + "-");
-    s = s + (types.hexFor(hi64, 4, 6) + "-");
-    s = s + (types.hexFor(hi64, 6, 8) + "-");
-    s = s + (types.hexFor(lo64, 0, 2) + "-");
-    s = s + types.hexFor(lo64, 2, 8);
+    var s = "", hi64 = this.high, lo64 = this.low;
+    s += types.hexFor(hi64, 0, 4) + "-";
+    s += types.hexFor(hi64, 4, 6) + "-";
+    s += types.hexFor(hi64, 6, 8) + "-";
+    s += types.hexFor(lo64, 0, 2) + "-";
+    s += types.hexFor(lo64, 2, 8);
     return s;
   };
   types.UUID.prototype.equiv = function(other) {
@@ -236,28 +228,19 @@ goog.scope(function() {
   };
   types.UUIDfromString = function uuidFromString(s) {
     s = s.replace(/-/g, "");
-    var hi64 = null;
-    var lo64 = null;
-    var hi32 = 0;
-    var lo32 = 0;
-    var off = 24;
-    var i = 0;
-    hi32 = 0, i = 0, off = 24;
-    for (; i < 8; i = i + 2, off = off - 8) {
-      hi32 = hi32 | parseInt(s.substring(i, i + 2), 16) << off;
+    var hi64 = null, lo64 = null, hi32 = 0, lo32 = 0, off = 24, i = 0;
+    for (hi32 = 0, i = 0, off = 24; i < 8; i += 2, off -= 8) {
+      hi32 |= parseInt(s.substring(i, i + 2), 16) << off;
     }
-    lo32 = 0, i = 8, off = 24;
-    for (; i < 16; i = i + 2, off = off - 8) {
-      lo32 = lo32 | parseInt(s.substring(i, i + 2), 16) << off;
+    for (lo32 = 0, i = 8, off = 24; i < 16; i += 2, off -= 8) {
+      lo32 |= parseInt(s.substring(i, i + 2), 16) << off;
     }
     hi64 = Long.fromBits(lo32, hi32);
-    hi32 = 0, i = 16, off = 24;
-    for (; i < 24; i = i + 2, off = off - 8) {
-      hi32 = hi32 | parseInt(s.substring(i, i + 2), 16) << off;
+    for (hi32 = 0, i = 16, off = 24; i < 24; i += 2, off -= 8) {
+      hi32 |= parseInt(s.substring(i, i + 2), 16) << off;
     }
-    lo32 = 0, i = 24, off = 24;
-    for (; i < 32; i = i + 2, off = off - 8) {
-      lo32 = lo32 | parseInt(s.substring(i, i + 2), 16) << off;
+    for (lo32 = 0, i = 24, off = 24; i < 32; i += 2, off -= 8) {
+      lo32 |= parseInt(s.substring(i, i + 2), 16) << off;
     }
     lo64 = Long.fromBits(lo32, hi32);
     return new types.UUID(hi64, lo64);
@@ -377,11 +360,9 @@ goog.scope(function() {
       if (me.size !== you.size) {
         return false;
       }
-      var code;
-      for (code in me.map) {
+      for (var code in me.map) {
         var bucket = me.map[code];
-        var j = 0;
-        for (; j < bucket.length; j = j + 2) {
+        for (var j = 0; j < bucket.length; j += 2) {
           if (!eq.equals(bucket[j + 1], you.get(bucket[j]))) {
             return false;
           }
@@ -393,19 +374,16 @@ goog.scope(function() {
         return false;
       }
       var entries = me._entries;
-      j = 0;
-      for (; j < entries.length; j = j + 2) {
+      for (var j = 0; j < entries.length; j += 2) {
         if (!eq.equals(entries[j + 1], you.get(entries[j]))) {
           return false;
         }
       }
       return true;
     } else if (you != null && typeof you === "object") {
-      var ks = util.objectKeys(you);
-      var kslen = ks.length;
+      var ks = util.objectKeys(you), kslen = ks.length;
       if (me.size === kslen) {
-        var i = 0;
-        for (; i < kslen; i++) {
+        for (var i = 0; i < kslen; i++) {
           var k = ks[i];
           if (!me.has(k) || !eq.equals(you[k], me.get(k))) {
             return false;
@@ -435,24 +413,22 @@ goog.scope(function() {
     }
   };
   types.printMap = function(map) {
-    var idx = 0;
-    var str = "TransitMap {";
+    var idx = 0, str = "TransitMap {";
     map.forEach(function(v, k) {
-      str = str + (types.print(k) + " \x3d\x3e " + types.print(v));
+      str += types.print(k) + " \x3d\x3e " + types.print(v);
       if (idx < map.size - 1) {
-        str = str + ", ";
+        str += ", ";
       }
       idx++;
     });
     return str + "}";
   };
   types.printSet = function(set) {
-    var idx = 0;
-    var str = "TransitSet {";
+    var idx = 0, str = "TransitSet {";
     set.forEach(function(v) {
-      str = str + types.print(v);
+      str += types.print(v);
       if (idx < set.size - 1) {
-        str = str + ", ";
+        str += ", ";
       }
       idx++;
     });
@@ -511,9 +487,7 @@ goog.scope(function() {
       return this.backingMap.keySet();
     } else {
       var ret = [];
-      var i = 0;
-      var j = 0;
-      for (; j < this._entries.length; i++, j = j + 2) {
+      for (var i = 0, j = 0; j < this._entries.length; i++, j += 2) {
         ret[i] = this._entries[j];
       }
       return ret;
@@ -540,8 +514,7 @@ goog.scope(function() {
     if (this.backingMap) {
       this.backingMap.forEach(f);
     } else {
-      var i = 0;
-      for (; i < this._entries.length; i = i + 2) {
+      for (var i = 0; i < this._entries.length; i += 2) {
         f(this._entries[i + 1], this._entries[i]);
       }
     }
@@ -554,8 +527,7 @@ goog.scope(function() {
       if (this.convert()) {
         return this.get(k);
       } else {
-        var i = 0;
-        for (; i < this._entries.length; i = i + 2) {
+        for (var i = 0; i < this._entries.length; i += 2) {
           if (eq.equals(this._entries[i], k)) {
             return this._entries[i + 1];
           }
@@ -572,8 +544,7 @@ goog.scope(function() {
       if (this.convert()) {
         return this.has(k);
       } else {
-        var i = 0;
-        for (; i < this._entries.length; i = i + 2) {
+        for (var i = 0; i < this._entries.length; i += 2) {
           if (eq.equals(this._entries[i], k)) {
             return true;
           }
@@ -589,8 +560,7 @@ goog.scope(function() {
       this.backingMap.set(k, v);
       this.size = this.backingMap.size;
     } else {
-      var i = 0;
-      for (; i < this._entries.length; i = i + 2) {
+      for (var i = 0; i < this._entries.length; i += 2) {
         if (eq.equals(this._entries[i], k)) {
           this._entries[i + 1] = v;
           return;
@@ -613,10 +583,9 @@ goog.scope(function() {
       this.size = this.backingMap.size;
       return ret;
     } else {
-      var i = 0;
-      for (; i < this._entries.length; i = i + 2) {
+      for (var i = 0; i < this._entries.length; i += 2) {
         if (eq.equals(this._entries[i], k)) {
-          ret = this._entries[i + 1];
+          var ret = this._entries[i + 1];
           this._entries.splice(i, 2);
           this.size--;
           return ret;
@@ -681,10 +650,8 @@ goog.scope(function() {
   types.TransitMap.prototype["delete"] = function(k) {
     this.hashCode = -1;
     this._keys = null;
-    var code = eq.hashCode(k);
-    var bucket = this.map[code];
-    var i = 0;
-    for (; i < bucket.length; i = i + 2) {
+    var code = eq.hashCode(k), bucket = this.map[code];
+    for (var i = 0; i < bucket.length; i += 2) {
       if (eq.equals(k, bucket[i])) {
         var ret = bucket[i + 1];
         bucket.splice(i, 2);
@@ -702,22 +669,18 @@ goog.scope(function() {
   types.TransitMap.prototype["entries"] = types.TransitMap.prototype.entries;
   types.TransitMap.prototype.forEach = function(callback) {
     var ks = this.getKeys();
-    var i = 0;
-    for (; i < ks.length; i++) {
+    for (var i = 0; i < ks.length; i++) {
       var bucket = this.map[ks[i]];
-      var j = 0;
-      for (; j < bucket.length; j = j + 2) {
+      for (var j = 0; j < bucket.length; j += 2) {
         callback(bucket[j + 1], bucket[j], this);
       }
     }
   };
   types.TransitMap.prototype["forEach"] = types.TransitMap.prototype.forEach;
   types.TransitMap.prototype.get = function(k, notFound) {
-    var code = eq.hashCode(k);
-    var bucket = this.map[code];
+    var code = eq.hashCode(k), bucket = this.map[code];
     if (bucket != null) {
-      var i = 0;
-      for (; i < bucket.length; i = i + 2) {
+      for (var i = 0; i < bucket.length; i += 2) {
         if (eq.equals(k, bucket[i])) {
           return bucket[i + 1];
         }
@@ -728,11 +691,9 @@ goog.scope(function() {
   };
   types.TransitMap.prototype["get"] = types.TransitMap.prototype.get;
   types.TransitMap.prototype.has = function(k) {
-    var code = eq.hashCode(k);
-    var bucket = this.map[code];
+    var code = eq.hashCode(k), bucket = this.map[code];
     if (bucket != null) {
-      var i = 0;
-      for (; i < bucket.length; i = i + 2) {
+      for (var i = 0; i < bucket.length; i += 2) {
         if (eq.equals(k, bucket[i])) {
           return true;
         }
@@ -748,13 +709,10 @@ goog.scope(function() {
   };
   types.TransitMap.prototype["keys"] = types.TransitMap.prototype.keys;
   types.TransitMap.prototype.keySet = function() {
-    var keys = this.getKeys();
-    var ret = [];
-    var i = 0;
-    for (; i < keys.length; i++) {
+    var keys = this.getKeys(), ret = [];
+    for (var i = 0; i < keys.length; i++) {
       var bucket = this.map[keys[i]];
-      var j = 0;
-      for (; j < bucket.length; j = j + 2) {
+      for (var j = 0; j < bucket.length; j += 2) {
         ret.push(bucket[j]);
       }
     }
@@ -763,8 +721,7 @@ goog.scope(function() {
   types.TransitMap.prototype["keySet"] = types.TransitMap.prototype.keySet;
   types.TransitMap.prototype.set = function(k, v) {
     this.hashCode = -1;
-    var code = eq.hashCode(k);
-    var bucket = this.map[code];
+    var code = eq.hashCode(k), bucket = this.map[code];
     if (bucket == null) {
       if (this._keys) {
         this._keys.push(code);
@@ -773,8 +730,7 @@ goog.scope(function() {
       this.size++;
     } else {
       var newEntry = true;
-      var i = 0;
-      for (; i < bucket.length; i = i + 2) {
+      for (var i = 0; i < bucket.length; i += 2) {
         if (eq.equals(v, bucket[i])) {
           newEntry = false;
           bucket[i] = v;
@@ -821,11 +777,9 @@ goog.scope(function() {
       if (checkDups) {
         var t = arr;
         arr = [];
-        var i = 0;
-        for (; i < t.length; i = i + 2) {
+        for (var i = 0; i < t.length; i += 2) {
           var seen = false;
-          var j = 0;
-          for (; j < arr.length; j = j + 2) {
+          for (var j = 0; j < arr.length; j += 2) {
             if (eq.equals(arr[j], t[i])) {
               arr[j + 1] = t[i + 1];
               seen = true;
@@ -840,21 +794,16 @@ goog.scope(function() {
       }
       return new types.TransitArrayMap(arr);
     } else {
-      var map = {};
-      var keys = [];
-      var size = 0;
-      i = 0;
-      for (; i < arr.length; i = i + 2) {
-        var code = eq.hashCode(arr[i]);
-        var bucket = map[code];
+      var map = {}, keys = [], size = 0;
+      for (var i = 0; i < arr.length; i += 2) {
+        var code = eq.hashCode(arr[i]), bucket = map[code];
         if (bucket == null) {
           keys.push(code);
           map[code] = [arr[i], arr[i + 1]];
           size++;
         } else {
           var newEntry = true;
-          j = 0;
-          for (; j < bucket.length; j = j + 2) {
+          for (var j = 0; j < bucket.length; j += 2) {
             if (eq.equals(bucket[j], arr[i])) {
               bucket[j + 1] = arr[i + 1];
               newEntry = false;
@@ -954,21 +903,16 @@ goog.scope(function() {
   };
   types.set = function(arr) {
     arr = arr || [];
-    var map = {};
-    var keys = [];
-    var size = 0;
-    var i = 0;
-    for (; i < arr.length; i++) {
-      var code = eq.hashCode(arr[i]);
-      var vals = map[code];
+    var map = {}, keys = [], size = 0;
+    for (var i = 0; i < arr.length; i++) {
+      var code = eq.hashCode(arr[i]), vals = map[code];
       if (vals == null) {
         keys.push(code);
         map[code] = [arr[i], arr[i]];
         size++;
       } else {
         var newEntry = true;
-        var j = 0;
-        for (; j < vals.length; j = j + 2) {
+        for (var j = 0; j < vals.length; j += 2) {
           if (eq.equals(vals[j], arr[i])) {
             newEntry = false;
             break;

@@ -3,10 +3,7 @@ goog.require("com.cognitect.transit.util");
 goog.require("com.cognitect.transit.types");
 goog.require("goog.math.Long");
 goog.scope(function() {
-  var handlers = com.cognitect.transit.handlers;
-  var util = com.cognitect.transit.util;
-  var types = com.cognitect.transit.types;
-  var Long = goog.math.Long;
+  var handlers = com.cognitect.transit.handlers, util = com.cognitect.transit.util, types = com.cognitect.transit.types, Long = goog.math.Long;
   handlers.ctorGuid = 0;
   handlers.ctorGuidProperty = "transit$guid$" + util.randomUUID();
   handlers.typeTag = function(ctor) {
@@ -44,17 +41,14 @@ goog.scope(function() {
   };
   handlers.padZeros = function(n, m) {
     var s = n.toString();
-    var i = s.length;
-    for (; i < m; i++) {
+    for (var i = s.length; i < m; i++) {
       s = "0" + s;
     }
     return s;
   };
   handlers.stringableKeys = function(m) {
-    var stringable = false;
-    var ks = util.objectKeys(m);
-    var i = 0;
-    for (; i < ks.length; i++) {
+    var stringable = false, ks = util.objectKeys(m);
+    for (var i = 0; i < ks.length; i++) {
     }
     return true;
   };

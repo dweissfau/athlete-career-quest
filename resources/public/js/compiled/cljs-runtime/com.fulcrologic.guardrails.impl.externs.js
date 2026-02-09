@@ -22,8 +22,8 @@ com.fulcrologic.guardrails.impl.externs.register_specs_BANG_ = (function com$ful
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$3(com.fulcrologic.guardrails.impl.externs.spec_registry,cljs.core.merge,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","spec-registry","com.fulcrologic.guardrails.registry/spec-registry",1477479211).cljs$core$IFn$_invoke$arity$1(function$));
 });
 com.fulcrologic.guardrails.impl.externs.clean_function = (function com$fulcrologic$guardrails$impl$externs$clean_function(function$){
-return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(cljs.core.update.cljs$core$IFn$_invoke$arity$3(function$,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","arities","com.fulcrologic.guardrails.registry/arities",1446074922),cljs.core.partial.cljs$core$IFn$_invoke$arity$2(com.fulcrologic.guardrails.utils.map_vals,(function (p1__8230_SHARP_){
-return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(p1__8230_SHARP_,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","body","com.fulcrologic.guardrails.registry/body",1170523854));
+return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(cljs.core.update.cljs$core$IFn$_invoke$arity$3(function$,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","arities","com.fulcrologic.guardrails.registry/arities",1446074922),cljs.core.partial.cljs$core$IFn$_invoke$arity$2(com.fulcrologic.guardrails.utils.map_vals,(function (p1__38408_SHARP_){
+return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(p1__38408_SHARP_,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","body","com.fulcrologic.guardrails.registry/body",1170523854));
 }))),new cljs.core.Keyword("com.fulcrologic.guardrails.registry","spec-registry","com.fulcrologic.guardrails.registry/spec-registry",1477479211));
 });
 com.fulcrologic.guardrails.impl.externs.register_function_BANG_ = (function com$fulcrologic$guardrails$impl$externs$register_function_BANG_(NS,fn_name,function$){
@@ -31,20 +31,20 @@ com.fulcrologic.guardrails.impl.externs.register_specs_BANG_(function$);
 
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$4(com.fulcrologic.guardrails.impl.externs.function_registry,cljs.core.assoc_in,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [NS,fn_name], null),com.fulcrologic.guardrails.impl.externs.clean_function(function$));
 });
-com.fulcrologic.guardrails.impl.externs.record_defn_BANG_ = (function com$fulcrologic$guardrails$impl$externs$record_defn_BANG_(NS,p__8253,externs){
-var map__8256 = p__8253;
-var map__8256__$1 = cljs.core.__destructure_map(map__8256);
-var function$ = map__8256__$1;
-var fn_name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__8256__$1,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","fn-name","com.fulcrologic.guardrails.registry/fn-name",-1837692103));
+com.fulcrologic.guardrails.impl.externs.record_defn_BANG_ = (function com$fulcrologic$guardrails$impl$externs$record_defn_BANG_(NS,p__38412,externs){
+var map__38416 = p__38412;
+var map__38416__$1 = cljs.core.__destructure_map(map__38416);
+var function$ = map__38416__$1;
+var fn_name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38416__$1,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","fn-name","com.fulcrologic.guardrails.registry/fn-name",-1837692103));
 com.fulcrologic.guardrails.impl.externs.register_externs_BANG_(NS,fn_name,externs);
 
 return com.fulcrologic.guardrails.impl.externs.register_function_BANG_(NS,fn_name,function$);
 });
-com.fulcrologic.guardrails.impl.externs.register_external_function_BANG_ = (function com$fulcrologic$guardrails$impl$externs$register_external_function_BANG_(p__8268){
-var map__8269 = p__8268;
-var map__8269__$1 = cljs.core.__destructure_map(map__8269);
-var external_function = map__8269__$1;
-var var_name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__8269__$1,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","var-name","com.fulcrologic.guardrails.registry/var-name",502701799));
+com.fulcrologic.guardrails.impl.externs.register_external_function_BANG_ = (function com$fulcrologic$guardrails$impl$externs$register_external_function_BANG_(p__38417){
+var map__38418 = p__38417;
+var map__38418__$1 = cljs.core.__destructure_map(map__38418);
+var external_function = map__38418__$1;
+var var_name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38418__$1,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","var-name","com.fulcrologic.guardrails.registry/var-name",502701799));
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$4(com.fulcrologic.guardrails.impl.externs.external_function_registry,cljs.core.assoc,var_name,com.fulcrologic.guardrails.impl.externs.clean_function(external_function));
 });
 com.fulcrologic.guardrails.impl.externs.record_fdef_BANG_ = (function com$fulcrologic$guardrails$impl$externs$record_fdef_BANG_(external_function){
@@ -59,9 +59,9 @@ return com.fulcrologic.guardrails.impl.externs.register_external_function_BANG_(
 com.fulcrologic.guardrails.impl.externs.function_info = (function com$fulcrologic$guardrails$impl$externs$function_info(qualified_symbol){
 var spc = cljs.core.namespace(qualified_symbol);
 var simple_name = cljs.core.symbol.cljs$core$IFn$_invoke$arity$1(cljs.core.name(qualified_symbol));
-var or__5002__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(cljs.core.deref(com.fulcrologic.guardrails.impl.externs.external_function_registry),qualified_symbol);
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var or__5045__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(cljs.core.deref(com.fulcrologic.guardrails.impl.externs.external_function_registry),qualified_symbol);
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(cljs.core.deref(com.fulcrologic.guardrails.impl.externs.function_registry),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [spc,simple_name], null));
 }
@@ -73,13 +73,13 @@ return cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(cljs.core.deref(com.fulcro
 com.fulcrologic.guardrails.impl.externs.pure_QMARK_ = (function com$fulcrologic$guardrails$impl$externs$pure_QMARK_(qualified_symbol,arity){
 return cljs.core.boolean$((function (){var info = com.fulcrologic.guardrails.impl.externs.function_info(qualified_symbol);
 var has_arity_QMARK_ = cljs.core.boolean$(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("com.fulcrologic.guardrails.registry","arities","com.fulcrologic.guardrails.registry/arities",1446074922),arity], null)));
-var map__8285 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(info,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("com.fulcrologic.guardrails.registry","arities","com.fulcrologic.guardrails.registry/arities",1446074922),((has_arity_QMARK_)?arity:new cljs.core.Keyword(null,"n","n",562130025)),new cljs.core.Keyword("com.fulcrologic.guardrails.registry","gspec","com.fulcrologic.guardrails.registry/gspec",207045467),new cljs.core.Keyword("com.fulcrologic.guardrails.registry","metadata","com.fulcrologic.guardrails.registry/metadata",-1389979282)], null));
-var map__8285__$1 = cljs.core.__destructure_map(map__8285);
-var pure = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__8285__$1,new cljs.core.Keyword(null,"pure","pure",1433370394));
-var pure_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__8285__$1,new cljs.core.Keyword(null,"pure?","pure?",350862691));
-var or__5002__auto__ = pure;
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var map__38441 = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(info,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("com.fulcrologic.guardrails.registry","arities","com.fulcrologic.guardrails.registry/arities",1446074922),((has_arity_QMARK_)?arity:new cljs.core.Keyword(null,"n","n",562130025)),new cljs.core.Keyword("com.fulcrologic.guardrails.registry","gspec","com.fulcrologic.guardrails.registry/gspec",207045467),new cljs.core.Keyword("com.fulcrologic.guardrails.registry","metadata","com.fulcrologic.guardrails.registry/metadata",-1389979282)], null));
+var map__38441__$1 = cljs.core.__destructure_map(map__38441);
+var pure = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38441__$1,new cljs.core.Keyword(null,"pure","pure",1433370394));
+var pure_QMARK_ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38441__$1,new cljs.core.Keyword(null,"pure?","pure?",350862691));
+var or__5045__auto__ = pure;
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return pure_QMARK_;
 }
@@ -90,14 +90,14 @@ return pure_QMARK_;
  * function isn't registered with guardrails.
  */
 com.fulcrologic.guardrails.impl.externs.spec_system = (function com$fulcrologic$guardrails$impl$externs$spec_system(qualified_symbol){
-var map__8290 = com.fulcrologic.guardrails.impl.externs.function_info(qualified_symbol);
-var map__8290__$1 = cljs.core.__destructure_map(map__8290);
-var info = map__8290__$1;
-var spec_system = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__8290__$1,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","spec-system","com.fulcrologic.guardrails.registry/spec-system",-484591590));
+var map__38450 = com.fulcrologic.guardrails.impl.externs.function_info(qualified_symbol);
+var map__38450__$1 = cljs.core.__destructure_map(map__38450);
+var info = map__38450__$1;
+var spec_system = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38450__$1,new cljs.core.Keyword("com.fulcrologic.guardrails.registry","spec-system","com.fulcrologic.guardrails.registry/spec-system",-484591590));
 if(cljs.core.truth_(info)){
-var or__5002__auto__ = spec_system;
-if(cljs.core.truth_(or__5002__auto__)){
-return or__5002__auto__;
+var or__5045__auto__ = spec_system;
+if(cljs.core.truth_(or__5045__auto__)){
+return or__5045__auto__;
 } else {
 return new cljs.core.Keyword("org.clojure","spec1","org.clojure/spec1",-2090493001);
 }

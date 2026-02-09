@@ -67,9 +67,8 @@ goog.html.TrustedResourceUrl.fromConstant = function(url) {
 };
 goog.html.TrustedResourceUrl.fromConstants = function(parts) {
   var unwrapped = "";
-  var i = 0;
-  for (; i < parts.length; i++) {
-    unwrapped = unwrapped + goog.string.Const.unwrap(parts[i]);
+  for (var i = 0; i < parts.length; i++) {
+    unwrapped += goog.string.Const.unwrap(parts[i]);
   }
   return goog.html.TrustedResourceUrl.createTrustedResourceUrlSecurityPrivateDoNotAccessOrElse(unwrapped);
 };
@@ -92,19 +91,17 @@ goog.html.TrustedResourceUrl.stringifyParams_ = function(prefix, currentString, 
   if (typeof params === "string") {
     return params ? prefix + encodeURIComponent(params) : "";
   }
-  var key;
-  for (key in params) {
+  for (var key in params) {
     if (Object.prototype.hasOwnProperty.call(params, key)) {
       var value = params[key];
       var outputValues = Array.isArray(value) ? value : [value];
-      var i = 0;
-      for (; i < outputValues.length; i++) {
+      for (var i = 0; i < outputValues.length; i++) {
         var outputValue = outputValues[i];
         if (outputValue != null) {
           if (!currentString) {
             currentString = prefix;
           }
-          currentString = currentString + ((currentString.length > prefix.length ? "\x26" : "") + encodeURIComponent(key) + "\x3d" + encodeURIComponent(String(outputValue)));
+          currentString += (currentString.length > prefix.length ? "\x26" : "") + encodeURIComponent(key) + "\x3d" + encodeURIComponent(String(outputValue));
         }
       }
     }

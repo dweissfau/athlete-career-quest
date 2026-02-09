@@ -7,7 +7,7 @@ goog.require("goog.userAgent.product");
 goog.crypt.base64.DEFAULT_ALPHABET_COMMON_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789";
 goog.crypt.base64.ENCODED_VALS = goog.crypt.base64.DEFAULT_ALPHABET_COMMON_ + "+/\x3d";
 goog.crypt.base64.ENCODED_VALS_WEBSAFE = goog.crypt.base64.DEFAULT_ALPHABET_COMMON_ + "-_.";
-goog.crypt.base64.Alphabet = {DEFAULT:0, NO_PADDING:1, WEBSAFE:2, WEBSAFE_DOT_PADDING:3, WEBSAFE_NO_PADDING:4};
+goog.crypt.base64.Alphabet = {DEFAULT:0, NO_PADDING:1, WEBSAFE:2, WEBSAFE_DOT_PADDING:3, WEBSAFE_NO_PADDING:4,};
 goog.crypt.base64.paddingChars_ = "\x3d.";
 goog.crypt.base64.isPadding_ = function(char) {
   return goog.string.internal.contains(goog.crypt.base64.paddingChars_, char);
@@ -28,7 +28,7 @@ goog.crypt.base64.encodeByteArray = function(input, alphabet) {
   const paddingChar = byteToCharMap[64] || "";
   let inputIdx = 0;
   let outputIdx = 0;
-  for (; inputIdx < input.length - 2; inputIdx = inputIdx + 3) {
+  for (; inputIdx < input.length - 2; inputIdx += 3) {
     const byte1 = input[inputIdx];
     const byte2 = input[inputIdx + 1];
     const byte3 = input[inputIdx + 2];
@@ -72,13 +72,13 @@ goog.crypt.base64.encodeText = function(input, alphabet) {
   return goog.crypt.base64.encodeByteArray(goog.crypt.stringToUtf8ByteArray(input), alphabet);
 };
 goog.crypt.base64.decodeToBinaryString = function(input, useCustomDecoder) {
-  function pushByte(b) {
-    output = output + String.fromCharCode(b);
-  }
   if (goog.crypt.base64.HAS_NATIVE_DECODE_ && !useCustomDecoder) {
     return goog.global.atob(input);
   }
   var output = "";
+  function pushByte(b) {
+    output += String.fromCharCode(b);
+  }
   goog.crypt.base64.decodeStringInternal_(input, pushByte);
   return output;
 };
@@ -90,36 +90,38 @@ goog.crypt.base64.decodeToText = function(input, useCustomDecoder) {
   return decodeURIComponent(escape(goog.crypt.base64.decodeString(input, useCustomDecoder)));
 };
 goog.crypt.base64.decodeStringToByteArray = function(input, opt_ignored) {
+  var output = [];
   function pushByte(b) {
     output.push(b);
   }
-  var output = [];
   goog.crypt.base64.decodeStringInternal_(input, pushByte);
   return output;
 };
 goog.crypt.base64.decodeStringToUint8Array = function(input) {
-  function pushByte(b) {
-    output[outLen++] = b;
-  }
   var len = input.length;
   var approxByteLength = len * 3 / 4;
   if (approxByteLength % 3) {
     approxByteLength = Math.floor(approxByteLength);
   } else if (goog.crypt.base64.isPadding_(input[len - 1])) {
     if (goog.crypt.base64.isPadding_(input[len - 2])) {
-      approxByteLength = approxByteLength - 2;
+      approxByteLength -= 2;
     } else {
-      approxByteLength = approxByteLength - 1;
+      approxByteLength -= 1;
     }
   }
   var output = new Uint8Array(approxByteLength);
   var outLen = 0;
+  function pushByte(b) {
+    output[outLen++] = b;
+  }
   goog.crypt.base64.decodeStringInternal_(input, pushByte);
   return outLen !== approxByteLength ? output.subarray(0, outLen) : output;
 };
 goog.crypt.base64.decodeStringInternal_ = function(input, pushByte) {
+  goog.crypt.base64.init_();
+  var nextCharIndex = 0;
   function getByte(default_val) {
-    for (; nextCharIndex < input.length;) {
+    while (nextCharIndex < input.length) {
       var ch = input.charAt(nextCharIndex++);
       var b = goog.crypt.base64.charToByteMap_[ch];
       if (b != null) {
@@ -131,9 +133,7 @@ goog.crypt.base64.decodeStringInternal_ = function(input, pushByte) {
     }
     return default_val;
   }
-  goog.crypt.base64.init_();
-  var nextCharIndex = 0;
-  for (; true;) {
+  while (true) {
     var byte1 = getByte(-1);
     var byte2 = getByte(0);
     var byte3 = getByte(64);
@@ -161,13 +161,11 @@ goog.crypt.base64.init_ = function() {
   }
   goog.crypt.base64.charToByteMap_ = {};
   var commonChars = goog.crypt.base64.DEFAULT_ALPHABET_COMMON_.split("");
-  var specialChars = ["+/\x3d", "+/", "-_\x3d", "-_.", "-_"];
-  var i = 0;
-  for (; i < 5; i++) {
+  var specialChars = ["+/\x3d", "+/", "-_\x3d", "-_.", "-_",];
+  for (var i = 0; i < 5; i++) {
     var chars = commonChars.concat(specialChars[i].split(""));
     goog.crypt.base64.byteToCharMaps_[i] = chars;
-    var j = 0;
-    for (; j < chars.length; j++) {
+    for (var j = 0; j < chars.length; j++) {
       var char = chars[j];
       var existingByte = goog.crypt.base64.charToByteMap_[char];
       if (existingByte === undefined) {

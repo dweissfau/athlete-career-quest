@@ -1,18 +1,18 @@
 goog.provide('shadow.remote.runtime.tap_support');
-shadow.remote.runtime.tap_support.tap_subscribe = (function shadow$remote$runtime$tap_support$tap_subscribe(p__17478,p__17479){
-var map__17480 = p__17478;
-var map__17480__$1 = cljs.core.__destructure_map(map__17480);
-var svc = map__17480__$1;
-var subs_ref = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17480__$1,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911));
-var obj_support = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17480__$1,new cljs.core.Keyword(null,"obj-support","obj-support",1522559229));
-var runtime = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17480__$1,new cljs.core.Keyword(null,"runtime","runtime",-1331573996));
-var map__17481 = p__17479;
-var map__17481__$1 = cljs.core.__destructure_map(map__17481);
-var msg = map__17481__$1;
-var from = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17481__$1,new cljs.core.Keyword(null,"from","from",1815293044));
-var summary = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17481__$1,new cljs.core.Keyword(null,"summary","summary",380847952));
-var history__$1 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17481__$1,new cljs.core.Keyword(null,"history","history",-247395220));
-var num = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__17481__$1,new cljs.core.Keyword(null,"num","num",1985240673),(10));
+shadow.remote.runtime.tap_support.tap_subscribe = (function shadow$remote$runtime$tap_support$tap_subscribe(p__38209,p__38210){
+var map__38212 = p__38209;
+var map__38212__$1 = cljs.core.__destructure_map(map__38212);
+var svc = map__38212__$1;
+var subs_ref = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38212__$1,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911));
+var obj_support = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38212__$1,new cljs.core.Keyword(null,"obj-support","obj-support",1522559229));
+var runtime = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38212__$1,new cljs.core.Keyword(null,"runtime","runtime",-1331573996));
+var map__38213 = p__38210;
+var map__38213__$1 = cljs.core.__destructure_map(map__38213);
+var msg = map__38213__$1;
+var from = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38213__$1,new cljs.core.Keyword(null,"from","from",1815293044));
+var summary = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38213__$1,new cljs.core.Keyword(null,"summary","summary",380847952));
+var history__$1 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38213__$1,new cljs.core.Keyword(null,"history","history",-247395220));
+var num = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__38213__$1,new cljs.core.Keyword(null,"num","num",1985240673),(10));
 cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$4(subs_ref,cljs.core.assoc,from,msg);
 
 if(cljs.core.truth_(history__$1)){
@@ -23,32 +23,32 @@ return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"oi
 return null;
 }
 });
-shadow.remote.runtime.tap_support.tap_unsubscribe = (function shadow$remote$runtime$tap_support$tap_unsubscribe(p__17489,p__17490){
-var map__17492 = p__17489;
-var map__17492__$1 = cljs.core.__destructure_map(map__17492);
-var subs_ref = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17492__$1,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911));
-var map__17494 = p__17490;
-var map__17494__$1 = cljs.core.__destructure_map(map__17494);
-var from = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17494__$1,new cljs.core.Keyword(null,"from","from",1815293044));
+shadow.remote.runtime.tap_support.tap_unsubscribe = (function shadow$remote$runtime$tap_support$tap_unsubscribe(p__38227,p__38228){
+var map__38229 = p__38227;
+var map__38229__$1 = cljs.core.__destructure_map(map__38229);
+var subs_ref = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38229__$1,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911));
+var map__38230 = p__38228;
+var map__38230__$1 = cljs.core.__destructure_map(map__38230);
+var from = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38230__$1,new cljs.core.Keyword(null,"from","from",1815293044));
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$3(subs_ref,cljs.core.dissoc,from);
 });
-shadow.remote.runtime.tap_support.request_tap_history = (function shadow$remote$runtime$tap_support$request_tap_history(p__17503,p__17505){
-var map__17506 = p__17503;
-var map__17506__$1 = cljs.core.__destructure_map(map__17506);
-var obj_support = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17506__$1,new cljs.core.Keyword(null,"obj-support","obj-support",1522559229));
-var runtime = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17506__$1,new cljs.core.Keyword(null,"runtime","runtime",-1331573996));
-var map__17507 = p__17505;
-var map__17507__$1 = cljs.core.__destructure_map(map__17507);
-var msg = map__17507__$1;
-var num = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__17507__$1,new cljs.core.Keyword(null,"num","num",1985240673),(10));
+shadow.remote.runtime.tap_support.request_tap_history = (function shadow$remote$runtime$tap_support$request_tap_history(p__38237,p__38238){
+var map__38239 = p__38237;
+var map__38239__$1 = cljs.core.__destructure_map(map__38239);
+var obj_support = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38239__$1,new cljs.core.Keyword(null,"obj-support","obj-support",1522559229));
+var runtime = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38239__$1,new cljs.core.Keyword(null,"runtime","runtime",-1331573996));
+var map__38240 = p__38238;
+var map__38240__$1 = cljs.core.__destructure_map(map__38240);
+var msg = map__38240__$1;
+var num = cljs.core.get.cljs$core$IFn$_invoke$arity$3(map__38240__$1,new cljs.core.Keyword(null,"num","num",1985240673),(10));
 var tap_ids = shadow.remote.runtime.obj_support.get_tap_history(obj_support,num);
 return shadow.remote.runtime.shared.reply(runtime,msg,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"op","op",-1882987955),new cljs.core.Keyword(null,"tap-history","tap-history",-282803347),new cljs.core.Keyword(null,"oids","oids",-1580877688),tap_ids], null));
 });
-shadow.remote.runtime.tap_support.tool_disconnect = (function shadow$remote$runtime$tap_support$tool_disconnect(p__17519,tid){
-var map__17520 = p__17519;
-var map__17520__$1 = cljs.core.__destructure_map(map__17520);
-var svc = map__17520__$1;
-var subs_ref = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17520__$1,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911));
+shadow.remote.runtime.tap_support.tool_disconnect = (function shadow$remote$runtime$tap_support$tool_disconnect(p__38244,tid){
+var map__38245 = p__38244;
+var map__38245__$1 = cljs.core.__destructure_map(map__38245);
+var svc = map__38245__$1;
+var subs_ref = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38245__$1,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911));
 return cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$3(subs_ref,cljs.core.dissoc,tid);
 });
 shadow.remote.runtime.tap_support.start = (function shadow$remote$runtime$tap_support$start(runtime,obj_support){
@@ -56,57 +56,57 @@ var subs_ref = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.Persistent
 var tap_fn = (function shadow$remote$runtime$tap_support$start_$_runtime_tap(obj){
 if((!((obj == null)))){
 var oid = shadow.remote.runtime.obj_support.register(obj_support,obj,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"from","from",1815293044),new cljs.core.Keyword(null,"tap","tap",-1086702463)], null));
-var seq__17532 = cljs.core.seq(cljs.core.deref(subs_ref));
-var chunk__17533 = null;
-var count__17534 = (0);
-var i__17535 = (0);
+var seq__38256 = cljs.core.seq(cljs.core.deref(subs_ref));
+var chunk__38257 = null;
+var count__38258 = (0);
+var i__38259 = (0);
 while(true){
-if((i__17535 < count__17534)){
-var vec__17551 = chunk__17533.cljs$core$IIndexed$_nth$arity$2(null,i__17535);
-var tid = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__17551,(0),null);
-var tap_config = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__17551,(1),null);
+if((i__38259 < count__38258)){
+var vec__38273 = chunk__38257.cljs$core$IIndexed$_nth$arity$2(null,i__38259);
+var tid = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__38273,(0),null);
+var tap_config = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__38273,(1),null);
 shadow.remote.runtime.api.relay_msg(runtime,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"op","op",-1882987955),new cljs.core.Keyword(null,"tap","tap",-1086702463),new cljs.core.Keyword(null,"to","to",192099007),tid,new cljs.core.Keyword(null,"oid","oid",-768692334),oid], null));
 
 
-var G__17587 = seq__17532;
-var G__17588 = chunk__17533;
-var G__17589 = count__17534;
-var G__17590 = (i__17535 + (1));
-seq__17532 = G__17587;
-chunk__17533 = G__17588;
-count__17534 = G__17589;
-i__17535 = G__17590;
+var G__38306 = seq__38256;
+var G__38307 = chunk__38257;
+var G__38308 = count__38258;
+var G__38309 = (i__38259 + (1));
+seq__38256 = G__38306;
+chunk__38257 = G__38307;
+count__38258 = G__38308;
+i__38259 = G__38309;
 continue;
 } else {
-var temp__5804__auto__ = cljs.core.seq(seq__17532);
+var temp__5804__auto__ = cljs.core.seq(seq__38256);
 if(temp__5804__auto__){
-var seq__17532__$1 = temp__5804__auto__;
-if(cljs.core.chunked_seq_QMARK_(seq__17532__$1)){
-var c__5525__auto__ = cljs.core.chunk_first(seq__17532__$1);
-var G__17592 = cljs.core.chunk_rest(seq__17532__$1);
-var G__17593 = c__5525__auto__;
-var G__17594 = cljs.core.count(c__5525__auto__);
-var G__17595 = (0);
-seq__17532 = G__17592;
-chunk__17533 = G__17593;
-count__17534 = G__17594;
-i__17535 = G__17595;
+var seq__38256__$1 = temp__5804__auto__;
+if(cljs.core.chunked_seq_QMARK_(seq__38256__$1)){
+var c__5568__auto__ = cljs.core.chunk_first(seq__38256__$1);
+var G__38310 = cljs.core.chunk_rest(seq__38256__$1);
+var G__38311 = c__5568__auto__;
+var G__38312 = cljs.core.count(c__5568__auto__);
+var G__38313 = (0);
+seq__38256 = G__38310;
+chunk__38257 = G__38311;
+count__38258 = G__38312;
+i__38259 = G__38313;
 continue;
 } else {
-var vec__17564 = cljs.core.first(seq__17532__$1);
-var tid = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__17564,(0),null);
-var tap_config = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__17564,(1),null);
+var vec__38280 = cljs.core.first(seq__38256__$1);
+var tid = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__38280,(0),null);
+var tap_config = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__38280,(1),null);
 shadow.remote.runtime.api.relay_msg(runtime,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"op","op",-1882987955),new cljs.core.Keyword(null,"tap","tap",-1086702463),new cljs.core.Keyword(null,"to","to",192099007),tid,new cljs.core.Keyword(null,"oid","oid",-768692334),oid], null));
 
 
-var G__17599 = cljs.core.next(seq__17532__$1);
-var G__17600 = null;
-var G__17601 = (0);
-var G__17602 = (0);
-seq__17532 = G__17599;
-chunk__17533 = G__17600;
-count__17534 = G__17601;
-i__17535 = G__17602;
+var G__38317 = cljs.core.next(seq__38256__$1);
+var G__38318 = null;
+var G__38319 = (0);
+var G__38320 = (0);
+seq__38256 = G__38317;
+chunk__38257 = G__38318;
+count__38258 = G__38319;
+i__38259 = G__38320;
 continue;
 }
 } else {
@@ -120,26 +120,26 @@ return null;
 }
 });
 var svc = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"runtime","runtime",-1331573996),runtime,new cljs.core.Keyword(null,"obj-support","obj-support",1522559229),obj_support,new cljs.core.Keyword(null,"tap-fn","tap-fn",1573556461),tap_fn,new cljs.core.Keyword(null,"subs-ref","subs-ref",-1355989911),subs_ref], null);
-shadow.remote.runtime.api.add_extension(runtime,new cljs.core.Keyword("shadow.remote.runtime.tap-support","ext","shadow.remote.runtime.tap-support/ext",1019069674),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"ops","ops",1237330063),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"tap-subscribe","tap-subscribe",411179050),(function (p1__17521_SHARP_){
-return shadow.remote.runtime.tap_support.tap_subscribe(svc,p1__17521_SHARP_);
-}),new cljs.core.Keyword(null,"tap-unsubscribe","tap-unsubscribe",1183890755),(function (p1__17522_SHARP_){
-return shadow.remote.runtime.tap_support.tap_unsubscribe(svc,p1__17522_SHARP_);
-}),new cljs.core.Keyword(null,"request-tap-history","request-tap-history",-670837812),(function (p1__17523_SHARP_){
-return shadow.remote.runtime.tap_support.request_tap_history(svc,p1__17523_SHARP_);
-})], null),new cljs.core.Keyword(null,"on-tool-disconnect","on-tool-disconnect",693464366),(function (p1__17524_SHARP_){
-return shadow.remote.runtime.tap_support.tool_disconnect(svc,p1__17524_SHARP_);
+shadow.remote.runtime.api.add_extension(runtime,new cljs.core.Keyword("shadow.remote.runtime.tap-support","ext","shadow.remote.runtime.tap-support/ext",1019069674),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"ops","ops",1237330063),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"tap-subscribe","tap-subscribe",411179050),(function (p1__38246_SHARP_){
+return shadow.remote.runtime.tap_support.tap_subscribe(svc,p1__38246_SHARP_);
+}),new cljs.core.Keyword(null,"tap-unsubscribe","tap-unsubscribe",1183890755),(function (p1__38249_SHARP_){
+return shadow.remote.runtime.tap_support.tap_unsubscribe(svc,p1__38249_SHARP_);
+}),new cljs.core.Keyword(null,"request-tap-history","request-tap-history",-670837812),(function (p1__38250_SHARP_){
+return shadow.remote.runtime.tap_support.request_tap_history(svc,p1__38250_SHARP_);
+})], null),new cljs.core.Keyword(null,"on-tool-disconnect","on-tool-disconnect",693464366),(function (p1__38251_SHARP_){
+return shadow.remote.runtime.tap_support.tool_disconnect(svc,p1__38251_SHARP_);
 })], null));
 
 cljs.core.add_tap(tap_fn);
 
 return svc;
 });
-shadow.remote.runtime.tap_support.stop = (function shadow$remote$runtime$tap_support$stop(p__17573){
-var map__17574 = p__17573;
-var map__17574__$1 = cljs.core.__destructure_map(map__17574);
-var svc = map__17574__$1;
-var tap_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17574__$1,new cljs.core.Keyword(null,"tap-fn","tap-fn",1573556461));
-var runtime = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17574__$1,new cljs.core.Keyword(null,"runtime","runtime",-1331573996));
+shadow.remote.runtime.tap_support.stop = (function shadow$remote$runtime$tap_support$stop(p__38291){
+var map__38292 = p__38291;
+var map__38292__$1 = cljs.core.__destructure_map(map__38292);
+var svc = map__38292__$1;
+var tap_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38292__$1,new cljs.core.Keyword(null,"tap-fn","tap-fn",1573556461));
+var runtime = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__38292__$1,new cljs.core.Keyword(null,"runtime","runtime",-1331573996));
 cljs.core.remove_tap(tap_fn);
 
 return shadow.remote.runtime.api.del_extension(runtime,new cljs.core.Keyword("shadow.remote.runtime.tap-support","ext","shadow.remote.runtime.tap-support/ext",1019069674));

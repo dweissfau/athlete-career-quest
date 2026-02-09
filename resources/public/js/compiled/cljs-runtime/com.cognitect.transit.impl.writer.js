@@ -6,13 +6,7 @@ goog.require("com.cognitect.transit.types");
 goog.require("com.cognitect.transit.delimiters");
 goog.require("goog.math.Long");
 goog.scope(function() {
-  var writer = com.cognitect.transit.impl.writer;
-  var util = com.cognitect.transit.util;
-  var caching = com.cognitect.transit.caching;
-  var handlers = com.cognitect.transit.handlers;
-  var types = com.cognitect.transit.types;
-  var d = com.cognitect.transit.delimiters;
-  var Long = goog.math.Long;
+  var writer = com.cognitect.transit.impl.writer, util = com.cognitect.transit.util, caching = com.cognitect.transit.caching, handlers = com.cognitect.transit.handlers, types = com.cognitect.transit.types, d = com.cognitect.transit.delimiters, Long = goog.math.Long;
   writer.escape = function(string) {
     if (string.length > 0) {
       var c = string.charAt(0);
@@ -119,8 +113,7 @@ goog.scope(function() {
   };
   writer.JSONMarshaller.prototype.emitQuoted = function(em, obj, cache) {
     if (em.verbose) {
-      var ret = {};
-      var k = this.emitString(d.ESC_TAG, "'", "", true, cache);
+      var ret = {}, k = this.emitString(d.ESC_TAG, "'", "", true, cache);
       ret[k] = writer.marshal(this, obj, false, cache);
       return ret;
     } else {
@@ -130,8 +123,7 @@ goog.scope(function() {
   writer.emitObjects = function(em, iterable, cache) {
     var ret = [];
     if (util.isArray(iterable)) {
-      var i = 0;
-      for (; i < iterable.length; i++) {
+      for (var i = 0; i < iterable.length; i++) {
         ret.push(writer.marshal(em, iterable[i], false, cache));
       }
     } else {
@@ -153,11 +145,9 @@ goog.scope(function() {
     }
   };
   writer.stringableKeys = function(em, obj) {
-    var arr = em.unpack(obj);
-    var stringableKeys = true;
+    var arr = em.unpack(obj), stringableKeys = true;
     if (arr) {
-      var i = 0;
-      for (; i < arr.length; i = i + 2) {
+      for (var i = 0; i < arr.length; i += 2) {
         stringableKeys = writer.isStringableKey(em, arr[i]);
         if (!stringableKeys) {
           break;
@@ -165,11 +155,10 @@ goog.scope(function() {
       }
       return stringableKeys;
     } else if (obj.keys) {
-      var iter = obj.keys();
-      var step = null;
+      var iter = obj.keys(), step = null;
       if (iter.next) {
         step = iter.next();
-        for (; !step.done;) {
+        while (!step.done) {
           stringableKeys = writer.isStringableKey(em, step.value);
           if (!stringableKeys) {
             break;
@@ -204,11 +193,7 @@ goog.scope(function() {
     return isObject;
   };
   writer.emitMap = function(em, obj, skip, cache) {
-    var arr = null;
-    var rep = null;
-    var tag = null;
-    var ks = null;
-    var i = 0;
+    var arr = null, rep = null, tag = null, ks = null, i = 0;
     if (obj.constructor === Object || obj.forEach != null || em.handlerForForeign && writer.isForeignObject(obj)) {
       if (em.verbose) {
         if (obj.forEach != null) {
@@ -223,7 +208,7 @@ goog.scope(function() {
             rep = [];
             tag = em.emitString(d.ESC_TAG, "cmap", "", true, cache);
             if (arr) {
-              for (; i < arr.length; i = i + 2) {
+              for (; i < arr.length; i += 2) {
                 rep.push(writer.marshal(em, arr[i], false, false));
                 rep.push(writer.marshal(em, arr[i + 1], false, cache));
               }
@@ -251,7 +236,7 @@ goog.scope(function() {
             arr = em.unpack(obj);
             ret = ["^ "];
             if (arr) {
-              for (; i < arr.length; i = i + 2) {
+              for (; i < arr.length; i += 2) {
                 ret.push(writer.marshal(em, arr[i], true, cache));
                 ret.push(writer.marshal(em, arr[i + 1], false, cache));
               }
@@ -267,7 +252,7 @@ goog.scope(function() {
             rep = [];
             tag = em.emitString(d.ESC_TAG, "cmap", "", true, cache);
             if (arr) {
-              for (; i < arr.length; i = i + 2) {
+              for (; i < arr.length; i += 2) {
                 rep.push(writer.marshal(em, arr[i], false, cache));
                 rep.push(writer.marshal(em, arr[i + 1], false, cache));
               }
@@ -296,8 +281,7 @@ goog.scope(function() {
         return writer.marshal(em, v, false, cache);
       });
     } else {
-      var name = handlers.constructor(obj).name;
-      var err = new Error("Cannot write " + name);
+      var name = handlers.constructor(obj).name, err = new Error("Cannot write " + name);
       err.data = {obj:obj, type:name};
       throw err;
     }
@@ -341,9 +325,7 @@ goog.scope(function() {
     if (em.transform !== null) {
       obj = em.transform(obj);
     }
-    var h = em.handler(obj) || (em.handlerForForeign ? em.handlerForForeign(obj, em.handlers) : null);
-    var tag = h ? h.tag(obj) : null;
-    var rep = h ? h.rep(obj) : null;
+    var h = em.handler(obj) || (em.handlerForForeign ? em.handlerForForeign(obj, em.handlers) : null), tag = h ? h.tag(obj) : null, rep = h ? h.rep(obj) : null;
     if (h != null && tag != null) {
       switch(tag) {
         case "_":
@@ -378,8 +360,7 @@ goog.scope(function() {
           break;
       }
     } else {
-      var name = handlers.constructor(obj).name;
-      var err = new Error("Cannot write " + name);
+      var name = handlers.constructor(obj).name, err = new Error("Cannot write " + name);
       err.data = {obj:obj, type:name};
       throw err;
     }
@@ -393,8 +374,7 @@ goog.scope(function() {
         return obj;
       }
     } else {
-      var name = handlers.constructor(obj).name;
-      var err = new Error("Cannot write " + name);
+      var name = handlers.constructor(obj).name, err = new Error("Cannot write " + name);
       err.data = {obj:obj, type:name};
       throw err;
     }
@@ -416,10 +396,7 @@ goog.scope(function() {
   };
   writer.Writer.prototype["marshaller"] = writer.Writer.prototype.marshaller;
   writer.Writer.prototype.write = function(obj, opts) {
-    var ret = null;
-    var ropts = opts || {};
-    var asMapKey = ropts["asMapKey"] || false;
-    var cache = this._marshaller.verbose ? false : this.cache;
+    var ret = null, ropts = opts || {}, asMapKey = ropts["asMapKey"] || false, cache = this._marshaller.verbose ? false : this.cache;
     if (ropts["marshalTop"] === false) {
       ret = writer.marshal(this._marshaller, obj, asMapKey, cache);
     } else {

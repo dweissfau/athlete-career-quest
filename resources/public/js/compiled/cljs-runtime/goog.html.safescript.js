@@ -52,7 +52,7 @@ goog.loadModule(function(exports) {
   }
   SafeScript.EMPTY = {valueOf:function() {
     return SafeScript.createSafeScriptSecurityPrivateDoNotAccessOrElse("");
-  }}.valueOf();
+  },}.valueOf();
   exports = SafeScript;
   return exports;
 });
