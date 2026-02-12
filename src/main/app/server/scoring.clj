@@ -2,43 +2,36 @@
   "Scoring algorithm for career recommendations"
   (:require [clojure.tools.logging :as log]))
 
-;; Default dimension weights (20 dimensions)
-;; Core dimensions (14):
-;;   people, data, creative, analytical, leadership, communication,
-;;   technical, physical, competitive, collaborative, risk-tolerance,
-;;   income-priority, education-openness, urgency
-;; Extended dimensions (6):
-;;   sports-connection, negotiation, mentoring, entrepreneurial,
-;;   pressure-tolerance, social-impact
+;; Redesigned scoring dimensions (18 total)
+;; Merged from previous system:
+;;   - 'data' absorbed into 'analytical'
+;;   - 'collaborative' absorbed into 'people'
+;;   - 'urgency' replaced by 'stability'
 (def default-dimension-weights
-  {:people 1.0
-   :data 1.0
-   :creative 1.0
+  {:leadership 1.2
    :analytical 1.0
-   :leadership 1.2
+   :creative 1.0
    :communication 1.1
-   :technical 1.0
-   :physical 0.8
-   :competitive 1.0
-   :collaborative 1.0
    :risk-tolerance 1.0
+   :people 1.0
+   :pressure-tolerance 1.0
+   :mentoring 1.0
    :income-priority 1.0
    :education-openness 1.0
-   :urgency 1.0
-   ;; Extended dimensions for athlete career matching
    :sports-connection 1.0
-   :negotiation 1.0
-   :mentoring 1.0
    :entrepreneurial 1.0
-   :pressure-tolerance 1.0
-   :social-impact 1.0})
+   :technical 1.0
+   :physical 0.8
+   :social-impact 1.0
+   :negotiation 1.0
+   :competitive 1.0
+   :stability 1.0})
 
-;; Default category weights
-(def default-category-weights
-  {:interests 0.25
-   :skills 0.30
-   :financial 0.20
-   :timeline 0.25})
+;; Section weights for the 3-section questionnaire
+(def default-section-weights
+  {:likert 0.35
+   :true-false 0.30
+   :multiple-choice 0.35})
 
 (defn get-config-value
   "Get configuration value with fallback"
@@ -54,36 +47,59 @@
   (let [value (:response-value response)
         q-type (:question-type question)]
     (case q-type
-      "likert" (/ (dec (or (:value value) value 3)) 4.0)  ; 1-5 scale
+      "likert" (/ (dec (or (:value value) value 3)) 4.0)  ; 1-5 scale → 0-1
+      "true_false" (if (:value value) 1.0 0.0)            ; true → 1.0, false → 0.0
       "multiple_choice" (or (:score value) 0.5)
+      "scenario" (or (:score value) 0.5)
       "ranking" (let [ranks (:ranks value)]
                   (if (seq ranks)
                     (/ (reduce + (map-indexed (fn [i _] (/ (- (count ranks) i) (count ranks))) ranks))
                        (count ranks))
                     0.5))
-      "scenario" (or (:score value) 0.5)
-      "short_text" 0.5  ; Text responses don't contribute to scoring directly
+      "short_text" 0.5
       0.5)))
 
 (defn calculate-dimension-scores
-  "Calculate scores for each dimension based on responses"
+  "Calculate scores for each dimension based on responses.
+   Handles two scoring modes:
+   1. Likert/True-False: normalize response × scoring-weights
+   2. Multiple Choice with map scores: use selected option's score map directly"
   [responses questions]
-  (let [response-map (into {} (map (fn [r] [(:question-id r) r]) responses))
-        question-map (into {} (map (fn [q] [(:id q) q]) questions))]
+  (let [question-map (into {} (map (fn [q] [(:id q) q]) questions))]
     (reduce
       (fn [scores response]
         (let [question (get question-map (:question-id response))
-              weights (:scoring-weights question)
-              normalized (normalize-response response question)]
-          (reduce
-            (fn [s [dimension weight]]
-              (let [dim-key (keyword dimension)]
-                (update s dim-key
-                        (fn [{:keys [total count] :or {total 0 count 0}}]
-                          {:total (+ total (* normalized weight))
-                           :count (inc count)}))))
-            scores
-            weights)))
+              q-type (:question-type question)
+              value (:response-value response)]
+          (cond
+            ;; MC with map scores
+            (and (= q-type "multiple_choice")
+                 (map? (:score value)))
+            (reduce
+              (fn [s [dim score-val]]
+                (let [dim-key (keyword dim)]
+                  (update s dim-key
+                          (fn [{:keys [total count] :or {total 0 count 0}}]
+                            {:total (+ total score-val)
+                             :count (inc count)}))))
+              scores
+              (:score value))
+
+            ;; Likert, True/False, MC with scalar, Scenario
+            :else
+            (let [weights (:scoring-weights question)
+                  normalized (normalize-response response question)]
+              (if weights
+                (reduce
+                  (fn [s [dimension weight]]
+                    (let [dim-key (keyword dimension)]
+                      (update s dim-key
+                              (fn [{:keys [total count] :or {total 0 count 0}}]
+                                {:total (+ total (* normalized weight))
+                                 :count (inc count)}))))
+                  scores
+                  weights)
+                scores)))))
       {}
       responses)))
 
@@ -93,45 +109,32 @@
   (reduce-kv
     (fn [scores dim {:keys [total count]}]
       (let [avg (if (pos? count) (/ total count) 0.5)
+            clamped (max 0.0 (min 1.0 avg))
             weight (get dimension-weights dim 1.0)]
-        (assoc scores dim (* avg weight))))
+        (assoc scores dim (min 1.0 (* clamped weight)))))
     {}
     raw-scores))
 
-(defn calculate-category-scores
-  "Calculate scores by category"
-  [responses questions categories]
-  (let [category-map (into {} (map (fn [c] [(:id c) c]) categories))
-        question-categories (group-by :category-id questions)
-        response-map (into {} (map (fn [r] [(:question-id r) r]) responses))]
-    (reduce-kv
-      (fn [scores cat-id cat-questions]
-        (let [category (get category-map cat-id)
-              cat-name (keyword (:name category))
-              cat-responses (filter identity
-                                    (map #(get response-map (:id %)) cat-questions))
-              avg-score (if (seq cat-responses)
-                          (/ (reduce + (map #(normalize-response %
-                                               (first (filter (fn [q] (= (:id q) (:question-id %)))
-                                                              cat-questions)))
-                                            cat-responses))
-                             (count cat-responses))
-                          0.5)]
-          (assoc scores cat-name avg-score)))
-      {}
-      question-categories)))
-
 (defn calculate-career-match
-  "Calculate match score between user profile and a career"
+  "Calculate match score between user profile and a career.
+   Supports negative weights: a negative importance penalizes users who are
+   STRONG in that dimension (e.g. :risk-tolerance -0.3 means risk-lovers
+   are a poor fit). Formula:
+     positive weight → user-score × importance
+     negative weight → (1 - user-score) × |importance|
+   Denominator uses sum of absolute weights for proper normalization."
   [dimension-scores career]
   (let [required-dims (:required-dimensions career)
         match-scores (map
                        (fn [[dim importance]]
                          (let [user-score (get dimension-scores (keyword dim) 0.5)]
-                           (* user-score importance)))
-                       required-dims)]
-    (if (seq match-scores)
-      (/ (reduce + match-scores) (reduce + (map second required-dims)))
+                           (if (neg? importance)
+                             (* (- 1.0 user-score) (Math/abs importance))
+                             (* user-score importance))))
+                       required-dims)
+        total-abs-weight (reduce + (map (fn [[_ w]] (Math/abs w)) required-dims))]
+    (if (and (seq match-scores) (pos? total-abs-weight))
+      (/ (reduce + match-scores) total-abs-weight)
       0.5)))
 
 (defn calculate-career-scores
@@ -154,7 +157,7 @@
   [dimension-scores career-scores]
   (let [leadership (get dimension-scores :leadership 0.5)
         communication (get dimension-scores :communication 0.5)
-        urgency (get dimension-scores :urgency 0.5)
+        competitive (get dimension-scores :competitive 0.5)
         top-careers (take 3 career-scores)
         avg-internship-importance (/ (reduce + (map :internship-importance top-careers)) 3)]
     {:recommended (> avg-internship-importance 3)
@@ -162,8 +165,8 @@
      :reasoning (cond
                   (and (> leadership 0.7) (> communication 0.7))
                   "Strong leadership and communication skills make you well-suited for competitive internship programs."
-                  (> urgency 0.7)
-                  "Your desire to gain practical experience early makes internships highly valuable."
+                  (> competitive 0.7)
+                  "Your competitive drive and desire to gain practical experience make internships highly valuable."
                   :else
                   "Internships will help you explore career options and build professional skills.")
      :suggested-types (map :career-category (take 3 career-scores))}))
@@ -189,17 +192,20 @@
   [dimension-scores career-scores]
   (let [education-openness (get dimension-scores :education-openness 0.5)
         income-priority (get dimension-scores :income-priority 0.5)
-        urgency (get dimension-scores :urgency 0.5)
+        stability (get dimension-scores :stability 0.5)
         top-careers (take 5 career-scores)
         grad-recommended-careers (filter :grad-school-recommended top-careers)
         grad-percentage (/ (count grad-recommended-careers) (max 1 (count top-careers)))]
-    {:recommended (and (> education-openness 0.5)
-                       (> grad-percentage 0.4))
-     :confidence (min 1.0 (* education-openness grad-percentage))
+    {:recommended (or (> education-openness 0.6)
+                      (and (> education-openness 0.4)
+                           (> grad-percentage 0.4)))
+     :confidence (min 1.0 (* education-openness (+ 0.5 (* grad-percentage 0.5))))
      :timing (cond
-               (and (> income-priority 0.7) (< urgency 0.3))
+               (> education-openness 0.8)
                "Consider pursuing immediately after undergraduate"
-               (> urgency 0.5)
+               (and (> income-priority 0.7) (> education-openness 0.5))
+               "Consider pursuing immediately after undergraduate"
+               (> stability 0.6)
                "After 2-3 years of work experience"
                :else
                "After 3-5 years of work experience")
@@ -250,15 +256,11 @@
   (log/info "Calculating results for" (count responses) "responses")
 
   (let [;; Get configuration
-        category-weights (get-config-value config "scoring_weights" default-category-weights)
         dimension-weights (get-config-value config "dimension_weights" default-dimension-weights)
 
         ;; Calculate dimension scores
         raw-dimension-scores (calculate-dimension-scores responses questions)
         dimension-scores (finalize-dimension-scores raw-dimension-scores dimension-weights)
-
-        ;; Calculate category scores (placeholder - would need category data)
-        category-scores {:interests 0.5 :skills 0.5 :financial 0.5 :timeline 0.5}
 
         ;; Calculate career matches
         career-scores (calculate-career-scores dimension-scores careers)
@@ -272,7 +274,6 @@
 
     {:profile {:dimensions dimension-scores}
 
-     :category-scores category-scores
      :dimension-scores dimension-scores
      :career-scores (take 10 career-scores)
 
@@ -283,18 +284,3 @@
       :industry industry-rec}
 
      :roadmap roadmap}))
-
-(comment
-  ;; Test scoring
-  (calculate-results
-    [{:question-id "q1" :response-value {:value 4}}
-     {:question-id "q2" :response-value {:value 5}}]
-    [{:id "q1" :question-type "likert" :scoring-weights {:leadership 0.8 :communication 0.6}}
-     {:id "q2" :question-type "likert" :scoring-weights {:analytical 0.9 :technical 0.7}}]
-    [{:id "c1" :name "Sports Marketing" :category "sports"
-      :required-dimensions {:leadership 0.7 :communication 0.8}
-      :grad-school-recommended false
-      :internship-importance 4
-      :typical-majors ["Marketing" "Business"]}]
-    [])
-  )
