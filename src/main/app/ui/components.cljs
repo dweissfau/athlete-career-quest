@@ -188,7 +188,7 @@
         (dom/p {:style {:color "#64748b" :fontStyle "italic" :marginBottom "12px"}} (str "Timing: " timing)))
       ;; Career reference footer
       (dom/div {:style {:borderTop "1px solid #e2e8f0" :paddingTop "12px" :marginTop "12px"}}
-        (dom/span {:style {:fontSize "0.85rem" :color "#64748b"}} "Based on your top match: ")
+        (dom/span {:style {:fontSize "0.85rem" :color "#64748b"}} "Based on your top matches in ")
         (dom/span {:style {:fontSize "0.85rem" :color "#2563eb" :fontWeight "700"}} career-name)))))
 
 (def ui-personalized-advice-card (comp/factory PersonalizedAdviceCard {:keyfn :headline}))

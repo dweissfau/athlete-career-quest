@@ -205,7 +205,7 @@
   "Generate major recommendations based on career matches"
   [career-scores]
   (let [top-careers (take 5 career-scores)
-        all-majors (mapcat :typical-majors top-careers)
+        all-majors (remove #(#{"Any" "Any Quantitative Field"} %) (mapcat :typical-majors top-careers))
         major-freq (frequencies all-majors)
         ranked-majors (->> major-freq
                            (sort-by val >)
@@ -239,7 +239,8 @@
                "After 2-3 years of work experience"
                :else
                "After 3-5 years of work experience")
-     :suggested-programs (distinct (mapcat :typical-majors grad-recommended-careers))}))
+     :suggested-programs (remove #(#{"Any" "Any Quantitative Field"} %)
+                                  (distinct (mapcat :typical-majors grad-recommended-careers)))}))
 
 (defn generate-industry-recommendation
   "Generate top industry recommendations"

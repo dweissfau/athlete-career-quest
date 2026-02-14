@@ -349,6 +349,71 @@
    :internship {:recommended true :confidence 85}
    :grad-school {:recommended true :timing "After 2-3 years work experience"}})
 
+;; ============================================
+;; Test Personas (for quick scoring verification)
+;; ============================================
+(def test-personas
+  [{:key :competitive-leader
+    :label "Competitive Leader"
+    :desc "High leadership, competitive, negotiation, pressure-tolerance"
+    :answers {"l-1" 5 "l-2" 3 "l-3" 5 "l-4" 3 "l-5" 2 "l-6" 3 "l-7" 3 "l-8" 4
+              "l-9" 2 "l-10" 5 "l-11" 5 "l-12" 4 "l-13" 5 "l-14" 3 "l-15" 4
+              "l-16" 2 "l-17" 5 "l-18" 4 "l-19" 4 "l-20" 5
+              "tf-1" false "tf-2" true "tf-3" true "tf-4" true "tf-5" false
+              "tf-6" false "tf-7" false "tf-8" false "tf-9" false "tf-10" true
+              "tf-11" false "tf-12" true "tf-13" false "tf-14" true "tf-15" true
+              "mc-1" "a" "mc-2" "a" "mc-3" "a" "mc-4" "a" "mc-5" "b"
+              "mc-6" "c" "mc-7" "a" "mc-8" "e" "mc-9" "c" "mc-10" "a"
+              "mc-11" "a" "mc-12" "a" "mc-13" "a" "mc-14" "c" "mc-15" "a"}}
+   {:key :analytical-introvert
+    :label "Analytical Introvert"
+    :desc "High analytical, technical, stability; low people, communication"
+    :answers {"l-1" 2 "l-2" 5 "l-3" 3 "l-4" 5 "l-5" 5 "l-6" 2 "l-7" 2 "l-8" 2
+              "l-9" 5 "l-10" 2 "l-11" 2 "l-12" 2 "l-13" 4 "l-14" 4 "l-15" 5
+              "l-16" 5 "l-17" 1 "l-18" 4 "l-19" 2 "l-20" 3
+              "tf-1" true "tf-2" false "tf-3" false "tf-4" false "tf-5" false
+              "tf-6" false "tf-7" false "tf-8" true "tf-9" false "tf-10" false
+              "tf-11" true "tf-12" false "tf-13" true "tf-14" false "tf-15" false
+              "mc-1" "b" "mc-2" "d" "mc-3" "e" "mc-4" "a" "mc-5" "a"
+              "mc-6" "a" "mc-7" "d" "mc-8" "d" "mc-9" "a" "mc-10" "b"
+              "mc-11" "c" "mc-12" "d" "mc-13" "e" "mc-14" "a" "mc-15" "d"}}
+   {:key :sports-coach
+    :label "Sports Coach"
+    :desc "High sports-connection, mentoring, physical, people"
+    :answers {"l-1" 4 "l-2" 3 "l-3" 5 "l-4" 3 "l-5" 2 "l-6" 3 "l-7" 5 "l-8" 3
+              "l-9" 3 "l-10" 5 "l-11" 4 "l-12" 5 "l-13" 2 "l-14" 3 "l-15" 4
+              "l-16" 1 "l-17" 4 "l-18" 3 "l-19" 5 "l-20" 4
+              "tf-1" true "tf-2" false "tf-3" true "tf-4" false "tf-5" true
+              "tf-6" true "tf-7" false "tf-8" false "tf-9" false "tf-10" false
+              "tf-11" false "tf-12" true "tf-13" false "tf-14" false "tf-15" true
+              "mc-1" "d" "mc-2" "e" "mc-3" "a" "mc-4" "e" "mc-5" "b"
+              "mc-6" "c" "mc-7" "c" "mc-8" "b" "mc-9" "c" "mc-10" "a"
+              "mc-11" "a" "mc-12" "b" "mc-13" "b" "mc-14" "b" "mc-15" "e"}}
+   {:key :creative-entrepreneur
+    :label "Creative Entrepreneur"
+    :desc "High creative, entrepreneurial, risk-tolerance; low stability"
+    :answers {"l-1" 3 "l-2" 1 "l-3" 4 "l-4" 4 "l-5" 2 "l-6" 5 "l-7" 4 "l-8" 5
+              "l-9" 1 "l-10" 4 "l-11" 5 "l-12" 2 "l-13" 4 "l-14" 2 "l-15" 2
+              "l-16" 4 "l-17" 3 "l-18" 3 "l-19" 2 "l-20" 5
+              "tf-1" false "tf-2" true "tf-3" true "tf-4" true "tf-5" false
+              "tf-6" false "tf-7" false "tf-8" true "tf-9" false "tf-10" true
+              "tf-11" false "tf-12" true "tf-13" false "tf-14" true "tf-15" false
+              "mc-1" "c" "mc-2" "c" "mc-3" "d" "mc-4" "d" "mc-5" "e"
+              "mc-6" "d" "mc-7" "b" "mc-8" "a" "mc-9" "d" "mc-10" "c"
+              "mc-11" "d" "mc-12" "a" "mc-13" "a" "mc-14" "d" "mc-15" "c"}}
+   {:key :healthcare-helper
+    :label "Healthcare Helper"
+    :desc "High social-impact, people, education-openness, mentoring"
+    :answers {"l-1" 3 "l-2" 4 "l-3" 3 "l-4" 4 "l-5" 3 "l-6" 3 "l-7" 3 "l-8" 2
+              "l-9" 4 "l-10" 5 "l-11" 2 "l-12" 5 "l-13" 2 "l-14" 5 "l-15" 3
+              "l-16" 1 "l-17" 3 "l-18" 3 "l-19" 3 "l-20" 3
+              "tf-1" true "tf-2" false "tf-3" false "tf-4" true "tf-5" false
+              "tf-6" true "tf-7" true "tf-8" false "tf-9" true "tf-10" false
+              "tf-11" true "tf-12" false "tf-13" true "tf-14" false "tf-15" true
+              "mc-1" "d" "mc-2" "b" "mc-3" "b" "mc-4" "b" "mc-5" "b"
+              "mc-6" "b" "mc-7" "c" "mc-8" "b" "mc-9" "b" "mc-10" "c"
+              "mc-11" "b" "mc-12" "e" "mc-13" "d" "mc-14" "b" "mc-15" "b"}}])
+
 ;; Mutations
 (defmutation set-page [{:keys [page]}]
   (action [{:keys [state]}]
@@ -414,6 +479,20 @@
       (swap! state assoc
              :computed-results results
              :personalized-advice personalized-advice))))
+
+(defmutation load-test-persona [{:keys [persona-key]}]
+  (action [{:keys [state]}]
+    (let [persona (first (filter #(= (:key %) persona-key) test-personas))
+          answers (:answers persona)
+          responses (->scoring-responses answers sample-questions)
+          questions (->scoring-questions sample-questions)
+          results (scoring/calculate-results responses questions careers/careers [])
+          personalized-advice (advice/generate-personalized-advice results careers/careers)]
+      (swap! state assoc
+             :answers answers
+             :computed-results results
+             :personalized-advice personalized-advice
+             :current-page :results))))
 
 ;; Components
 (defsc LikertScale [this {:keys [value on-change]}]
@@ -533,7 +612,7 @@
 
 (def ui-question (comp/factory Question))
 
-(defsc LandingPage [this {:keys [on-start]}]
+(defsc LandingPage [this {:keys [on-start on-test-persona]}]
   (dom/div {:className "container"}
     (dom/div {:className "card" :style {:textAlign "center" :padding "48px"}}
       (dom/h1 {:style {:fontSize "2.5rem" :marginBottom "16px" :color "#1e293b"}}
@@ -555,7 +634,22 @@
       (dom/button {:className "btn btn-primary"
                    :style {:fontSize "1.1rem" :padding "16px 48px"}
                    :onClick on-start}
-        "Start Your Journey"))))
+        "Start Your Journey"))
+
+    ;; Test personas - quick scoring verification
+    (dom/div {:className "card" :style {:marginTop "24px" :padding "32px"}}
+      (dom/h3 {:style {:marginBottom "8px" :color "#1e293b"}} "Quick Test Personas")
+      (dom/p {:style {:color "#64748b" :marginBottom "20px" :fontSize "0.9rem"}}
+        "Auto-fill all 50 answers and jump straight to results.")
+      (dom/div {:style {:display "flex" :flexWrap "wrap" :gap "12px" :justifyContent "center"}}
+        (map (fn [{:keys [key label desc]}]
+               (dom/button {:key (name key)
+                            :className "btn btn-secondary"
+                            :style {:padding "12px 20px" :fontSize "0.9rem"}
+                            :title desc
+                            :onClick #(on-test-persona key)}
+                 label))
+             test-personas)))))
 
 (def ui-landing-page (comp/factory LandingPage))
 
@@ -621,7 +715,7 @@
                                        :category (:career-category c)
                                        :majors (:typical-majors c)})
                                     (take 10 career-scores))
-        recommended-majors (mapv :name (get-in recommendations [:major :top-3]))
+        recommended-majors (get-in recommendations [:major :top-3])
         internship-advice (:internship-advice personalized-advice)
         grad-school-advice (:grad-school-advice personalized-advice)]
     (dom/div {:className "container"}
@@ -659,8 +753,12 @@
         (dom/div {:className "card"}
           (dom/h3 {:style {:marginBottom "16px"}} "Recommended Majors")
           (dom/ol {:style {:margin 0 :paddingLeft "20px"}}
-            (map (fn [major]
-                   (dom/li {:key major :style {:marginBottom "8px"}} major))
+            (map (fn [{:keys [name fit]}]
+                   (let [career-count (Math/round (* fit 5))]
+                     (dom/li {:key name :style {:marginBottom "8px"}}
+                       (dom/span {:style {:fontWeight "600"}} name)
+                       (dom/span {:style {:color "#64748b" :fontSize "0.85rem" :marginLeft "8px"}}
+                         (str "(" career-count " of your top 5 careers)")))))
                  recommended-majors)))
 
         ;; Personalized Internship Advice
@@ -686,7 +784,8 @@
                    :personalized-advice nil}}
   (case current-page
     :landing
-    (ui-landing-page {:on-start #(comp/transact! this [(set-page {:page :questionnaire})])})
+    (ui-landing-page {:on-start #(comp/transact! this [(set-page {:page :questionnaire})])
+                      :on-test-persona #(comp/transact! this [(load-test-persona {:persona-key %})])})
 
     :questionnaire
     (ui-questionnaire-page
