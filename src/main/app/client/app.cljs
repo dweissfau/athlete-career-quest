@@ -14,105 +14,325 @@
 
 ;; Sample questions data - athlete-specific framing
 (def sample-questions
-  [{:id "bg-1"
-    :text "What year of athletic eligibility are you in?"
-    :type "multiple_choice"
-    :options [{:value "freshman" :label "Freshman"}
-              {:value "sophomore" :label "Sophomore"}
-              {:value "junior" :label "Junior"}
-              {:value "senior" :label "Senior"}]}
-   ;; No scoring-weights - demographic question only
-
-   {:id "int-1"
-    :text "As a teammate, I'd rather motivate and support others than analyze game film and statistics."
+  [;; ============================================
+   ;; SECTION 1: Likert Scale (1-5) - Self-Assessment
+   ;; 1 = Strongly Disagree | 5 = Strongly Agree
+   ;; ============================================
+   {:id "l-1"
+    :text "I enjoy leading others toward a shared goal."
     :type "likert"
-    :scoring-weights {:people 1.0 :collaborative 0.7}}
+    :scoring-weights {:leadership 1.0 :people 0.3}}
 
-   {:id "int-2"
-    :text "I'd rather design a creative new play than study structured opponent scouting reports."
+   {:id "l-2"
+    :text "I prefer clear structure and expectations."
+    :type "likert"
+    :scoring-weights {:stability 1.0}}
+
+   {:id "l-3"
+    :text "I perform well under pressure."
+    :type "likert"
+    :scoring-weights {:pressure-tolerance 1.0 :competitive 0.3}}
+
+   {:id "l-4"
+    :text "I like solving complex problems."
+    :type "likert"
+    :scoring-weights {:analytical 1.0}}
+
+   {:id "l-5"
+    :text "I enjoy working with numbers and data."
+    :type "likert"
+    :scoring-weights {:analytical 0.8 :technical 0.3}}
+
+   {:id "l-6"
+    :text "I enjoy creative thinking and brainstorming."
     :type "likert"
     :scoring-weights {:creative 1.0}}
 
-   {:id "int-3"
-    :text "Rank what motivates you most as an athlete:"
-    :type "ranking"
-    :scoring-weights {:competitive 1.0}
-    :options [{:value "Winning championships and titles"}
-              {:value "Setting personal records and improving stats"}
-              {:value "Being part of a close-knit team"}
-              {:value "Earning recognition from coaches and scouts"}]}
-
-   {:id "sk-1"
-    :text "Your team is down at halftime in a crucial game. The locker room is tense and some teammates look defeated. What do you do?"
-    :type "scenario"
-    :scoring-weights {:leadership 1.0 :pressure-tolerance 0.6}
-    :options [{:value "rally" :label "Stand up and deliver a motivating speech to fire up the team" :score 1.0}
-              {:value "strategy" :label "Quietly review what's working and suggest tactical adjustments" :score 0.6}
-              {:value "individual" :label "Focus on preparing yourself mentally for the second half" :score 0.3}
-              {:value "defer" :label "Let the coaches handle it - that's their job" :score 0.1}]}
-
-   {:id "sk-2"
-    :text "I can break down complex plays so any teammate understands their role."
+   {:id "l-7"
+    :text "I prefer hands-on learning over lectures."
     :type "likert"
-    :scoring-weights {:communication 1.0 :mentoring 0.6}}
+    :scoring-weights {:physical 0.7 :technical 0.3}}
 
-   {:id "sk-3"
-    :text "I enjoy tracking my performance stats and analyzing game data."
+   {:id "l-8"
+    :text "I am comfortable taking risks."
     :type "likert"
-    :scoring-weights {:data 1.0 :analytical 0.8}}
+    :scoring-weights {:risk-tolerance 1.0 :entrepreneurial 0.3}}
 
-   {:id "sk-4"
-    :text "I quickly adapt to new training technology, performance apps, and video analysis tools."
+   {:id "l-9"
+    :text "I value job security highly."
     :type "likert"
-    :scoring-weights {:technical 1.0}}
+    :scoring-weights {:stability 1.0}}
 
-   {:id "fin-1"
-    :text "How important is earning potential when choosing your post-athletic career?"
+   {:id "l-10"
+    :text "I enjoy building professional relationships."
     :type "likert"
-    :scoring-weights {:income-priority 1.0}}
+    :scoring-weights {:people 1.0 :negotiation 0.3}}
 
-   {:id "fin-2"
-    :text "Like investing in development years as a young athlete, I'd accept lower initial pay for long-term career growth."
+   {:id "l-11"
+    :text "I like fast-paced environments."
     :type "likert"
-    :scoring-weights {:education-openness 0.8}}
+    :scoring-weights {:pressure-tolerance 0.7 :competitive 0.5}}
 
-   {:id "tm-1"
-    :text "How soon after your athletic career ends do you want to start your professional career?"
-    :type "multiple_choice"
-    :scoring-weights {:urgency 1.0}
-    :options [{:value "immediate" :label "Immediately" :score 1.0}
-              {:value "3-months" :label "Within 3 months" :score 0.75}
-              {:value "6-months" :label "Within 6 months" :score 0.5}
-              {:value "grad-school" :label "After graduate school" :score 0.0}]}
-
-   {:id "tm-2"
-    :text "I've thought about starting my own sports-related business (training facility, brand, agency, etc.)."
+   {:id "l-12"
+    :text "I enjoy mentoring or coaching others."
     :type "likert"
-    :scoring-weights {:entrepreneurial 1.0 :risk-tolerance 0.7}}
+    :scoring-weights {:mentoring 1.0 :people 0.3}}
 
-   {:id "sk-5"
-    :text "During training, I like breaking down complex techniques into smaller steps to master each part."
+   {:id "l-13"
+    :text "I am motivated by financial success."
     :type "likert"
-    :scoring-weights {:analytical 1.0 :data 0.5}}
+    :scoring-weights {:income-priority 1.0 :competitive 0.3}}
 
-   {:id "sk-6"
-    :text "It's the final seconds of a championship game. Your team needs one play to win, and the ball is coming to you. How do you feel?"
-    :type "scenario"
-    :scoring-weights {:pressure-tolerance 1.0 :competitive 0.5}
-    :options [{:value "thrive" :label "This is what I live for - I want this moment" :score 1.0}
-              {:value "confident" :label "Nervous but confident - I've prepared for this" :score 0.75}
-              {:value "anxious" :label "Very nervous - I hope I don't mess up" :score 0.35}
-              {:value "avoid" :label "I'd rather someone else take this shot" :score 0.1}]}
+   {:id "l-14"
+    :text "I would consider graduate school."
+    :type "likert"
+    :scoring-weights {:education-openness 1.0}}
 
-   {:id "int-4"
-    :text "Maintaining a connection to athletics is important to my career satisfaction - I want sports in my professional life."
+   {:id "l-15"
+    :text "I enjoy analyzing performance metrics."
+    :type "likert"
+    :scoring-weights {:analytical 0.9 :sports-connection 0.3}}
+
+   {:id "l-16"
+    :text "I prefer independent work over teamwork."
+    :type "likert"
+    :scoring-weights {:people -0.5 :entrepreneurial 0.3}}
+
+   {:id "l-17"
+    :text "I enjoy public speaking."
+    :type "likert"
+    :scoring-weights {:communication 1.0}}
+
+   {:id "l-18"
+    :text "I like long-term strategic planning."
+    :type "likert"
+    :scoring-weights {:leadership 0.5 :analytical 0.5}}
+
+   {:id "l-19"
+    :text "I want a career connected to sports."
     :type "likert"
     :scoring-weights {:sports-connection 1.0}}
 
-   {:id "sk-7"
-    :text "I'm comfortable discussing my value with coaches - negotiating playing time, role, or opportunities."
+   {:id "l-20"
+    :text "I am willing to work long hours early in my career."
     :type "likert"
-    :scoring-weights {:negotiation 1.0 :communication 0.4}}])
+    :scoring-weights {:competitive 0.5 :income-priority 0.3}}
+
+   ;; ============================================
+   ;; SECTION 2: True / False - Career Tendencies
+   ;; ============================================
+   {:id "tf-1"
+    :text "I would rather have stability than high earning potential."
+    :type "true_false"
+    :scoring-weights {:stability 1.0 :income-priority -0.5}}
+
+   {:id "tf-2"
+    :text "I am interested in starting my own business someday."
+    :type "true_false"
+    :scoring-weights {:entrepreneurial 1.0 :risk-tolerance 0.4}}
+
+   {:id "tf-3"
+    :text "I would relocate for the right job opportunity."
+    :type "true_false"
+    :scoring-weights {:risk-tolerance 0.5 :competitive 0.3}}
+
+   {:id "tf-4"
+    :text "I enjoy writing and communicating ideas clearly."
+    :type "true_false"
+    :scoring-weights {:communication 1.0}}
+
+   {:id "tf-5"
+    :text "I prefer physical activity over desk work."
+    :type "true_false"
+    :scoring-weights {:physical 1.0 :sports-connection 0.3}}
+
+   {:id "tf-6"
+    :text "I am interested in helping people solve personal challenges."
+    :type "true_false"
+    :scoring-weights {:social-impact 0.8 :people 0.5 :mentoring 0.4}}
+
+   {:id "tf-7"
+    :text "I am interested in how laws and policies shape society."
+    :type "true_false"
+    :scoring-weights {:social-impact 0.7 :analytical 0.3}}
+
+   {:id "tf-8"
+    :text "I enjoy technology and innovation."
+    :type "true_false"
+    :scoring-weights {:technical 1.0 :creative 0.3}}
+
+   {:id "tf-9"
+    :text "I would enjoy working in a hospital or healthcare setting."
+    :type "true_false"
+    :scoring-weights {:people 0.5 :social-impact 0.5 :education-openness 0.3}}
+
+   {:id "tf-10"
+    :text "I enjoy selling or persuading others."
+    :type "true_false"
+    :scoring-weights {:negotiation 1.0 :competitive 0.3}}
+
+   {:id "tf-11"
+    :text "I want a predictable 9\u20135 schedule."
+    :type "true_false"
+    :scoring-weights {:stability 1.0}}
+
+   {:id "tf-12"
+    :text "I am comfortable making decisions with limited information."
+    :type "true_false"
+    :scoring-weights {:risk-tolerance 0.8 :pressure-tolerance 0.4}}
+
+   {:id "tf-13"
+    :text "I enjoy research and deep analysis."
+    :type "true_false"
+    :scoring-weights {:analytical 1.0 :education-openness 0.3}}
+
+   {:id "tf-14"
+    :text "I prefer performance-based pay (bonuses/commission)."
+    :type "true_false"
+    :scoring-weights {:competitive 0.7 :income-priority 0.5 :risk-tolerance 0.3}}
+
+   {:id "tf-15"
+    :text "I would enjoy managing people or teams."
+    :type "true_false"
+    :scoring-weights {:leadership 1.0 :people 0.3}}
+
+   ;; ============================================
+   ;; SECTION 3: Multiple Choice - Interest & Industry
+   ;; ============================================
+   {:id "mc-1"
+    :text "Which activity sounds most appealing?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Leading a team project" :score {:leadership 1.0 :people 0.5}}
+              {:value "b" :label "Analyzing financial data" :score {:analytical 1.0 :income-priority 0.3}}
+              {:value "c" :label "Designing a creative campaign" :score {:creative 1.0 :communication 0.4}}
+              {:value "d" :label "Helping someone improve their life" :score {:social-impact 1.0 :mentoring 0.5}}
+              {:value "e" :label "Building or engineering something" :score {:technical 1.0 :physical 0.4}}]}
+
+   {:id "mc-2"
+    :text "Which class would you most enjoy?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Business Management" :score {:leadership 0.7 :income-priority 0.5}}
+              {:value "b" :label "Biology or Health Science" :score {:analytical 0.5 :social-impact 0.5 :education-openness 0.3}}
+              {:value "c" :label "Communications" :score {:communication 1.0}}
+              {:value "d" :label "Computer Science" :score {:technical 1.0 :analytical 0.5}}
+              {:value "e" :label "Psychology" :score {:people 0.8 :social-impact 0.5 :mentoring 0.4}}]}
+
+   {:id "mc-3"
+    :text "What motivates you most?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Competition" :score {:competitive 1.0}}
+              {:value "b" :label "Impact" :score {:social-impact 1.0}}
+              {:value "c" :label "Financial growth" :score {:income-priority 1.0}}
+              {:value "d" :label "Innovation" :score {:creative 0.7 :technical 0.5 :entrepreneurial 0.5}}
+              {:value "e" :label "Stability" :score {:stability 1.0}}]}
+
+   {:id "mc-4"
+    :text "What environment suits you best?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Corporate office" :score {:stability 0.5 :leadership 0.3}}
+              {:value "b" :label "Hospital/clinical setting" :score {:social-impact 0.5 :people 0.5}}
+              {:value "c" :label "School or university" :score {:mentoring 0.8 :education-openness 0.5}}
+              {:value "d" :label "Startup environment" :score {:entrepreneurial 0.8 :risk-tolerance 0.5 :creative 0.3 :pressure-tolerance 0.4}}
+              {:value "e" :label "Outdoor/active setting" :score {:physical 1.0}}]}
+
+   {:id "mc-5"
+    :text "How do you prefer to solve problems?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Data and analytics" :score {:analytical 1.0}}
+              {:value "b" :label "Discussion and collaboration" :score {:people 0.7 :communication 0.5}}
+              {:value "c" :label "Trial and experimentation" :score {:risk-tolerance 0.5 :creative 0.4 :physical 0.3}}
+              {:value "d" :label "Structured procedures" :score {:stability 0.7 :analytical 0.3}}
+              {:value "e" :label "Creative thinking" :score {:creative 1.0}}]}
+
+   {:id "mc-6"
+    :text "Which career path interests you most?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Finance/Business" :score {:income-priority 0.7 :analytical 0.5}}
+              {:value "b" :label "Healthcare" :score {:social-impact 0.7 :people 0.5 :education-openness 0.3}}
+              {:value "c" :label "Sports Management" :score {:sports-connection 1.0 :leadership 0.3}}
+              {:value "d" :label "Technology" :score {:technical 1.0}}
+              {:value "e" :label "Law/Public Policy" :score {:analytical 0.5 :social-impact 0.5 :communication 0.3}}]}
+
+   {:id "mc-7"
+    :text "What role do you naturally take on a team?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Leader" :score {:leadership 1.0}}
+              {:value "b" :label "Strategist" :score {:analytical 0.8 :leadership 0.3}}
+              {:value "c" :label "Motivator" :score {:people 0.7 :mentoring 0.5 :communication 0.5}}
+              {:value "d" :label "Technical expert" :score {:technical 0.8 :analytical 0.4}}
+              {:value "e" :label "Support role" :score {:people 0.5 :stability 0.3}}]}
+
+   {:id "mc-8"
+    :text "Which outcome matters most?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "High income" :score {:income-priority 1.0}}
+              {:value "b" :label "Helping others" :score {:social-impact 1.0 :people 0.3}}
+              {:value "c" :label "Recognition" :score {:competitive 0.8 :communication 0.3}}
+              {:value "d" :label "Work-life balance" :score {:stability 1.0}}
+              {:value "e" :label "Influence/power" :score {:leadership 0.8 :negotiation 0.5}}]}
+
+   {:id "mc-9"
+    :text "Which internship sounds most interesting?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Investment firm" :score {:analytical 0.5 :income-priority 0.7}}
+              {:value "b" :label "Physical therapy clinic" :score {:people 0.6 :physical 0.4 :social-impact 0.5}}
+              {:value "c" :label "Athletic department" :score {:sports-connection 1.0 :leadership 0.3}}
+              {:value "d" :label "Marketing agency" :score {:creative 0.8 :communication 0.6}}
+              {:value "e" :label "Tech startup" :score {:technical 0.7 :entrepreneurial 0.6}}]}
+
+   {:id "mc-10"
+    :text "Which skill do you most want to develop?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Leadership" :score {:leadership 1.0}}
+              {:value "b" :label "Analytical skills" :score {:analytical 1.0}}
+              {:value "c" :label "Communication" :score {:communication 1.0}}
+              {:value "d" :label "Technical skills" :score {:technical 1.0}}
+              {:value "e" :label "Negotiation" :score {:negotiation 1.0}}]}
+
+   {:id "mc-11"
+    :text "Which best describes you?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Competitive" :score {:competitive 1.0}}
+              {:value "b" :label "Empathetic" :score {:people 0.8 :social-impact 0.5}}
+              {:value "c" :label "Logical" :score {:analytical 0.8 :stability 0.3}}
+              {:value "d" :label "Creative" :score {:creative 1.0}}
+              {:value "e" :label "Organized" :score {:stability 0.7 :leadership 0.3}}]}
+
+   {:id "mc-12"
+    :text "If sport ended tomorrow, what would excite you most?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Building a business" :score {:entrepreneurial 1.0 :risk-tolerance 0.3 :negotiation 0.4}}
+              {:value "b" :label "Coaching or mentoring" :score {:mentoring 1.0 :sports-connection 0.5}}
+              {:value "c" :label "Graduate school" :score {:education-openness 1.0}}
+              {:value "d" :label "Corporate career path" :score {:stability 0.5 :income-priority 0.5}}
+              {:value "e" :label "Community impact work" :score {:social-impact 1.0}}]}
+
+   {:id "mc-13"
+    :text "How comfortable are you with uncertainty?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Very comfortable" :score {:risk-tolerance 1.0 :pressure-tolerance 0.7}}
+              {:value "b" :label "Somewhat comfortable" :score {:risk-tolerance 0.7 :pressure-tolerance 0.4}}
+              {:value "c" :label "Neutral" :score {:risk-tolerance 0.5}}
+              {:value "d" :label "Prefer structure" :score {:stability 0.7 :risk-tolerance 0.3}}
+              {:value "e" :label "Strongly prefer stability" :score {:stability 1.0}}]}
+
+   {:id "mc-14"
+    :text "What type of impact do you want to make?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Financial markets" :score {:analytical 0.5 :income-priority 0.7}}
+              {:value "b" :label "Individual lives" :score {:people 0.7 :mentoring 0.5 :social-impact 0.5}}
+              {:value "c" :label "Organizations" :score {:leadership 0.8 :negotiation 0.3}}
+              {:value "d" :label "Technology advancement" :score {:technical 0.8 :creative 0.4}}
+              {:value "e" :label "Public systems" :score {:social-impact 1.0}}]}
+
+   {:id "mc-15"
+    :text "Which best describes your long-term goal?"
+    :type "multiple_choice"
+    :options [{:value "a" :label "Executive leadership" :score {:leadership 1.0 :income-priority 0.3 :negotiation 0.4}}
+              {:value "b" :label "Licensed professional (doctor, therapist, etc.)" :score {:education-openness 0.8 :people 0.5}}
+              {:value "c" :label "Entrepreneur" :score {:entrepreneurial 1.0 :risk-tolerance 0.3}}
+              {:value "d" :label "Industry specialist" :score {:technical 0.5 :analytical 0.5}}
+              {:value "e" :label "Community leader" :score {:social-impact 0.8 :leadership 0.5}}]}])
 
 (def sample-results
   {:career-matches [{:name "Sports Marketing Manager" :category "Sports Industry"}
@@ -158,12 +378,15 @@
   [answers questions]
   (let [q-map (into {} (map (juxt :id identity) questions))]
     (vec (for [[qid value] answers
-               :when (some? value)]
+               :when (not (nil? value))]
            (let [q (get q-map qid)
                  q-type (:type q)]
              {:question-id qid
               :response-value (cond
                                 (= q-type "likert")
+                                {:value value}
+
+                                (= q-type "true_false")
                                 {:value value}
 
                                 (= q-type "multiple_choice")
@@ -238,6 +461,21 @@
 
 (def ui-scenario-choice (comp/factory ScenarioChoice))
 
+(defsc TrueFalseChoice [this {:keys [selected-value on-change]}]
+  (dom/div {:style {:display "flex" :gap "16px" :justifyContent "center"}}
+    (dom/div {:className (str "choice-option " (when (true? selected-value) "selected"))
+              :style {:flex "1" :textAlign "center" :padding "24px" :cursor "pointer"
+                      :fontWeight "700" :fontSize "1.1rem"}
+              :onClick #(on-change true)}
+      "True")
+    (dom/div {:className (str "choice-option " (when (false? selected-value) "selected"))
+              :style {:flex "1" :textAlign "center" :padding "24px" :cursor "pointer"
+                      :fontWeight "700" :fontSize "1.1rem"}
+              :onClick #(on-change false)}
+      "False")))
+
+(def ui-true-false-choice (comp/factory TrueFalseChoice))
+
 (defsc RankingChoice [this {:keys [options current-ranks on-change]}]
   (let [available (remove (set current-ranks) (map :value options))]
     (dom/div {}
@@ -281,6 +519,7 @@
         (dom/h3 {:style {:marginBottom "24px"}} text))
       (case type
         "likert" (ui-likert-scale {:value answer :on-change on-answer})
+        "true_false" (ui-true-false-choice {:selected-value answer :on-change on-answer})
         "multiple_choice" (ui-multiple-choice {:options options :selected-value answer :on-change on-answer})
         "scenario" (ui-scenario-choice {:scenario text
                                         :options options
@@ -304,7 +543,7 @@
 
       (dom/div {:style {:display "flex" :gap "16px" :justifyContent "center" :marginBottom "32px"}}
         (dom/div {:className "card" :style {:padding "24px" :flex "1" :maxWidth "200px"}}
-          (dom/h3 "16")
+          (dom/h3 "50")
           (dom/p {:style {:color "#64748b"}} "Questions"))
         (dom/div {:className "card" :style {:padding "24px" :flex "1" :maxWidth "200px"}}
           (dom/h3 "50+")
@@ -326,6 +565,7 @@
   (let [q-type (:type question)]
     (case q-type
       "likert" (some? answer)
+      "true_false" (not (nil? answer))
       "multiple_choice" (some? answer)
       "scenario" (some? (:value answer))
       "ranking" (let [ranks (:ranks answer)

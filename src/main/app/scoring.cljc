@@ -13,10 +13,10 @@
 ;;   - 'collaborative' absorbed into 'people'
 ;;   - 'urgency' replaced by 'stability'
 (def default-dimension-weights
-  {:leadership 1.2
+  {:leadership 1.0
    :analytical 1.0
    :creative 1.0
-   :communication 1.1
+   :communication 1.0
    :risk-tolerance 1.0
    :people 1.0
    :pressure-tolerance 1.0
@@ -26,7 +26,7 @@
    :sports-connection 1.0
    :entrepreneurial 1.0
    :technical 1.0
-   :physical 0.8
+   :physical 1.0
    :social-impact 1.0
    :negotiation 1.0
    :competitive 1.0
@@ -53,7 +53,7 @@
         q-type (:question-type question)]
     (case q-type
       "likert" (/ (dec (or (:value value) value 3)) 4.0)  ; 1-5 scale → 0-1
-      "true_false" (if (:value value) 1.0 0.0)            ; true → 1.0, false → 0.0
+      "true_false" (if (:value value) 0.8 0.2)            ; true → 0.8, false → 0.2 (softened to avoid harsh binary)
       "multiple_choice" (or (:score value) 0.5)            ; scalar score or map handled separately
       "scenario" (or (:score value) 0.5)
       "ranking" (let [ranks (:ranks value)]
@@ -68,14 +68,39 @@
   "Calculate scores for each dimension based on responses.
    Handles two scoring modes:
    1. Likert/True-False: normalize response × scoring-weights
-   2. Multiple Choice with map scores: use selected option's score map directly"
+   2. Multiple Choice with map scores: use selected option's score map directly
+   Section weights adjust per-response influence so each section contributes
+   its intended proportion regardless of question count."
   [responses questions]
-  (let [question-map (into {} (map (fn [q] [(:id q) q]) questions))]
+  (let [question-map (into {} (map (fn [q] [(:id q) q]) questions))
+        ;; Compute per-section question counts for weighting
+        section-counts (reduce (fn [counts q]
+                                 (let [section (case (:question-type q)
+                                                 "likert" :likert
+                                                 "true_false" :true-false
+                                                 "multiple_choice" :multiple-choice
+                                                 :other)]
+                                   (update counts section (fnil inc 0))))
+                               {}
+                               questions)
+        total-questions (count questions)
+        ;; Multiplier so each section's total influence matches default-section-weights
+        ;; e.g. 20 likert questions × 0.875 = 17.5 share, 15 MC × 1.167 = 17.5 share
+        section-multiplier (fn [q-type]
+                             (let [section (case q-type
+                                            "likert" :likert
+                                            "true_false" :true-false
+                                            "multiple_choice" :multiple-choice
+                                            :other)
+                                   weight (get default-section-weights section (/ 1.0 3))
+                                   cnt (get section-counts section 1)]
+                               (/ (* weight total-questions) cnt)))]
     (reduce
       (fn [scores response]
         (let [question (get question-map (:question-id response))
               q-type (:question-type question)
-              value (:response-value response)]
+              value (:response-value response)
+              mult (section-multiplier q-type)]
           (cond
             ;; MC with map scores - use option score map directly as dimension contributions
             (and (= q-type "multiple_choice")
@@ -85,7 +110,7 @@
                 (let [dim-key (keyword dim)]
                   (update s dim-key
                           (fn [{:keys [total count] :or {total 0 count 0}}]
-                            {:total (+ total score-val)
+                            {:total (+ total (* score-val mult))
                              :count (inc count)}))))
               scores
               (:score value))
@@ -100,7 +125,7 @@
                     (let [dim-key (keyword dimension)]
                       (update s dim-key
                               (fn [{:keys [total count] :or {total 0 count 0}}]
-                                {:total (+ total (* normalized weight))
+                                {:total (+ total (* normalized weight mult))
                                  :count (inc count)}))))
                   scores
                   weights)
