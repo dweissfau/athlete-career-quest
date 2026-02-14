@@ -31,7 +31,7 @@
    {:id "l-3"
     :text "I perform well under pressure."
     :type "likert"
-    :scoring-weights {:pressure-tolerance 1.0 :competitive 0.3}}
+    :scoring-weights {:pressure-tolerance 1.0 :competitive 0.3 :sports-connection 0.2}}
 
    {:id "l-4"
     :text "I like solving complex problems."
@@ -71,7 +71,7 @@
    {:id "l-11"
     :text "I like fast-paced environments."
     :type "likert"
-    :scoring-weights {:pressure-tolerance 0.7 :competitive 0.5}}
+    :scoring-weights {:pressure-tolerance 0.7 :competitive 0.5 :physical 0.2}}
 
    {:id "l-12"
     :text "I enjoy mentoring or coaching others."
@@ -81,7 +81,7 @@
    {:id "l-13"
     :text "I am motivated by financial success."
     :type "likert"
-    :scoring-weights {:income-priority 1.0 :competitive 0.3}}
+    :scoring-weights {:income-priority 1.0 :competitive 0.3 :negotiation 0.2}}
 
    {:id "l-14"
     :text "I would consider graduate school."
@@ -194,7 +194,7 @@
    {:id "tf-15"
     :text "I would enjoy managing people or teams."
     :type "true_false"
-    :scoring-weights {:leadership 1.0 :people 0.3}}
+    :scoring-weights {:leadership 1.0 :people 0.3 :negotiation 0.2}}
 
    ;; ============================================
    ;; SECTION 3: Multiple Choice - Interest & Industry
@@ -220,7 +220,7 @@
    {:id "mc-3"
     :text "What motivates you most?"
     :type "multiple_choice"
-    :options [{:value "a" :label "Competition" :score {:competitive 1.0}}
+    :options [{:value "a" :label "Competition" :score {:competitive 1.0 :sports-connection 0.3}}
               {:value "b" :label "Impact" :score {:social-impact 1.0}}
               {:value "c" :label "Financial growth" :score {:income-priority 1.0}}
               {:value "d" :label "Innovation" :score {:creative 0.7 :technical 0.5 :entrepreneurial 0.5}}
@@ -292,7 +292,7 @@
    {:id "mc-11"
     :text "Which best describes you?"
     :type "multiple_choice"
-    :options [{:value "a" :label "Competitive" :score {:competitive 1.0}}
+    :options [{:value "a" :label "Competitive" :score {:competitive 1.0 :sports-connection 0.3}}
               {:value "b" :label "Empathetic" :score {:people 0.8 :social-impact 0.5}}
               {:value "c" :label "Logical" :score {:analytical 0.8 :stability 0.3}}
               {:value "d" :label "Creative" :score {:creative 1.0}}
@@ -302,7 +302,7 @@
     :text "If sport ended tomorrow, what would excite you most?"
     :type "multiple_choice"
     :options [{:value "a" :label "Building a business" :score {:entrepreneurial 1.0 :risk-tolerance 0.3 :negotiation 0.4}}
-              {:value "b" :label "Coaching or mentoring" :score {:mentoring 1.0 :sports-connection 0.5}}
+              {:value "b" :label "Coaching or mentoring" :score {:mentoring 1.0 :sports-connection 0.5 :physical 0.3}}
               {:value "c" :label "Graduate school" :score {:education-openness 1.0}}
               {:value "d" :label "Corporate career path" :score {:stability 0.5 :income-priority 0.5}}
               {:value "e" :label "Community impact work" :score {:social-impact 1.0}}]}

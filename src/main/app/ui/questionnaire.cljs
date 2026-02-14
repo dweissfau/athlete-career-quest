@@ -7,7 +7,8 @@
             [com.fulcrologic.fulcro.data-fetch :as df]
             [com.fulcrologic.fulcro.routing.dynamic-routing :as dr]
             [app.ui.components :as ui]
-            [app.ui.questions :as questions]))
+            [app.ui.questions :as questions]
+            [app.client.app :as client-app]))
 
 ;; Forward declarations
 (declare get-sample-questions get-sample-categories)
@@ -171,7 +172,7 @@
               (dom/div {:className "intro-stat-value"} total-questions)
               (dom/div {:className "intro-stat-label"} "Questions"))
             (dom/div {:className "intro-stat"}
-              (dom/div {:className "intro-stat-value"} "~15")
+              (dom/div {:className "intro-stat-value"} "~20")
               (dom/div {:className "intro-stat-label"} "Minutes"))
             (dom/div {:className "intro-stat"}
               (dom/div {:className "intro-stat-value"} "4")
@@ -241,180 +242,27 @@
 
 ;; Sample data for initial state
 (defn get-sample-categories []
-  [{:category/id "background"
-    :category/name "background"
-    :category/display-name "Background"
-    :category/description "Let's start with some basic information about you."}
-   {:category/id "interests"
-    :category/name "interests"
-    :category/display-name "Interests & Passions"
-    :category/description "Discover what activities and environments energize you."}
-   {:category/id "skills"
-    :category/name "skills"
-    :category/display-name "Skills & Strengths"
-    :category/description "Assess your natural abilities and developed skills."}
-   {:category/id "financial"
-    :category/name "financial"
-    :category/display-name "Financial & Lifestyle Goals"
-    :category/description "Understand your priorities for income and work-life balance."}
-   {:category/id "timeline"
-    :category/name "timeline"
-    :category/display-name "Timeline & Career Goals"
-    :category/description "Explore your timeline preferences and long-term vision."}])
+  [{:category/id "likert"
+    :category/name "likert"
+    :category/display-name "Self-Assessment"
+    :category/description "Rate how much you agree with each statement about yourself."}
+   {:category/id "true-false"
+    :category/name "true-false"
+    :category/display-name "Career Tendencies"
+    :category/description "Answer True or False based on your career preferences."}
+   {:category/id "multiple-choice"
+    :category/name "multiple-choice"
+    :category/display-name "Interest & Industry"
+    :category/description "Select the option that best matches your interests."}])
 
-(defn get-sample-questions []
-  [;; Background
-   {:question/id "bg-1"
-    :question/text "What year are you in school?"
-    :question/type "multiple_choice"
-    :question/options [{:value "freshman" :label "Freshman" :score 0.25}
-                       {:value "sophomore" :label "Sophomore" :score 0.5}
-                       {:value "junior" :label "Junior" :score 0.75}
-                       {:value "senior" :label "Senior" :score 1.0}]}
-
-   {:question/id "bg-2"
-    :question/text "What is your primary sport?"
-    :question/type "multiple_choice"
-    :question/options [{:value "football" :label "Football" :score 0.5}
-                       {:value "basketball" :label "Basketball" :score 0.5}
-                       {:value "baseball" :label "Baseball/Softball" :score 0.5}
-                       {:value "soccer" :label "Soccer" :score 0.5}
-                       {:value "track" :label "Track & Field" :score 0.5}
-                       {:value "swimming" :label "Swimming" :score 0.5}
-                       {:value "other" :label "Other" :score 0.5}]}
-
-   {:question/id "bg-3"
-    :question/text "What is your current GPA range?"
-    :question/type "multiple_choice"
-    :question/options [{:value "3.5+" :label "3.5 and above" :score 1.0}
-                       {:value "3.0-3.49" :label "3.0 - 3.49" :score 0.8}
-                       {:value "2.5-2.99" :label "2.5 - 2.99" :score 0.6}
-                       {:value "below-2.5" :label "Below 2.5" :score 0.4}]}
-
-   ;; Interests
-   {:question/id "int-1"
-    :question/text "I enjoy working directly with people more than working with data or systems."
-    :question/type "likert"
-    :question/scoring-weights {:people 1.0 :data -0.3}}
-
-   {:question/id "int-2"
-    :question/text "I prefer creative, open-ended projects over structured, analytical tasks."
-    :question/type "likert"
-    :question/scoring-weights {:creative 1.0 :analytical -0.3}}
-
-   {:question/id "int-3"
-    :question/text "Competition motivates me more than collaboration."
-    :question/type "likert"
-    :question/scoring-weights {:competitive 1.0 :collaborative -0.3}}
-
-   {:question/id "int-4"
-    :question/text "Which work environment appeals to you most?"
-    :question/type "multiple_choice"
-    :question/options [{:value "office" :label "Corporate Office" :description "Structured environment with clear hierarchy" :score {:corporate 1.0}}
-                       {:value "startup" :label "Startup/Small Company" :description "Fast-paced, wear many hats" :score {:entrepreneurial 1.0}}
-                       {:value "field" :label "Field/Travel-Based" :description "Variety of locations, active work" :score {:physical 1.0}}
-                       {:value "remote" :label "Remote/Flexible" :description "Work from anywhere" :score {:independent 1.0}}]}
-
-   {:question/id "int-5"
-    :question/text "Rank these activities from most to least enjoyable:"
-    :question/type "ranking"
-    :question/options [{:value "Leading a team"}
-                       {:value "Analyzing data"}
-                       {:value "Building relationships"}
-                       {:value "Creating content"}
-                       {:value "Solving problems"}]}
-
-   ;; Skills
-   {:question/id "sk-1"
-    :question/text "I naturally take charge in group situations."
-    :question/type "likert"
-    :question/scoring-weights {:leadership 1.0}}
-
-   {:question/id "sk-2"
-    :question/text "I can clearly explain complex ideas to others."
-    :question/type "likert"
-    :question/scoring-weights {:communication 1.0}}
-
-   {:question/id "sk-3"
-    :question/text "I enjoy working with numbers, statistics, and data analysis."
-    :question/type "likert"
-    :question/scoring-weights {:analytical 1.0 :data 0.8}}
-
-   {:question/id "sk-4"
-    :question/text "I'm comfortable learning new technology and software."
-    :question/type "likert"
-    :question/scoring-weights {:technical 1.0}}
-
-   {:question/id "sk-5"
-    :question/text "You're leading a team project and a key member isn't contributing. How do you handle it?"
-    :question/type "scenario"
-    :question/options [{:value "a" :label "Have a private conversation to understand their situation" :score {:communication 0.9 :leadership 0.8}}
-                       {:value "b" :label "Redistribute the work among other team members" :score {:leadership 0.6 :practical 0.8}}
-                       {:value "c" :label "Report the issue to your supervisor" :score {:hierarchical 0.7}}
-                       {:value "d" :label "Motivate them by highlighting the team's goals" :score {:leadership 0.9 :collaborative 0.8}}]}
-
-   {:question/id "sk-6"
-    :question/text "Which skills from your athletic experience do you feel are most transferable?"
-    :question/type "ranking"
-    :question/options [{:value "Time management"}
-                       {:value "Working under pressure"}
-                       {:value "Team leadership"}
-                       {:value "Goal setting"}
-                       {:value "Handling criticism"}]}
-
-   ;; Financial
-   {:question/id "fin-1"
-    :question/text "How important is earning a high salary immediately after graduation?"
-    :question/type "likert"
-    :question/scoring-weights {:income-priority 1.0 :urgency 0.5}}
-
-   {:question/id "fin-2"
-    :question/text "I would accept a lower-paying job if it offered better long-term growth potential."
-    :question/type "likert"
-    :question/scoring-weights {:income-priority -0.5 :education-openness 0.7}}
-
-   {:question/id "fin-3"
-    :question/text "What is your expected salary range 5 years after graduation?"
-    :question/type "multiple_choice"
-    :question/options [{:value "40-60k" :label "$40,000 - $60,000" :score 0.3}
-                       {:value "60-80k" :label "$60,000 - $80,000" :score 0.5}
-                       {:value "80-100k" :label "$80,000 - $100,000" :score 0.7}
-                       {:value "100k+" :label "Over $100,000" :score 0.9}]}
-
-   {:question/id "fin-4"
-    :question/text "I'm willing to invest in additional education (graduate school, certifications) to advance my career."
-    :question/type "likert"
-    :question/scoring-weights {:education-openness 1.0}}
-
-   {:question/id "fin-5"
-    :question/text "Work-life balance is more important to me than career advancement."
-    :question/type "likert"
-    :question/scoring-weights {:urgency -0.5 :income-priority -0.3}}
-
-   ;; Timeline
-   {:question/id "tm-1"
-    :question/text "How soon after graduation do you want to start your career?"
-    :question/type "multiple_choice"
-    :question/options [{:value "immediate" :label "Immediately" :description "Start working right after graduation" :score {:urgency 1.0}}
-                       {:value "summer" :label "Within 3 months" :description "Take a short break first" :score {:urgency 0.8}}
-                       {:value "year" :label "Within a year" :description "Travel or explore options" :score {:urgency 0.5}}
-                       {:value "grad-school" :label "After graduate school" :description "Continue education first" :score {:urgency 0.2 :education-openness 1.0}}]}
-
-   {:question/id "tm-2"
-    :question/text "I see myself staying in one career field for most of my professional life."
-    :question/type "likert"
-    :question/scoring-weights {:stability 1.0}}
-
-   {:question/id "tm-3"
-    :question/text "I'm open to careers that require relocation."
-    :question/type "likert"
-    :question/scoring-weights {:flexibility 1.0 :physical 0.3}}
-
-   {:question/id "tm-4"
-    :question/text "Where do you see yourself in 10 years?"
-    :question/type "short_text"}
-
-   {:question/id "tm-5"
-    :question/text "I'm interested in eventually starting my own business."
-    :question/type "likert"
-    :question/scoring-weights {:entrepreneurial 1.0 :risk-tolerance 0.8}}])
+(defn get-sample-questions
+  "Derives questions from the single source of truth in app.client.app/sample-questions.
+   Transforms flat keys (:id, :text, :type) to namespaced Fulcro keys (:question/id, etc.)."
+  []
+  (mapv (fn [q]
+          (cond-> {:question/id (:id q)
+                   :question/text (:text q)
+                   :question/type (:type q)}
+            (:scoring-weights q) (assoc :question/scoring-weights (:scoring-weights q))
+            (:options q)         (assoc :question/options (:options q))))
+        client-app/sample-questions))
